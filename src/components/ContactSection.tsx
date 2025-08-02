@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Send, MessageCircle, Clock, Star, ArrowRight, Shield, CheckCircle } from 'lucide-react';
 
 const ContactSection: React.FC = () => {
@@ -14,27 +14,6 @@ const ContactSection: React.FC = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        } else {
-          setIsVisible(false);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (containerRef.current) {
-      observer.observe(containerRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
 
   const validateForm = () => {
     const errors = {
@@ -130,9 +109,7 @@ const ContactSection: React.FC = () => {
       {/* Location Section */}
       <section className="py-16 sm:py-24 bg-gradient-to-b from-stone-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className={`text-center mb-12 sm:mb-20 transform transition-all duration-1000 ${
-            isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-          }`}>
+          <div className="text-center mb-12 sm:mb-20">
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-gray-900 mb-4 sm:mb-6 leading-tight">
               <span className="block text-gray-800">Where you</span>
               <span className="block text-gray-600 font-normal italic">can find us</span>
@@ -145,9 +122,7 @@ const ContactSection: React.FC = () => {
 
           <div className="grid lg:grid-cols-2 gap-8 sm:gap-16 items-center">
             {/* Map Placeholder */}
-            <div className={`transform transition-all duration-1000 delay-300 ${
-              isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-            }`}>
+            <div>
               <div className="relative h-64 sm:h-96 rounded-2xl overflow-hidden bg-gradient-to-br from-blue-50 to-purple-50 border border-gray-200 shadow-lg">
                 {/* Map Background */}
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100"></div>
@@ -162,9 +137,9 @@ const ContactSection: React.FC = () => {
                 </div>
 
                 {/* Location Markers */}
-                <div className="absolute top-1/4 left-1/3 w-4 h-4 bg-red-500 rounded-full animate-pulse shadow-lg"></div>
-                <div className="absolute top-1/2 right-1/4 w-4 h-4 bg-red-500 rounded-full animate-pulse shadow-lg"></div>
-                <div className="absolute bottom-1/3 left-1/2 w-4 h-4 bg-red-500 rounded-full animate-pulse shadow-lg"></div>
+                <div className="absolute top-1/4 left-1/3 w-4 h-4 bg-red-500 rounded-full shadow-lg"></div>
+                <div className="absolute top-1/2 right-1/4 w-4 h-4 bg-red-500 rounded-full shadow-lg"></div>
+                <div className="absolute bottom-1/3 left-1/2 w-4 h-4 bg-red-500 rounded-full shadow-lg"></div>
 
                 {/* Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-white/20 to-transparent"></div>
@@ -172,9 +147,7 @@ const ContactSection: React.FC = () => {
             </div>
 
             {/* Location Details */}
-            <div className={`transform transition-all duration-1000 delay-500 ${
-              isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-            }`}>
+            <div>
               <div className="space-y-6 sm:space-y-8">
                 <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-gray-100">
                   <h3 className="text-xl sm:text-2xl font-light text-gray-900 mb-4 sm:mb-6">Our Locations</h3>
@@ -225,15 +198,12 @@ const ContactSection: React.FC = () => {
 
       {/* Contact Section */}
       <section 
-        ref={containerRef}
         id="contact"
         className="py-16 sm:py-24 bg-gray-900 text-white"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section Header */}
-          <div className={`text-center mb-12 sm:mb-20 transform transition-all duration-1000 ${
-            isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-          }`}>
+          <div className="text-center mb-12 sm:mb-20">
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-white mb-4 sm:mb-6 leading-tight">
               <span className="block text-white/90">Get in</span>
               <span className="block text-white/70 font-normal italic">touch</span>
@@ -246,9 +216,7 @@ const ContactSection: React.FC = () => {
 
           <div className="grid lg:grid-cols-2 gap-8 sm:gap-16">
             {/* Contact Info */}
-            <div className={`transform transition-all duration-1000 delay-200 ${
-              isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-            }`}>
+            <div>
               <div className="space-y-4 sm:space-y-6 mb-8 sm:mb-12">
                 {contactInfo.map((info, index) => (
                   <a
@@ -298,9 +266,7 @@ const ContactSection: React.FC = () => {
             </div>
 
             {/* Enhanced Contact Form */}
-            <div className={`transform transition-all duration-1000 delay-400 ${
-              isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-            }`}>
+            <div>
               <form onSubmit={handleSubmit} className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-white/20">
                 <h3 className="text-xl sm:text-2xl font-light text-white mb-4 sm:mb-6">Send us a message</h3>
                 
