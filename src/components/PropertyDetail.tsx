@@ -88,7 +88,7 @@ const PropertyDetail: React.FC<PropertyDetailProps> = ({ propertyId, onBackToHom
     };
 
     loadProperty();
-  }, [propertyId, mockProperty]);
+  }, [propertyId]);
 
   useEffect(() => {
     const handleScroll = () => {

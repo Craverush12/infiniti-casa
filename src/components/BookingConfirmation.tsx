@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CheckCircle, Calendar, MapPin, Users, CreditCard, Download, Share2, MessageCircle, Phone, Mail, ArrowLeft } from 'lucide-react';
 import { MockBookingService as BookingService } from '../services/mockBookingService';
 import type { Database } from '../lib/database.types';
@@ -24,9 +24,9 @@ const BookingConfirmation: React.FC<BookingConfirmationProps> = ({
 
   useEffect(() => {
     loadBookingDetails();
-  }, [bookingId, loadBookingDetails]);
+  }, [bookingId]);
 
-  const loadBookingDetails = useCallback(async () => {
+  const loadBookingDetails = async () => {
     try {
       setLoading(true);
       setError(null);
@@ -47,7 +47,7 @@ const BookingConfirmation: React.FC<BookingConfirmationProps> = ({
     } finally {
       setLoading(false);
     }
-  }, [bookingId]);
+  };
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-IN', {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Home, Users, Calendar, BarChart3, Settings, Plus, Edit, Trash, Eye, 
   Search, Filter, Download, Upload, Bell, TrendingUp, TrendingDown, 
@@ -92,7 +92,13 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
   const [users, setUsers] = useState<UserProfile[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const loadDashboardData = useCallback(async () => {
+  useEffect(() => {
+    if (isOpen) {
+      loadDashboardData();
+    }
+  }, [isOpen]);
+
+  const loadDashboardData = async () => {
     try {
       setLoading(true);
       // Simulate loading dashboard data
@@ -107,13 +113,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
     } finally {
       setLoading(false);
     }
-  }, []);
-
-  useEffect(() => {
-    if (isOpen) {
-      loadDashboardData();
-    }
-  }, [isOpen, loadDashboardData]);
+  };
 
   const loadStats = async () => {
     // Simulate API call

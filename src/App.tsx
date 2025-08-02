@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
+import PropertyGrid from './components/PropertyGrid';
 import PropertyDetail from './components/PropertyDetail';
 import PropertySuggestion from './components/PropertySuggestion';
+import VisualStoriesSection from './components/VisualStoriesSection';
 import PropertyStorySection from './components/PropertyStorySection';
+import MumbaiGuidePreview from './components/MumbaiGuidePreview';
 import ContactSection from './components/ContactSection';
 import LoadingScreen from './components/LoadingScreen';
+import ScrollToTop from './components/ScrollToTop';
 import QuickActions from './components/QuickActions';
 import NewsletterSignup from './components/NewsletterSignup';
+import UserGuidanceSection from './components/UserGuidanceSection';
+import TestimonialsSection from './components/TestimonialsSection';
+import InstagramTestimonials from './components/InstagramTestimonials';
 import LongTermBookingSection from './components/LongTermBookingSection';
 import FeaturesShowcase from './components/FeaturesShowcase';
 import PhoneAuth from './components/PhoneAuth';
@@ -39,15 +46,9 @@ function App() {
   const [showComparison, setShowComparison] = useState(false);
   const [comparisonProperties, setComparisonProperties] = useState<number[]>([]);
   const [showSocialSharing, setShowSocialSharing] = useState(false);
-  const [socialSharingData, setSocialSharingData] = useState<{
-    title: string;
-    description: string;
-    image?: string;
-    url: string;
-    price?: number;
-    location?: string;
-  } | undefined>(undefined);
+  const [socialSharingData, setSocialSharingData] = useState<any>(null);
   const [showAdminDashboard, setShowAdminDashboard] = useState(false);
+  const [showDatabaseTest, setShowDatabaseTest] = useState(false); // Database test completed
 
   // Show newsletter popup after 45 seconds on first visit
   useEffect(() => {

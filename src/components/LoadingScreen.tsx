@@ -45,7 +45,7 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
       clearInterval(progressInterval);
       clearInterval(textInterval);
     };
-  }, [onComplete, loadingTexts.length]);
+  }, [onComplete]);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">

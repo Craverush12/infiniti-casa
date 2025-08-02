@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, Share2, Download, Star, MapPin, Users, Calendar, Heart, ArrowLeft, ArrowRight, CheckCircle, XCircle, Minus, Plus } from 'lucide-react';
 import { MockPropertyService as PropertyService } from '../services/mockPropertyService';
 import type { Database } from '../lib/database.types';
@@ -30,19 +30,9 @@ const PropertyComparison: React.FC<PropertyComparisonProps> = ({
     }
   }, [isOpen]);
 
-  const loadSelectedProperties = useCallback(async () => {
-    try {
-      setLoading(true);
-      const selectedProps = await Promise.all(
-        initialProperties.map(id => PropertyService.getPropertyById(id))
-      );
-      // Filter out null values
-      const validProps = selectedProps.filter(prop => prop !== null) as Property[];
-      setSelectedProperties(validProps);
-    } catch (error) {
-      console.error('Error loading selected properties:', error);
-    } finally {
-      setLoading(false);
+  useEffect(() => {
+    if (initialProperties.length > 0) {
+      loadSelectedProperties();
     }
   }, [initialProperties]);
 
@@ -58,11 +48,21 @@ const PropertyComparison: React.FC<PropertyComparisonProps> = ({
     }
   };
 
-  useEffect(() => {
-    if (initialProperties.length > 0) {
-      loadSelectedProperties();
+  const loadSelectedProperties = async () => {
+    try {
+      setLoading(true);
+      const selectedProps = await Promise.all(
+        initialProperties.map(id => PropertyService.getPropertyById(id))
+      );
+      // Filter out null values
+      const validProps = selectedProps.filter(prop => prop !== null) as Property[];
+      setSelectedProperties(validProps);
+    } catch (error) {
+      console.error('Error loading selected properties:', error);
+    } finally {
+      setLoading(false);
     }
-  }, [initialProperties, loadSelectedProperties]);
+  };
 
   const addPropertyToComparison = (property: Property) => {
     if (selectedProperties.length >= 3) {
