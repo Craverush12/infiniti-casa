@@ -362,14 +362,7 @@ const PropertyDetail: React.FC<PropertyDetailProps> = ({ propertyId, onBackToHom
                 </button>
               </div>
               
-              {/* Mobile-Optimized Urgency Indicator */}
-              <div className="bg-gradient-to-r from-amber-400/50 via-orange-400/50 to-red-400/50 border border-amber-300/60 rounded-xl p-3 backdrop-blur-sm">
-                <div className="flex items-center justify-center space-x-2">
-                  <div className="w-2 h-2 bg-amber-300 rounded-full animate-pulse"></div>
-                  <Zap className="w-4 h-4 text-amber-200" />
-                  <span className="text-sm font-semibold text-white">8 dates left</span>
-                </div>
-              </div>
+                             {/* Mobile-Optimized Urgency Indicator - Removed for cleaner mobile UX */}
             </div>
 
             {/* Mobile-Optimized Property Highlights */}
@@ -594,13 +587,7 @@ const PropertyDetail: React.FC<PropertyDetailProps> = ({ propertyId, onBackToHom
                   </div>
                 </div>
                 
-                <div className="bg-gradient-to-r from-amber-400/50 via-orange-400/50 to-red-400/50 border border-amber-300/60 rounded-xl p-3 mb-4">
-                  <div className="flex items-center justify-center space-x-2">
-                    <div className="w-2 h-2 bg-amber-300 rounded-full animate-pulse"></div>
-                    <Zap className="w-4 h-4 text-amber-200" />
-                    <span className="text-sm font-semibold text-white">8 dates left</span>
-                  </div>
-                </div>
+                                 {/* Urgency Indicator - Removed for cleaner UX */}
 
                 <button 
                   onClick={() => setIsBookingModalOpen(true)}
