@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Calendar, Users, Upload, CreditCard, CheckCircle, Clock, Shield, Star, Camera, MapPin, Loader2, AlertCircle, ArrowRight, ArrowLeft, Zap, Award, Users as UsersIcon, Clock as ClockIcon, MessageCircle, Mail, Phone } from 'lucide-react';
 import { MockBookingService as BookingService } from '../services/mockBookingService';
 import { mockUseAuth as useAuth } from '../hooks/mockUseAuth';
@@ -69,15 +69,7 @@ const BookingCalendar: React.FC<BookingCalendarProps> = ({ propertyId, price, us
     }
   }, [authUser]);
 
-  // Calculate booking total when dates change
-  useEffect(() => {
-    if (checkIn && checkOut && guests) {
-      calculateBookingTotal();
-      calculateTotalDays();
-    }
-  }, [checkIn, checkOut, guests, petCount]);
-
-  const calculateTotalDays = () => {
+  const calculateTotalDays = useCallback(() => {
     if (checkIn && checkOut) {
       const checkInDate = new Date(checkIn);
       const checkOutDate = new Date(checkOut);
@@ -85,9 +77,9 @@ const BookingCalendar: React.FC<BookingCalendarProps> = ({ propertyId, price, us
       setTotalDays(days);
       setIsLongTermBooking(days > 30);
     }
-  };
+  }, [checkIn, checkOut]);
 
-  const calculateBookingTotal = async () => {
+  const calculateBookingTotal = useCallback(async () => {
     try {
       const total = await BookingService.calculateBookingTotal(
         propertyId,
@@ -128,7 +120,15 @@ const BookingCalendar: React.FC<BookingCalendarProps> = ({ propertyId, price, us
         total
       });
     }
-  };
+  }, [propertyId, checkIn, checkOut, guests, petCount, price]);
+
+  // Calculate booking total when dates change
+  useEffect(() => {
+    if (checkIn && checkOut && guests) {
+      calculateBookingTotal();
+      calculateTotalDays();
+    }
+  }, [checkIn, checkOut, guests, petCount, calculateBookingTotal, calculateTotalDays]);
 
   const checkAvailability = async () => {
     if (!checkIn || !checkOut) return;

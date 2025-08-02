@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { X, Share2, Download, Star, MapPin, Users, Calendar, Heart, ArrowLeft, ArrowRight, CheckCircle, XCircle, Minus, Plus } from 'lucide-react';
 import { MockPropertyService as PropertyService } from '../services/mockPropertyService';
 import type { Database } from '../lib/database.types';
@@ -34,7 +34,7 @@ const PropertyComparison: React.FC<PropertyComparisonProps> = ({
     if (initialProperties.length > 0) {
       loadSelectedProperties();
     }
-  }, [initialProperties]);
+  }, [initialProperties, loadSelectedProperties]);
 
   const loadProperties = async () => {
     try {
@@ -48,7 +48,7 @@ const PropertyComparison: React.FC<PropertyComparisonProps> = ({
     }
   };
 
-  const loadSelectedProperties = async () => {
+  const loadSelectedProperties = useCallback(async () => {
     try {
       setLoading(true);
       const selectedProps = await Promise.all(
@@ -62,7 +62,7 @@ const PropertyComparison: React.FC<PropertyComparisonProps> = ({
     } finally {
       setLoading(false);
     }
-  };
+  }, [initialProperties]);
 
   const addPropertyToComparison = (property: Property) => {
     if (selectedProperties.length >= 3) {

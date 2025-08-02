@@ -50,7 +50,7 @@ const MumbaiPhilosophy: React.FC = () => {
       setActivePhilosophy((prev) => (prev + 1) % philosophies.length);
     }, 4000);
     return () => clearInterval(interval);
-  }, []);
+  }, [philosophies.length]);
 
   return (
     <section id="about" className="py-16 sm:py-24 bg-gradient-to-br from-warm-gray-50 via-blue-50 to-purple-50 overflow-hidden relative">

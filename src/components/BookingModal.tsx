@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { X, Calendar, Users, MapPin, Star, Shield, CheckCircle, Zap, CreditCard, ArrowRight, ArrowLeft, Loader2, Mail, Phone, MessageCircle, Clock } from 'lucide-react';
 import type { Database } from '../lib/database.types';
 
@@ -68,9 +68,9 @@ const BookingModal: React.FC<BookingModalProps> = ({
     if (formData.checkIn && formData.checkOut) {
       calculateBookingTotal();
     }
-  }, [formData.checkIn, formData.checkOut, formData.guests]);
+  }, [formData.checkIn, formData.checkOut, formData.guests, calculateBookingTotal]);
 
-  const calculateBookingTotal = () => {
+  const calculateBookingTotal = useCallback(() => {
     const checkInDate = new Date(formData.checkIn);
     const checkOutDate = new Date(formData.checkOut);
     const totalNights = Math.ceil((checkOutDate.getTime() - checkInDate.getTime()) / (1000 * 60 * 60 * 24));
@@ -85,7 +85,7 @@ const BookingModal: React.FC<BookingModalProps> = ({
       serviceFee,
       total
     });
-  };
+  }, [formData.checkIn, formData.checkOut, formData.guests, property.price]);
 
   const handleInputChange = (field: string, value: string | number) => {
     setFormData(prev => ({ ...prev, [field]: value }));

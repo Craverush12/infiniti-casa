@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Calendar, MapPin, Users, Star, Clock, CheckCircle, XCircle, AlertCircle, ArrowLeft, Eye, Download, MessageCircle } from 'lucide-react';
 import { MockBookingService as BookingService } from '../services/mockBookingService';
 import { mockUseAuth as useAuth } from '../hooks/mockUseAuth';
@@ -22,9 +22,9 @@ const UserBookings: React.FC<UserBookingsProps> = ({ onBackToHome, onViewBooking
     if (user) {
       loadUserBookings();
     }
-  }, [user]);
+  }, [user, loadUserBookings]);
 
-  const loadUserBookings = async () => {
+  const loadUserBookings = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -37,7 +37,7 @@ const UserBookings: React.FC<UserBookingsProps> = ({ onBackToHome, onViewBooking
     } finally {
       setLoading(false);
     }
-  };
+  }, [user]);
 
   const getStatusColor = (status: string) => {
     switch (status) {
