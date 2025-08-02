@@ -8,6 +8,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
+    "type-check": "tsc --noEmit",
     "db:setup": "node scripts/setup-database.js",
     "db:migrate": "supabase db push",
     "db:reset": "supabase db reset"
