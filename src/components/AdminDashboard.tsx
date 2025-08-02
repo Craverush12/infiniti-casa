@@ -92,12 +92,6 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
   const [users, setUsers] = useState<UserProfile[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    if (isOpen) {
-      loadDashboardData();
-    }
-  }, [isOpen, loadDashboardData]);
-
   const loadDashboardData = useCallback(async () => {
     try {
       setLoading(true);
@@ -114,6 +108,12 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ isOpen, onClose }) => {
       setLoading(false);
     }
   }, []);
+
+  useEffect(() => {
+    if (isOpen) {
+      loadDashboardData();
+    }
+  }, [isOpen, loadDashboardData]);
 
   const loadStats = async () => {
     // Simulate API call

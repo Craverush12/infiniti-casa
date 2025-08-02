@@ -30,24 +30,6 @@ const PropertyComparison: React.FC<PropertyComparisonProps> = ({
     }
   }, [isOpen]);
 
-  useEffect(() => {
-    if (initialProperties.length > 0) {
-      loadSelectedProperties();
-    }
-  }, [initialProperties, loadSelectedProperties]);
-
-  const loadProperties = async () => {
-    try {
-      setLoading(true);
-      const allProps = await PropertyService.getAllProperties();
-      setAllProperties(allProps);
-    } catch (error) {
-      console.error('Error loading properties:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const loadSelectedProperties = useCallback(async () => {
     try {
       setLoading(true);
@@ -63,6 +45,24 @@ const PropertyComparison: React.FC<PropertyComparisonProps> = ({
       setLoading(false);
     }
   }, [initialProperties]);
+
+  const loadProperties = async () => {
+    try {
+      setLoading(true);
+      const allProps = await PropertyService.getAllProperties();
+      setAllProperties(allProps);
+    } catch (error) {
+      console.error('Error loading properties:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (initialProperties.length > 0) {
+      loadSelectedProperties();
+    }
+  }, [initialProperties, loadSelectedProperties]);
 
   const addPropertyToComparison = (property: Property) => {
     if (selectedProperties.length >= 3) {
