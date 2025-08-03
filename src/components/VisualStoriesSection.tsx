@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { MapPin, Calendar, Users, Heart, ArrowRight, ChevronLeft, ChevronRight, Star, Sparkles } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Star, MapPin, Users, Bed, ArrowRight } from 'lucide-react';
+import { getPropertyImageUrls } from '../utils/propertyAssets';
 
 interface Property {
   id: number;
@@ -15,16 +16,17 @@ interface Property {
   rating: number;
 }
 
+// Updated properties with real asset mapping
 const properties: Property[] = [
   {
     id: 1,
-    name: "Bandra Art House",
+    name: "Art Loft Bandra",
     location: "Bandra West, Mumbai",
     description: "A contemporary art gallery meets luxury accommodation. Every corner tells a story of Mumbai's vibrant art scene, with rotating exhibitions and artist studio access.",
     price: 12000,
     guests: 4,
     bedrooms: 2,
-    image: "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop",
+    image: getPropertyImageUrls("Art Loft Bandra")[0] || "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop",
     highlights: ["Private Art Studio", "Rotating Exhibitions", "Artist Meetups", "Gallery Lighting"],
     category: "Art & Culture",
     rating: 4.9
@@ -37,46 +39,46 @@ const properties: Property[] = [
     price: 15000,
     guests: 6,
     bedrooms: 3,
-    image: "https://images.pexels.com/photos/2506923/pexels-photo-2506923.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop",
+    image: getPropertyImageUrls("Heritage Garden Cottage")[0] || "https://images.pexels.com/photos/2506923/pexels-photo-2506923.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop",
     highlights: ["Private Garden", "Vintage Library", "Colonial Architecture", "Heritage Tours"],
     category: "Heritage",
     rating: 4.8
   },
   {
     id: 3,
-    name: "Minimalist Sky Suite",
+    name: "Zen Suite",
     location: "Lower Parel, Mumbai",
     description: "Urban zen sanctuary in the heart of Mumbai's business district. Find peace and tranquility with panoramic city views and minimalist design.",
     price: 18000,
     guests: 2,
     bedrooms: 1,
-    image: "https://images.pexels.com/photos/2581922/pexels-photo-2581922.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop",
+    image: getPropertyImageUrls("Zen Suite")[0] || "https://images.pexels.com/photos/2581922/pexels-photo-2581922.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop",
     highlights: ["Meditation Pavilion", "Zen Garden", "Rooftop Yoga", "City Views"],
     category: "Urban Zen",
     rating: 4.7
   },
   {
     id: 4,
-    name: "Studio Loft Creative",
+    name: "Studio Bandra",
     location: "Worli, Mumbai",
     description: "A creative haven for artists and designers. High ceilings, natural light, and inspiring views make this the perfect space for creative work and relaxation.",
     price: 14000,
     guests: 3,
     bedrooms: 1,
-    image: "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop",
+    image: getPropertyImageUrls("Studio Bandra")[0] || "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop",
     highlights: ["Creative Studio", "Natural Light", "Art Supplies", "Inspiring Views"],
     category: "Studio",
     rating: 4.6
   },
   {
     id: 5,
-    name: "Luxury Penthouse",
+    name: "Penthouse Sky Lounge",
     location: "Worli Sea Face, Mumbai",
     description: "The epitome of luxury living with breathtaking sea views. Premium amenities, private terrace, and exclusive access to Mumbai's finest experiences.",
     price: 25000,
     guests: 8,
     bedrooms: 4,
-    image: "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop",
+    image: getPropertyImageUrls("Penthouse Sky Lounge")[0] || "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop",
     highlights: ["Private Terrace", "Sea Views", "Concierge Service", "Premium Amenities"],
     category: "Penthouse",
     rating: 5.0
@@ -117,170 +119,171 @@ const VisualStoriesSection: React.FC<VisualStoriesSectionProps> = ({ onPropertyS
   };
 
   const getCategoryColor = (category: string) => {
-    switch (category) {
-      case 'Art & Culture': return 'from-purple-500 to-pink-500';
-      case 'Heritage': return 'from-amber-500 to-orange-500';
-      case 'Urban Zen': return 'from-blue-500 to-cyan-500';
-      case 'Studio': return 'from-emerald-500 to-teal-500';
-      case 'Penthouse': return 'from-purple-500 via-pink-500 to-blue-500';
-      default: return 'from-gray-500 to-gray-600';
-    }
+    const colors = {
+      'Art & Culture': 'from-purple-500 to-pink-500',
+      'Heritage': 'from-amber-500 to-orange-500',
+      'Urban Zen': 'from-green-500 to-teal-500',
+      'Studio': 'from-blue-500 to-indigo-500',
+      'Penthouse': 'from-red-500 to-pink-500'
+    };
+    return colors[category as keyof typeof colors] || 'from-gray-500 to-gray-600';
+  };
+
+  const formatPrice = (price: number) => {
+    return new Intl.NumberFormat('en-IN', {
+      style: 'currency',
+      currency: 'INR',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(price);
   };
 
   return (
-    <section className="py-12 sm:py-16 lg:py-24 bg-gradient-to-br from-sage-50 via-cream-50 to-teal-50 relative overflow-hidden">
-      {/* Background Effects */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="glass-orb glass-orb-1 opacity-20"></div>
-        <div className="glass-orb glass-orb-2 opacity-20"></div>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section className="py-16 bg-gradient-to-br from-gray-50 to-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center mb-8 sm:mb-12 lg:mb-16">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-editorial font-light text-sage-800 mb-3 sm:mb-4 lg:mb-6 tracking-editorial">
-            Featured Properties
+        <div className="text-center mb-12">
+          <h2 className="text-4xl font-light text-gray-900 mb-4">
+            Visual Stories
           </h2>
-          <p className="text-base sm:text-lg lg:text-xl text-sage-600 max-w-2xl lg:max-w-3xl mx-auto font-body leading-relaxed px-4">
-            Discover our curated collection of Mumbai's most unique stays
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Discover the unique character and charm of each property through our curated visual stories. 
+            Every space has a tale to tell.
           </p>
         </div>
 
-        {/* Property Display */}
+        {/* Interactive Property Showcase */}
         <div 
-          className="max-w-6xl mx-auto"
+          className="relative h-96 md:h-[500px] rounded-3xl overflow-hidden group"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
-          {/* Property Card */}
-          <div className="backdrop-blur-xl bg-white/80 rounded-2xl lg:rounded-3xl overflow-hidden border border-white/50 shadow-2xl">
-            <div className="grid lg:grid-cols-2 min-h-[500px] lg:min-h-[600px]">
-              {/* Left Side - Content */}
-              <div className="p-6 sm:p-8 lg:p-12 flex flex-col justify-between">
-                {/* Property Info */}
-                <div className="space-y-4 sm:space-y-6">
-                  {/* Category Badge */}
-                  <div className="inline-flex">
-                    <span className={`px-3 py-1 rounded-full text-xs sm:text-sm font-medium text-white bg-gradient-to-r ${getCategoryColor(property.category)}`}>
-                      {property.category}
-                    </span>
+          {/* Background Image */}
+          <div className="absolute inset-0">
+            <img
+              src={property.image}
+              alt={property.name}
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-black/40"></div>
+          </div>
+
+          {/* Content Overlay */}
+          <div className="absolute inset-0 flex items-end">
+            <div className="w-full p-8 md:p-12">
+              <div className="max-w-2xl">
+                {/* Category Badge */}
+                <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm text-white text-sm font-medium mb-4">
+                  <span className={`w-2 h-2 rounded-full bg-gradient-to-r ${getCategoryColor(property.category)} mr-2`}></span>
+                  {property.category}
+                </div>
+
+                {/* Property Title */}
+                <h3 className="text-3xl md:text-4xl font-light text-white mb-4">
+                  {property.name}
+                </h3>
+
+                {/* Property Description */}
+                <p className="text-white/90 text-lg mb-6 line-clamp-2">
+                  {property.description}
+                </p>
+
+                {/* Property Stats */}
+                <div className="flex items-center space-x-6 text-white/90 mb-6">
+                  <div className="flex items-center">
+                    <MapPin className="w-4 h-4 mr-2" />
+                    <span>{property.location}</span>
                   </div>
-
-                  {/* Property Name & Location */}
-                  <div>
-                    <h3 className="text-2xl sm:text-3xl lg:text-4xl font-editorial font-medium text-sage-800 mb-2 sm:mb-3">
-                      {property.name}
-                    </h3>
-                    <div className="flex items-center text-sage-600 mb-3 sm:mb-4">
-                      <MapPin className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
-                      <span className="text-sm sm:text-base font-body">{property.location}</span>
-                    </div>
-                    <div className="flex items-center mb-4 sm:mb-6">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className={`w-4 h-4 sm:w-5 sm:h-5 ${i < Math.floor(property.rating) ? 'text-yellow-400 fill-current' : 'text-gray-300'}`} />
-                      ))}
-                      <span className="ml-2 text-sm sm:text-base text-sage-600 font-medium">{property.rating}</span>
-                    </div>
+                  <div className="flex items-center">
+                    <Users className="w-4 h-4 mr-2" />
+                    <span>{property.guests} guests</span>
                   </div>
-
-                  {/* Description */}
-                  <p className="text-sage-700 text-sm sm:text-base lg:text-lg font-body leading-relaxed">
-                    {property.description}
-                  </p>
-
-                  {/* Property Details */}
-                  <div className="flex items-center space-x-4 sm:space-x-6 text-sm sm:text-base text-sage-600">
-                    <div className="flex items-center">
-                      <Users className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
-                      <span>{property.guests} guests</span>
-                    </div>
-                    <div className="flex items-center">
-                      <Heart className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
-                      <span>{property.bedrooms} bedroom{property.bedrooms > 1 ? 's' : ''}</span>
-                    </div>
+                  <div className="flex items-center">
+                    <Bed className="w-4 h-4 mr-2" />
+                    <span>{property.bedrooms} bedrooms</span>
+                  </div>
+                  <div className="flex items-center">
+                    <Star className="w-4 h-4 text-yellow-400 mr-1" />
+                    <span>{property.rating}</span>
                   </div>
                 </div>
 
                 {/* Highlights */}
-                <div className="space-y-3 sm:space-y-4">
-                  <h4 className="text-sm sm:text-base font-medium text-sage-800">Key Highlights</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {property.highlights.map((highlight, index) => (
-                      <span
-                        key={index}
-                        className="px-3 py-1 bg-sage-100 text-sage-700 rounded-full text-xs sm:text-sm font-medium"
-                      >
-                        {highlight}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Price & CTA */}
-                <div className="space-y-4 sm:space-y-6">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <span className="text-2xl sm:text-3xl lg:text-4xl font-editorial font-medium text-sage-800">
-                        ₹{property.price.toLocaleString()}
-                      </span>
-                      <span className="text-sage-600 text-sm sm:text-base font-body"> / night</span>
-                    </div>
-                    <button
-                      onClick={() => onPropertySelect?.(property.id)}
-                      className="btn-primary text-sm sm:text-base lg:text-lg touch-manipulation"
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {property.highlights.slice(0, 3).map((highlight, index) => (
+                    <span
+                      key={index}
+                      className="px-3 py-1 bg-white/20 backdrop-blur-sm text-white text-sm rounded-full"
                     >
-                      <Calendar className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
-                      Book Now
-                    </button>
+                      {highlight}
+                    </span>
+                  ))}
+                </div>
+
+                {/* Price and CTA */}
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-white/80 text-sm">Starting from</p>
+                    <p className="text-2xl font-bold text-white">{formatPrice(property.price)}</p>
+                    <p className="text-white/80 text-sm">per night</p>
                   </div>
-                </div>
-              </div>
-
-              {/* Right Side - Image */}
-              <div className="relative lg:h-full h-64 sm:h-80">
-                <img
-                  src={property.image}
-                  alt={property.name}
-                  className="w-full h-full object-cover transition-all duration-1000"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
-                
-                {/* Navigation Controls */}
-                <div className="absolute top-4 right-4 flex space-x-2">
                   <button
-                    onClick={prevProperty}
-                    className="backdrop-blur-xl bg-white/20 p-2 sm:p-3 rounded-full border border-white/30 text-white hover:bg-white/30 transition-all touch-manipulation"
+                    onClick={() => onPropertySelect?.(property.id)}
+                    className="flex items-center space-x-2 bg-white text-gray-900 px-6 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors"
                   >
-                    <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
-                  </button>
-                  <button
-                    onClick={nextProperty}
-                    className="backdrop-blur-xl bg-white/20 p-2 sm:p-3 rounded-full border border-white/30 text-white hover:bg-white/30 transition-all touch-manipulation"
-                  >
-                    <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                    <span>Explore Property</span>
+                    <ArrowRight className="w-4 h-4" />
                   </button>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Progress Indicators */}
-          <div className="flex justify-center mt-6 lg:mt-8">
-            <div className="flex space-x-2 lg:space-x-4">
-              {properties.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentProperty(index)}
-                  className={`w-3 h-3 lg:w-4 lg:h-4 rounded-full transition-all duration-300 touch-manipulation ${
-                    index === currentProperty
-                      ? 'bg-gradient-to-r from-rust-500 to-coral-500 scale-125'
-                      : 'bg-sage-300 hover:bg-sage-400'
-                  }`}
-                />
-              ))}
-            </div>
+          {/* Navigation Controls */}
+          <button
+            onClick={prevProperty}
+            className="absolute left-4 top-1/2 transform -translate-y-1/2 p-3 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 transition-all duration-300"
+          >
+            <ChevronLeft className="w-6 h-6 text-white" />
+          </button>
+          
+          <button
+            onClick={nextProperty}
+            className="absolute right-4 top-1/2 transform -translate-y-1/2 p-3 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 transition-all duration-300"
+          >
+            <ChevronRight className="w-6 h-6 text-white" />
+          </button>
+
+          {/* Property Counter */}
+          <div className="absolute top-4 left-4 px-4 py-2 rounded-full bg-black/40 backdrop-blur-sm text-white text-sm">
+            {currentProperty + 1} / {properties.length}
           </div>
+
+          {/* Auto-play Indicator */}
+          <div className="absolute top-4 right-4 px-4 py-2 rounded-full bg-black/40 backdrop-blur-sm text-white text-sm">
+            {isHovered ? 'Paused' : 'Auto-play'}
+          </div>
+        </div>
+
+        {/* Property Thumbnails */}
+        <div className="flex justify-center mt-8 space-x-4">
+          {properties.map((prop, index) => (
+            <button
+              key={prop.id}
+              onClick={() => setCurrentProperty(index)}
+              className={`w-16 h-16 rounded-lg overflow-hidden transition-all duration-300 ${
+                index === currentProperty 
+                  ? 'ring-2 ring-blue-500 scale-110' 
+                  : 'hover:scale-105'
+              }`}
+            >
+              <img
+                src={prop.image}
+                alt={prop.name}
+                className="w-full h-full object-cover"
+              />
+            </button>
+          ))}
         </div>
       </div>
     </section>

@@ -182,7 +182,7 @@ const PropertyComparison: React.FC<PropertyComparisonProps> = ({
                 <>
                   <button
                     onClick={shareComparison}
-                    className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                    className="flex items-center space-x-2 px-4 py-2 bg-rust-600 text-white rounded-lg hover:bg-rust-700 transition-colors"
                   >
                     <Share2 className="w-4 h-4" />
                     <span>Share</span>
@@ -215,7 +215,7 @@ const PropertyComparison: React.FC<PropertyComparisonProps> = ({
               </p>
               <button
                 onClick={() => setShowPropertySelector(!showPropertySelector)}
-                className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                className="flex items-center space-x-2 px-4 py-2 bg-rust-600 text-white rounded-lg hover:bg-rust-700 transition-colors"
               >
                 <Plus className="w-4 h-4" />
                 <span>Add Property</span>
@@ -261,7 +261,7 @@ const PropertyComparison: React.FC<PropertyComparisonProps> = ({
               <p className="text-gray-600 mb-6">Add properties to start comparing their features</p>
               <button
                 onClick={() => setShowPropertySelector(true)}
-                className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                className="bg-rust-600 text-white px-6 py-2 rounded-lg hover:bg-rust-700 transition-colors"
               >
                 Add Properties
               </button>

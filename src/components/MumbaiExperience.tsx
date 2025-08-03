@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { MapPin, ArrowRight } from 'lucide-react';
+import { getPropertyImageUrls } from '../utils/propertyAssets';
 
 const MumbaiExperience: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -12,7 +13,10 @@ const MumbaiExperience: React.FC = () => {
           setIsVisible(true);
         }
       },
-      { threshold: 0.1 }
+      {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      }
     );
 
     if (containerRef.current) {
@@ -26,21 +30,21 @@ const MumbaiExperience: React.FC = () => {
     {
       title: "Bandra West",
       subtitle: "Where creativity meets the sea",
-      image: "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
+      image: getPropertyImageUrls("Art Loft Bandra")[0] || "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
       description: "Mumbai's artistic heart, where street art galleries and seaside cafes create the perfect backdrop for your stay.",
       features: ["Art Districts", "Seaside Promenades", "Cultural Cafes"]
     },
     {
       title: "Colaba", 
       subtitle: "Historic charm meets modern luxury",
-      image: "https://images.pexels.com/photos/2506923/pexels-photo-2506923.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
+      image: getPropertyImageUrls("Heritage Garden Cottage")[0] || "https://images.pexels.com/photos/2506923/pexels-photo-2506923.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
       description: "Heritage architecture and colonial grandeur in Mumbai's most prestigious neighborhood.",
       features: ["Heritage Buildings", "Gateway of India", "Luxury Shopping"]
     },
     {
       title: "Lower Parel",
       subtitle: "Mumbai's modern business district",
-      image: "https://images.pexels.com/photos/2581922/pexels-photo-2581922.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
+      image: getPropertyImageUrls("Zen Suite")[0] || "https://images.pexels.com/photos/2581922/pexels-photo-2581922.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
       description: "Sky-high living with panoramic city views and world-class dining experiences.",
       features: ["Business Hub", "Fine Dining", "City Skyline"]
     }
@@ -117,7 +121,7 @@ const MumbaiExperience: React.FC = () => {
 
                 <button className="inline-flex items-center gap-2 text-gray-900 font-medium hover:gap-3 transition-all duration-300">
                   <span>Explore {experience.title}</span>
-                  <ArrowRight className="w-5 h-5" />
+                  <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
             </div>

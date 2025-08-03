@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Heart, MessageCircle, Share2, Star, Camera, MapPin, Clock, Users, Sparkles, ArrowLeft, ArrowRight, Play, Pause, Instagram, Eye, Calendar, Award, Zap, ChevronRight, ChevronLeft, TrendingUp, Award as AwardIcon, CheckCircle, Shield } from 'lucide-react';
+import { getPropertyImageUrls } from '../utils/propertyAssets';
 
 interface GuestStory {
   id: string;
@@ -58,14 +59,14 @@ const InstagramTestimonials: React.FC<InstagramTestimonialsProps> = ({ propertyI
       storyDescription: 'From the moment we stepped into this colonial paradise, every detail exceeded our expectations.',
       photos: [
         {
-          url: 'https://images.pexels.com/photos/2506923/pexels-photo-2506923.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
+          url: getPropertyImageUrls("Heritage Garden Cottage")[0] || 'https://images.pexels.com/photos/2506923/pexels-photo-2506923.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
           caption: 'First glimpse of our home for the weekend - absolutely breathtaking! 🌸✨',
           timestamp: '2 hours ago',
           likes: 342,
           comments: 28
         },
         {
-          url: 'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
+          url: getPropertyImageUrls("Heritage Garden Cottage")[1] || 'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
           caption: 'Morning coffee in the garden - pure serenity ☕️',
           timestamp: '1 hour ago',
           likes: 289,
@@ -76,8 +77,8 @@ const InstagramTestimonials: React.FC<InstagramTestimonialsProps> = ({ propertyI
       totalComments: 85,
       timestamp: '2 hours ago',
       verified: true,
-      propertyName: 'The Bandra Cottage',
-      propertyImage: 'https://images.pexels.com/photos/2506923/pexels-photo-2506923.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
+      propertyName: 'Heritage Garden Cottage',
+      propertyImage: getPropertyImageUrls("Heritage Garden Cottage")[0] || 'https://images.pexels.com/photos/2506923/pexels-photo-2506923.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
       tags: ['#MumbaiStay', '#HeritageCharm', '#PerfectGetaway'],
       propertyId: 1,
       guestJourney: [
@@ -100,99 +101,78 @@ const InstagramTestimonials: React.FC<InstagramTestimonialsProps> = ({ propertyI
       storyDescription: 'Every moment was curated to perfection. The butler service and sunset views created pure magic.',
       photos: [
         {
-          url: 'https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
-          caption: 'Anniversary dinner setup - beyond our wildest dreams 💕',
-          timestamp: '5 hours ago',
-          likes: 423,
-          comments: 38
+          url: getPropertyImageUrls("Art Loft Bandra")[0] || 'https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
+          caption: 'Art meets luxury in this stunning loft! 🎨✨',
+          timestamp: '3 hours ago',
+          likes: 456,
+          comments: 32
+        },
+        {
+          url: getPropertyImageUrls("Art Loft Bandra")[1] || 'https://images.pexels.com/photos/2581922/pexels-photo-2581922.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
+          caption: 'Sunset views that take your breath away 🌅',
+          timestamp: '2 hours ago',
+          likes: 523,
+          comments: 41
         }
       ],
-      totalLikes: 721,
-      totalComments: 60,
-      timestamp: '5 hours ago',
+      totalLikes: 1456,
+      totalComments: 98,
+      timestamp: '3 hours ago',
       verified: true,
-      propertyName: 'Heritage Garden Villa',
-      propertyImage: 'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
-      tags: ['#AnniversaryTrip', '#LuxuryStay', '#MumbaiMagic'],
+      propertyName: 'Art Loft Bandra',
+      propertyImage: getPropertyImageUrls("Art Loft Bandra")[0] || 'https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
+      tags: ['#RomanticGetaway', '#ArtLoft', '#BandraWest'],
       propertyId: 2,
       guestJourney: [
-        { phase: 'Arrival', description: 'Romantic welcome setup', icon: Calendar },
-        { phase: 'Settle In', description: 'Luxury amenities and service', icon: Award },
-        { phase: 'Experience', description: 'Perfect romantic atmosphere', icon: Sparkles },
-        { phase: 'Departure', description: 'Memories to cherish forever', icon: Heart }
+        { phase: 'Arrival', description: 'Champagne welcome and rose petals', icon: Sparkles },
+        { phase: 'Settle In', description: 'Luxury amenities and art curation', icon: Award },
+        { phase: 'Experience', description: 'Private dining and sunset views', icon: Heart },
+        { phase: 'Departure', description: 'Memories that will last forever', icon: Star }
       ],
       experienceType: 'romantic',
-      highlightMoment: 'Sunset dinner on the terrace'
+      highlightMoment: 'Private rooftop dinner'
     },
     {
       id: '3',
       username: 'Sarah Johnson',
-      userAvatar: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
-      userHandle: '@sarah_j',
+      userAvatar: 'https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
+      userHandle: '@sarah_johnson',
       location: 'Lower Parel, Mumbai',
       rating: 5,
-      storyTitle: 'Business Trip Turned Luxury Escape',
-      storyDescription: 'The perfect blend of productivity and luxury. The rooftop workspace became my new favorite office.',
+      storyTitle: 'Business Trip Turned Staycation',
+      storyDescription: 'The perfect blend of work and relaxation. The zen atmosphere helped me focus and recharge.',
       photos: [
         {
-          url: 'https://images.pexels.com/photos/2581922/pexels-photo-2581922.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
-          caption: 'Working from paradise - this view beats any office! 💼',
-          timestamp: '1 day ago',
-          likes: 289,
-          comments: 32
+          url: getPropertyImageUrls("Zen Suite")[0] || 'https://images.pexels.com/photos/2581922/pexels-photo-2581922.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
+          caption: 'My workspace with a view - productivity meets tranquility 💼',
+          timestamp: '5 hours ago',
+          likes: 234,
+          comments: 18
+        },
+        {
+          url: getPropertyImageUrls("Zen Suite")[1] || 'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
+          caption: 'Evening meditation spot - pure zen 🧘‍♀️',
+          timestamp: '4 hours ago',
+          likes: 198,
+          comments: 12
         }
       ],
-      totalLikes: 456,
-      totalComments: 28,
-      timestamp: '1 day ago',
-      verified: false,
-      propertyName: 'Minimalist Sky Suite',
-      propertyImage: 'https://images.pexels.com/photos/2581922/pexels-photo-2581922.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
-      tags: ['#BusinessLuxury', '#WorkFromParadise', '#MumbaiViews'],
+      totalLikes: 892,
+      totalComments: 56,
+      timestamp: '5 hours ago',
+      verified: true,
+      propertyName: 'Zen Suite',
+      propertyImage: getPropertyImageUrls("Zen Suite")[0] || 'https://images.pexels.com/photos/2581922/pexels-photo-2581922.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
+      tags: ['#BusinessTravel', '#ZenSuite', '#WorkLifeBalance'],
       propertyId: 3,
       guestJourney: [
-        { phase: 'Arrival', description: 'Efficient check-in process', icon: Calendar },
-        { phase: 'Settle In', description: 'Perfect workspace setup', icon: Award },
-        { phase: 'Experience', description: 'Productive luxury environment', icon: Sparkles },
-        { phase: 'Departure', description: 'Relaxed and accomplished', icon: Heart }
+        { phase: 'Arrival', description: 'Peaceful check-in and orientation', icon: Calendar },
+        { phase: 'Settle In', description: 'Dedicated workspace setup', icon: Award },
+        { phase: 'Experience', description: 'Focus and productivity boost', icon: Zap },
+        { phase: 'Departure', description: 'Refreshed and accomplished', icon: CheckCircle }
       ],
       experienceType: 'business',
-      highlightMoment: 'Sunrise work session with city views'
-    },
-    {
-      id: '4',
-      username: 'Amit Patel',
-      userAvatar: 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
-      userHandle: '@amit_patel',
-      location: 'Worli, Mumbai',
-      rating: 5,
-      storyTitle: 'Solo Adventure in Luxury',
-      storyDescription: 'Sometimes the best company is your own. This property made my solo trip unforgettable.',
-      photos: [
-        {
-          url: 'https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
-          caption: 'Solo sunset meditation - pure bliss 🧘‍♂️',
-          timestamp: '2 days ago',
-          likes: 198,
-          comments: 15
-        }
-      ],
-      totalLikes: 234,
-      totalComments: 18,
-      timestamp: '2 days ago',
-      verified: true,
-      propertyName: 'Penthouse Sky Lounge',
-      propertyImage: 'https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
-      tags: ['#SoloTravel', '#LuxuryEscape', '#MindfulLiving'],
-      propertyId: 4,
-      guestJourney: [
-        { phase: 'Arrival', description: 'Peaceful welcome experience', icon: Calendar },
-        { phase: 'Settle In', description: 'Tranquil space for reflection', icon: Award },
-        { phase: 'Experience', description: 'Mindful luxury living', icon: Sparkles },
-        { phase: 'Departure', description: 'Renewed and refreshed', icon: Heart }
-      ],
-      experienceType: 'solo',
-      highlightMoment: 'Morning yoga with city skyline'
+      highlightMoment: 'Sunrise work session'
     }
   ];
 
@@ -232,6 +212,7 @@ const InstagramTestimonials: React.FC<InstagramTestimonialsProps> = ({ propertyI
       case 'romantic': return Heart;
       case 'business': return AwardIcon;
       case 'solo': return Eye;
+      case 'group': return Users;
       default: return Users;
     }
   };
@@ -242,6 +223,7 @@ const InstagramTestimonials: React.FC<InstagramTestimonialsProps> = ({ propertyI
       case 'romantic': return 'from-pink-500 to-rose-500';
       case 'business': return 'from-purple-500 to-indigo-500';
       case 'solo': return 'from-green-500 to-emerald-500';
+      case 'group': return 'from-purple-500 to-indigo-500';
       default: return 'from-rust-500 to-orange-500';
     }
   };

@@ -1,59 +1,24 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { MapPin, Users, Bed, Star, Heart, Calendar, ArrowRight, Play, Loader2, Share2, Check } from 'lucide-react';
-import { MockPropertyService as PropertyService } from '../services/mockPropertyService';
+import React, { useState } from 'react';
+import { MapPin, Star, Users, Bed, Bath, Wifi, Car, Shield, Heart, Eye } from 'lucide-react';
+import { OptimizedImage, createResponsiveImage } from '../utils/imageOptimization';
 import type { Database } from '../lib/database.types';
 
 type Property = Database['public']['Tables']['properties']['Row'];
 
 interface PropertyGridProps {
-  onPropertySelect: (propertyId: number) => void;
-  onShowComparison?: (propertyIds: number[]) => void;
+  properties: Property[];
+  onPropertyClick?: (property: Property) => void;
+  showFilters?: boolean;
+  className?: string;
 }
 
-const PropertyGrid: React.FC<PropertyGridProps> = ({ onPropertySelect, onShowComparison }) => {
-  const [properties, setProperties] = useState<Property[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [selectedForComparison, setSelectedForComparison] = useState<number[]>([]);
-  const [isVisible, setIsVisible] = useState(false);
-  const [hoveredProperty, setHoveredProperty] = useState<number | null>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  // Load properties from database
-  useEffect(() => {
-    const loadProperties = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-        const data = await PropertyService.getAllProperties();
-        setProperties(data);
-      } catch (err) {
-        console.error('Error loading properties:', err);
-        setError('Failed to load properties. Please try again.');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadProperties();
-  }, []);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (containerRef.current) {
-      observer.observe(containerRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
+const PropertyGrid: React.FC<PropertyGridProps> = ({
+  properties,
+  onPropertyClick,
+  showFilters = false,
+  className = ''
+}) => {
+  const [hoveredProperty, setHoveredProperty] = useState<string | null>(null);
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('en-IN', {
@@ -64,279 +29,174 @@ const PropertyGrid: React.FC<PropertyGridProps> = ({ onPropertySelect, onShowCom
     }).format(price);
   };
 
-  const getCategoryColor = (category: string) => {
-    const colors = {
-      'Art & Culture': 'from-purple-900/60 to-pink-900/40',
-      'Heritage': 'from-amber-900/60 to-orange-900/40',
-      'Urban Zen': 'from-blue-900/60 to-cyan-900/40',
-      'Studio': 'from-green-900/60 to-teal-900/40',
-      'Penthouse': 'from-indigo-900/60 to-purple-900/40'
-    };
-    return colors[category as keyof typeof colors] || 'from-gray-900/60 to-slate-900/40';
-  };
-
-  const getCategoryBadge = (category: string) => {
-    const badges = {
-      'Art & Culture': 'Art & Culture',
-      'Heritage': 'Heritage',
-      'Urban Zen': 'Urban Zen',
-      'Studio': 'Studio',
-      'Penthouse': 'Penthouse'
-    };
-    return badges[category as keyof typeof badges] || category;
-  };
-
-  const handleComparisonToggle = (propertyId: number) => {
-    setSelectedForComparison(prev => {
-      if (prev.includes(propertyId)) {
-        return prev.filter(id => id !== propertyId);
-      } else {
-        if (prev.length >= 3) {
-          alert('You can compare up to 3 properties at a time');
-          return prev;
-        }
-        return [...prev, propertyId];
-      }
-    });
-  };
-
-  const handleStartComparison = () => {
-    if (selectedForComparison.length >= 2) {
-      onShowComparison?.(selectedForComparison);
-      setSelectedForComparison([]);
-    } else {
-      alert('Please select at least 2 properties to compare');
+  const getPropertyImageUrls = (property: Property): string[] => {
+    if (property.images && Array.isArray(property.images)) {
+      return property.images.slice(0, 4); // Show first 4 images
     }
+    return [];
   };
 
-  if (loading) {
-    return (
-      <section className="py-12 sm:py-16 lg:py-24 bg-properties-gradient relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
-              Our Properties
-            </h2>
-            <p className="text-lg text-white/80 max-w-2xl mx-auto">
-              Discover our curated collection of luxury boutique stays
-            </p>
-          </div>
-          <div className="flex justify-center items-center py-20">
-            <div className="flex items-center space-x-2 text-white">
-              <Loader2 className="w-6 h-6 animate-spin" />
-              <span>Loading properties...</span>
-            </div>
-          </div>
-        </div>
-      </section>
-    );
-  }
-
-  if (error) {
-    return (
-      <section className="py-12 sm:py-16 lg:py-24 bg-properties-gradient relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
-              Our Properties
-            </h2>
-            <p className="text-lg text-white/80 max-w-2xl mx-auto">
-              Discover our curated collection of luxury boutique stays
-            </p>
-          </div>
-          <div className="flex justify-center items-center py-20">
-            <div className="text-center text-white">
-              <p className="text-lg mb-4">{error}</p>
-              <button 
-                onClick={() => window.location.reload()}
-                className="bg-white/20 hover:bg-white/30 text-white px-6 py-2 rounded-lg transition-colors"
-              >
-                Try Again
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-    );
-  }
+  const getPropertyFeatures = (property: Property) => {
+    if (property.features && typeof property.features === 'object') {
+      const features = property.features as any;
+      return {
+        amenities: features.amenities || [],
+        rating: features.rating || 4.5,
+        reviews_count: features.reviews_count || 0
+      };
+    }
+    return {
+      amenities: [],
+      rating: 4.5,
+      reviews_count: 0
+    };
+  };
 
   return (
-    <section className="py-12 sm:py-16 lg:py-24 bg-properties-gradient relative overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-purple-900/20 to-pink-900/20"></div>
-      <div className="absolute top-0 left-0 w-72 h-72 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-tl from-pink-500/10 to-orange-500/10 rounded-full blur-3xl"></div>
+    <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 ${className}`}>
+      {properties.map((property) => {
+        const imageUrls = getPropertyImageUrls(property);
+        const features = getPropertyFeatures(property);
+        const responsiveConfig = createResponsiveImage(
+          imageUrls[0] || '',
+          `${property.name} - ${property.location}`,
+          'w-full h-40 sm:h-48 object-cover rounded-t-lg'
+        );
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Section Header */}
-        <div 
-          ref={containerRef}
-          className={`text-center mb-12 transition-all duration-1000 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}
-        >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
-            Our Properties
-          </h2>
-          <p className="text-lg text-white/80 max-w-2xl mx-auto mb-6">
-            Discover our curated collection of luxury boutique stays in Mumbai's most desirable locations
-          </p>
-          
-          {/* Comparison Controls */}
-          {selectedForComparison.length > 0 && (
-            <div className="flex items-center justify-center space-x-3 mb-4">
-              <div className="bg-white/20 backdrop-blur-sm rounded-lg px-3 py-1.5 border border-white/30">
-                <span className="text-white text-sm">
-                  {selectedForComparison.length} selected
+        return (
+          <div
+            key={property.id}
+            className="bg-white rounded-xl sm:rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer group overflow-hidden"
+            onClick={() => onPropertyClick?.(property)}
+            onMouseEnter={() => setHoveredProperty(property.id.toString())}
+            onMouseLeave={() => setHoveredProperty(null)}
+          >
+            {/* Image Container */}
+            <div className="relative overflow-hidden">
+              {/* Optimized Image */}
+              <OptimizedImage
+                src={imageUrls[0] || ''}
+                alt={`${property.name} - ${property.location}`}
+                className="w-full h-40 sm:h-48 object-cover transition-transform duration-500 group-hover:scale-110"
+                loading="lazy"
+                decoding="async"
+                sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+              />
+              
+              {/* Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              
+              {/* Price Badge */}
+              <div className="absolute top-3 sm:top-4 right-3 sm:right-4 bg-white/95 backdrop-blur-sm rounded-full px-2 sm:px-3 py-1 sm:py-1.5 shadow-lg">
+                <span className="text-primary-600 font-semibold text-xs sm:text-sm">
+                  {property.category}
                 </span>
+                <span className="text-gray-500 text-xs">/night</span>
               </div>
+              
+              {/* Favorite Button */}
+              <button className="absolute top-3 sm:top-4 left-3 sm:left-4 w-8 h-8 sm:w-10 sm:h-10 bg-white/95 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:bg-primary-50 transition-colors duration-200">
+                <Heart className="w-3 h-3 sm:w-4 sm:h-4 text-gray-600 hover:text-primary-500 transition-colors" />
+              </button>
+              
+              {/* Image Gallery Indicator */}
+              {imageUrls.length > 1 && (
+                <div className="absolute bottom-3 sm:bottom-4 right-3 sm:right-4 bg-black/70 backdrop-blur-sm rounded-full px-2 py-1">
+                  <div className="flex items-center space-x-1">
+                    <Eye className="w-2 h-2 sm:w-3 sm:h-3 text-white" />
+                    <span className="text-white text-xs font-medium">
+                      +{imageUrls.length - 1}
+                    </span>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Content */}
+            <div className="p-3 sm:p-4">
+              {/* Header */}
+              <div className="mb-2 sm:mb-3">
+                <h3 className="font-semibold text-gray-900 text-base sm:text-lg mb-1 line-clamp-1">
+                  {property.name}
+                </h3>
+                <div className="flex items-center space-x-2 text-gray-600 text-xs sm:text-sm">
+                  <MapPin className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+                  <span className="line-clamp-1">{property.location}</span>
+                </div>
+              </div>
+
+              {/* Rating & Reviews */}
+              <div className="flex items-center justify-between mb-2 sm:mb-3">
+                <div className="flex items-center space-x-1 sm:space-x-2">
+                  <div className="flex items-center space-x-1">
+                    <Star className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-400 fill-current" />
+                    <span className="text-xs sm:text-sm font-medium text-gray-900">
+                      {features.rating}
+                    </span>
+                  </div>
+                  <span className="text-gray-500 text-xs sm:text-sm">
+                    ({features.reviews_count} reviews)
+                  </span>
+                </div>
+                <div className="flex items-center space-x-1 text-gray-600">
+                  <Shield className="w-3 h-3 sm:w-4 sm:h-4 text-green-500" />
+                  <span className="text-xs">Verified</span>
+                </div>
+              </div>
+
+              {/* Property Details */}
+              <div className="flex items-center justify-between text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4">
+                <div className="flex items-center space-x-2 sm:space-x-4">
+                  <div className="flex items-center space-x-1">
+                    <Users className="w-3 h-3 sm:w-4 sm:h-4" />
+                    <span className="hidden sm:inline">{property.guests} guests</span>
+                    <span className="sm:hidden">{property.guests}</span>
+                  </div>
+                  <div className="flex items-center space-x-1">
+                    <Bed className="w-3 h-3 sm:w-4 sm:h-4" />
+                    <span className="hidden sm:inline">{property.bedrooms} beds</span>
+                    <span className="sm:hidden">{property.bedrooms}</span>
+                  </div>
+                  <div className="flex items-center space-x-1">
+                    <Bath className="w-3 h-3 sm:w-4 sm:h-4" />
+                    <span className="hidden sm:inline">{property.bathrooms} baths</span>
+                    <span className="sm:hidden">{property.bathrooms}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Amenities */}
+              {features.amenities && features.amenities.length > 0 && (
+                <div className="flex items-center space-x-2 sm:space-x-3 text-xs text-gray-500 mb-3 sm:mb-4">
+                  {features.amenities.slice(0, 3).map((amenity: string, index: number) => (
+                    <div key={index} className="flex items-center space-x-1">
+                      {amenity.toLowerCase().includes('wifi') && <Wifi className="w-2 h-2 sm:w-3 sm:h-3" />}
+                      {amenity.toLowerCase().includes('parking') && <Car className="w-2 h-2 sm:w-3 sm:h-3" />}
+                      <span className="line-clamp-1 text-xs">{amenity}</span>
+                    </div>
+                  ))}
+                  {features.amenities.length > 3 && (
+                    <span className="text-gray-400 text-xs">+{features.amenities.length - 3} more</span>
+                  )}
+                </div>
+              )}
+
+              {/* Action Button */}
               <button
-                onClick={handleStartComparison}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-lg transition-colors flex items-center space-x-2 text-sm"
+                className="w-full bg-primary-500 hover:bg-primary-600 text-white py-2 px-3 sm:px-4 rounded-lg font-medium transition-colors duration-200 transform hover:scale-105 active:scale-95 text-sm sm:text-base"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onPropertyClick?.(property);
+                }}
               >
-                <Share2 className="w-3 h-3" />
-                <span>Compare</span>
+                <span className="hidden sm:inline">View Details</span>
+                <span className="sm:hidden">Details</span>
               </button>
             </div>
-          )}
-        </div>
-
-        {/* Properties Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
-          {properties.map((property, index) => (
-            <div
-              key={property.id}
-              className={`group relative bg-white/10 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/20 transition-all duration-500 hover:scale-105 hover:shadow-2xl h-[450px] sm:h-[500px] ${
-                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-              }`}
-              style={{ transitionDelay: `${index * 100}ms` }}
-              onMouseEnter={() => setHoveredProperty(property.id)}
-              onMouseLeave={() => setHoveredProperty(null)}
-            >
-              {/* Property Image */}
-              <div className="relative h-48 overflow-hidden">
-                <img
-                  src={property.images[0] || 'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop'}
-                  alt={property.name}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                
-                {/* Overlay */}
-                <div className={`absolute inset-0 bg-gradient-to-t ${getCategoryColor(property.category)}`}></div>
-                
-                {/* Category Badge */}
-                <div className="absolute top-4 left-4">
-                  <span className="bg-white/20 backdrop-blur-sm text-white text-xs font-medium px-3 py-1 rounded-full border border-white/30">
-                    {getCategoryBadge(property.category)}
-                  </span>
-                </div>
-
-                {/* Price */}
-                <div className="absolute top-4 right-4">
-                  <span className="bg-white/20 backdrop-blur-sm text-white text-lg font-bold px-3 py-1 rounded-lg border border-white/30">
-                    {formatPrice(property.price)}
-                  </span>
-                </div>
-
-                {/* Hover Overlay */}
-                <div className={`absolute inset-0 bg-black/50 flex items-center justify-center transition-opacity duration-300 ${
-                  hoveredProperty === property.id ? 'opacity-100' : 'opacity-0'
-                }`}>
-                  <button
-                    onClick={() => onPropertySelect(property.id)}
-                    className="bg-white text-gray-900 px-6 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors flex items-center space-x-2"
-                  >
-                    <Calendar className="w-5 h-5" />
-                    <span>View Details</span>
-                  </button>
-                </div>
-              </div>
-
-              {/* Property Info */}
-              <div className="p-4 flex flex-col h-full">
-                <div className="flex-1">
-                  <h3 className="text-lg font-bold text-white mb-2 group-hover:text-blue-200 transition-colors line-clamp-1">
-                    {property.name}
-                  </h3>
-                  
-                  <div className="flex items-center text-white/80 mb-2">
-                    <MapPin className="w-4 h-4 mr-1" />
-                    <span className="text-sm">{property.location}</span>
-                  </div>
-
-                  <p className="text-white/70 text-sm mb-3 line-clamp-2">
-                    {property.description}
-                  </p>
-
-                  {/* Property Stats */}
-                  <div className="flex items-center justify-between text-white/80 text-sm mb-3">
-                    <div className="flex items-center space-x-3">
-                      <div className="flex items-center">
-                        <Users className="w-4 h-4 mr-1" />
-                        <span>{property.guests} guests</span>
-                      </div>
-                      <div className="flex items-center">
-                        <Bed className="w-4 h-4 mr-1" />
-                        <span>{property.bedrooms} beds</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center">
-                      <Star className="w-4 h-4 text-yellow-400 mr-1" />
-                      <span>4.9</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Action Buttons */}
-                <div className="flex items-center justify-between mt-auto">
-                  <button
-                    onClick={() => onPropertySelect(property.id)}
-                    className="flex items-center text-white hover:text-blue-200 transition-colors text-sm font-medium"
-                  >
-                    <span>View Details</span>
-                    <ArrowRight className="w-4 h-4 ml-1" />
-                  </button>
-                  
-                  <div className="flex items-center space-x-2">
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleComparisonToggle(property.id);
-                      }}
-                      className={`p-2 rounded-full transition-colors ${
-                        selectedForComparison.includes(property.id)
-                          ? 'bg-blue-600 text-white'
-                          : 'text-white/70 hover:text-white hover:bg-white/20'
-                      }`}
-                      title={selectedForComparison.includes(property.id) ? 'Remove from comparison' : 'Add to comparison'}
-                    >
-                      {selectedForComparison.includes(property.id) ? (
-                        <Check className="w-4 h-4" />
-                      ) : (
-                        <Share2 className="w-4 h-4" />
-                      )}
-                    </button>
-                    
-                    <button className="p-2 text-white/70 hover:text-white transition-colors">
-                      <Heart className="w-5 h-5" />
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* View All Button */}
-        <div className={`text-center mt-12 transition-all duration-1000 ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-        }`} style={{ transitionDelay: '600ms' }}>
-          <button className="bg-white/20 backdrop-blur-sm text-white px-8 py-3 rounded-full font-medium hover:bg-white/30 transition-all duration-300 border border-white/30 hover:scale-105">
-            View All Properties
-          </button>
-        </div>
-      </div>
-    </section>
+          </div>
+        );
+      })}
+    </div>
   );
 };
 

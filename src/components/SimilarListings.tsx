@@ -142,7 +142,7 @@ const SimilarListings: React.FC<SimilarListingsProps> = ({
       </div>
       
       <div className="mt-6 text-center">
-        <button className="text-blue-600 hover:text-blue-700 font-medium text-sm transition-colors">
+                        <button className="text-rust-600 hover:text-rust-700 font-medium text-sm transition-colors">
           Show more similar listings
         </button>
       </div>

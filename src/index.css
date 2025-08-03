@@ -25,12 +25,14 @@
 }
 
 @layer components {
+  /* Primary Button Styles */
   .btn-primary {
-    @apply inline-flex items-center px-8 py-3 bg-rust-500 hover:bg-rust-600 text-white font-medium tracking-wide transition-all duration-300 transform hover:scale-105 rounded-lg shadow-lg;
+    @apply inline-flex items-center px-8 py-3 bg-primary-500 hover:bg-primary-600 text-white font-medium tracking-wide transition-all duration-300 transform hover:scale-105 rounded-lg shadow-lg;
   }
-  
+
+  /* Secondary Button Styles */
   .btn-secondary {
-    @apply inline-flex items-center px-8 py-3 border-2 border-sage-300 hover:border-rust-500 text-sage-700 hover:text-rust-600 font-medium tracking-wide transition-all duration-300 rounded-lg;
+    @apply inline-flex items-center px-8 py-3 border-2 border-sage-300 hover:border-primary-500 text-sage-700 hover:text-primary-600 font-medium tracking-wide transition-all duration-300 rounded-lg;
   }
   
   .input-elegant {

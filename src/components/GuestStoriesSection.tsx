@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Heart, MessageCircle, Share2, Star, Camera, MapPin, Clock, Users, Sparkles, ArrowLeft, ArrowRight, Play, Pause, Instagram, Eye, Calendar, Award, Zap, ChevronRight, ChevronLeft, TrendingUp, Award as AwardIcon, CheckCircle, Shield, Quote, User, Camera as CameraIcon, MapPin as MapPinIcon, Clock as ClockIcon, Users as UsersIcon, Home, BookOpen, Briefcase } from 'lucide-react';
+import { getPropertyImageUrls } from '../utils/propertyAssets';
 
 interface GuestStory {
   id: string;
@@ -71,21 +72,21 @@ const GuestStoriesSection: React.FC<GuestStoriesSectionProps> = ({
       storyDescription: 'From the moment we stepped into this colonial paradise, every detail exceeded our expectations. The kids were mesmerized by the stained glass windows, and my husband and I found our perfect romantic corner in the garden.',
       photos: [
         {
-          url: 'https://images.pexels.com/photos/2506923/pexels-photo-2506923.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
+          url: getPropertyImageUrls("Heritage Garden Cottage")[0] || 'https://images.pexels.com/photos/2506923/pexels-photo-2506923.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
           caption: 'First glimpse of our home for the weekend - absolutely breathtaking! 🌸✨',
           timestamp: '2 hours ago',
           likes: 342,
           comments: 28
         },
         {
-          url: 'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
+          url: getPropertyImageUrls("Heritage Garden Cottage")[1] || 'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
           caption: 'Morning coffee in the garden - pure serenity ☕️',
           timestamp: '1 hour ago',
           likes: 289,
           comments: 15
         },
         {
-          url: 'https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
+          url: getPropertyImageUrls("Heritage Garden Cottage")[2] || 'https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
           caption: 'Kids exploring the heritage library - they learned so much! 📚',
           timestamp: '30 minutes ago',
           likes: 156,
@@ -97,202 +98,138 @@ const GuestStoriesSection: React.FC<GuestStoriesSectionProps> = ({
       timestamp: '2 hours ago',
       verified: true,
       propertyName: propertyName,
-      propertyImage: 'https://images.pexels.com/photos/2506923/pexels-photo-2506923.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
-      tags: ['#MumbaiStay', '#HeritageCharm', '#PerfectGetaway', '#FamilyTime'],
+      propertyImage: getPropertyImageUrls("Heritage Garden Cottage")[0] || 'https://images.pexels.com/photos/2506923/pexels-photo-2506923.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
+      tags: ['#FamilyGetaway', '#HeritageCharm', '#PerfectWeekend'],
       propertyId: propertyId,
       guestJourney: [
-        {
-          phase: 'Arrival',
-          description: 'The grand entrance took our breath away. The kids were immediately drawn to the stained glass windows.',
-          icon: MapPinIcon,
-          emotion: 'Excitement & Wonder'
-        },
-        {
-          phase: 'Settlement',
-          description: 'Every room felt like it had a story to tell. The library became our favorite family spot.',
-          icon: Home,
-          emotion: 'Comfort & Belonging'
-        },
-        {
-          phase: 'Exploration',
-          description: 'We discovered hidden corners and the kids learned about colonial history through the architecture.',
-          icon: Eye,
-          emotion: 'Discovery & Learning'
-        },
-        {
-          phase: 'Connection',
-          description: 'Evening conversations in the garden became our daily ritual. Pure magic.',
-          icon: Heart,
-          emotion: 'Joy & Connection'
-        },
-        {
-          phase: 'Departure',
-          description: 'Leaving was bittersweet. We\'re already planning our return next year.',
-          icon: Calendar,
-          emotion: 'Gratitude & Anticipation'
-        }
+        { phase: 'Arrival', description: 'Warm welcome with traditional tea', icon: Calendar, emotion: 'excited' },
+        { phase: 'Settle In', description: 'Perfect room setup and amenities', icon: Award, emotion: 'comfortable' },
+        { phase: 'Experience', description: 'Immersive heritage and luxury', icon: Sparkles, emotion: 'amazed' },
+        { phase: 'Departure', description: 'Reluctant to leave this paradise', icon: Heart, emotion: 'nostalgic' }
       ],
       experienceType: 'family',
-      highlightMoment: 'Watching the sunset from the garden while the kids played hide and seek among the century-old trees.',
-      emotionalImpact: 'This stay reminded us of the importance of slowing down and creating meaningful family memories.',
-      recommendation: 'Perfect for families who want to experience luxury with a touch of history and culture.',
+      highlightMoment: 'Garden breakfast with family',
+      emotionalImpact: 'Created lasting memories that brought our family closer together',
+      recommendation: 'Perfect for families seeking both luxury and cultural immersion',
       returnIntent: true,
       socialProof: {
         followers: 15420,
         verified: true,
-        previousStays: 8
+        previousStays: 3
       }
     },
     {
       id: '2',
       username: 'Rajesh Mehta',
-      userAvatar: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
+      userAvatar: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
       userHandle: '@rajesh_mehta',
       location: 'Delhi, India',
       rating: 5,
-      storyTitle: 'The Perfect Anniversary Celebration',
-      storyDescription: 'I surprised my wife with this colonial gem for our 15th anniversary. The butler service and attention to detail made it feel like a royal experience.',
+      storyTitle: 'Our Perfect Anniversary Celebration',
+      storyDescription: 'Every moment was curated to perfection. The butler service and sunset views created pure magic. We felt like royalty in this stunning property.',
       photos: [
         {
-          url: 'https://images.pexels.com/photos/2581922/pexels-photo-2581922.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
-          caption: 'Our anniversary dinner setup - absolutely magical! 💕',
-          timestamp: '1 day ago',
-          likes: 567,
-          comments: 42
+          url: getPropertyImageUrls("Art Loft Bandra")[0] || 'https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
+          caption: 'Art meets luxury in this stunning loft! 🎨✨',
+          timestamp: '3 hours ago',
+          likes: 456,
+          comments: 32
         },
         {
-          url: 'https://images.pexels.com/photos/1571463/pexels-photo-1571463.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
-          caption: 'Evening ambiance that made our celebration unforgettable ✨',
-          timestamp: '1 day ago',
-          likes: 423,
-          comments: 31
+          url: getPropertyImageUrls("Art Loft Bandra")[1] || 'https://images.pexels.com/photos/2581922/pexels-photo-2581922.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
+          caption: 'Sunset views that take your breath away 🌅',
+          timestamp: '2 hours ago',
+          likes: 523,
+          comments: 41
+        },
+        {
+          url: getPropertyImageUrls("Art Loft Bandra")[2] || 'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
+          caption: 'Private dining experience - pure romance 💕',
+          timestamp: '1 hour ago',
+          likes: 398,
+          comments: 25
         }
       ],
-      totalLikes: 892,
-      totalComments: 67,
-      timestamp: '1 day ago',
+      totalLikes: 1456,
+      totalComments: 98,
+      timestamp: '3 hours ago',
       verified: true,
       propertyName: propertyName,
-      propertyImage: 'https://images.pexels.com/photos/2581922/pexels-photo-2581922.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
-      tags: ['#Anniversary', '#Romantic', '#Luxury', '#ButlerService'],
+      propertyImage: getPropertyImageUrls("Art Loft Bandra")[0] || 'https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
+      tags: ['#AnniversaryTrip', '#RomanticGetaway', '#LuxuryStay'],
       propertyId: propertyId,
       guestJourney: [
-        {
-          phase: 'Surprise',
-          description: 'The look on her face when we arrived was priceless. The grand entrance set the perfect tone.',
-          icon: Sparkles,
-          emotion: 'Surprise & Delight'
-        },
-        {
-          phase: 'Indulgence',
-          description: 'The butler service was impeccable. Every detail was taken care of.',
-          icon: Award,
-          emotion: 'Luxury & Comfort'
-        },
-        {
-          phase: 'Romance',
-          description: 'Evening walks in the garden and candlelit dinners created perfect romantic moments.',
-          icon: Heart,
-          emotion: 'Love & Intimacy'
-        },
-        {
-          phase: 'Celebration',
-          description: 'Our anniversary dinner was beyond expectations. The staff made it truly special.',
-          icon: Calendar,
-          emotion: 'Joy & Celebration'
-        },
-        {
-          phase: 'Memory',
-          description: 'We left with memories that will last a lifetime. Already planning our next visit.',
-          icon: Camera,
-          emotion: 'Gratitude & Anticipation'
-        }
+        { phase: 'Arrival', description: 'Champagne welcome and rose petals', icon: Sparkles, emotion: 'romantic' },
+        { phase: 'Settle In', description: 'Luxury amenities and art curation', icon: Award, emotion: 'impressed' },
+        { phase: 'Experience', description: 'Private dining and sunset views', icon: Heart, emotion: 'enamored' },
+        { phase: 'Departure', description: 'Memories that will last forever', icon: Star, emotion: 'fulfilled' }
       ],
       experienceType: 'romantic',
-      highlightMoment: 'The private dinner setup in the garden with fairy lights and live music.',
-      emotionalImpact: 'This experience reminded us why we fell in love 15 years ago.',
-      recommendation: 'Ideal for couples seeking a romantic, luxurious escape with personalized service.',
+      highlightMoment: 'Private rooftop dinner',
+      emotionalImpact: 'Reignited our love and created unforgettable moments',
+      recommendation: 'Ideal for couples celebrating special occasions',
       returnIntent: true,
       socialProof: {
         followers: 8920,
         verified: true,
-        previousStays: 5
+        previousStays: 1
       }
     },
     {
       id: '3',
       username: 'Sarah Johnson',
-      userAvatar: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
+      userAvatar: 'https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
       userHandle: '@sarah_johnson',
       location: 'London, UK',
       rating: 5,
-      storyTitle: 'A Solo Adventure That Found My Heart',
-      storyDescription: 'As a solo traveler, I was looking for something different. This colonial beauty offered the perfect blend of history, luxury, and authentic Mumbai culture.',
+      storyTitle: 'Business Trip Turned Staycation',
+      storyDescription: 'The perfect blend of work and relaxation. The zen atmosphere helped me focus and recharge. I accomplished more in this peaceful environment than in any office.',
       photos: [
         {
-          url: 'https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
-          caption: 'My perfect workation setup with garden views 🌿',
-          timestamp: '3 days ago',
+          url: getPropertyImageUrls("Zen Suite")[0] || 'https://images.pexels.com/photos/2581922/pexels-photo-2581922.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
+          caption: 'My workspace with a view - productivity meets tranquility 💼',
+          timestamp: '5 hours ago',
           likes: 234,
           comments: 18
         },
         {
-          url: 'https://images.pexels.com/photos/1571461/pexels-photo-1571461.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
-          caption: 'Exploring the neighborhood - the local cafe culture is amazing! ☕',
-          timestamp: '3 days ago',
-          likes: 189,
+          url: getPropertyImageUrls("Zen Suite")[1] || 'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
+          caption: 'Evening meditation spot - pure zen 🧘‍♀️',
+          timestamp: '4 hours ago',
+          likes: 198,
           comments: 12
+        },
+        {
+          url: getPropertyImageUrls("Zen Suite")[2] || 'https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
+          caption: 'Sunrise work session - the best productivity hack 🌅',
+          timestamp: '3 hours ago',
+          likes: 167,
+          comments: 9
         }
       ],
-      totalLikes: 567,
-      totalComments: 34,
-      timestamp: '3 days ago',
+      totalLikes: 892,
+      totalComments: 56,
+      timestamp: '5 hours ago',
       verified: true,
       propertyName: propertyName,
-      propertyImage: 'https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
-      tags: ['#SoloTravel', '#Workation', '#Culture', '#MumbaiLife'],
+      propertyImage: getPropertyImageUrls("Zen Suite")[0] || 'https://images.pexels.com/photos/2581922/pexels-photo-2581922.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
+      tags: ['#BusinessTravel', '#WorkLifeBalance', '#ZenRetreat'],
       propertyId: propertyId,
       guestJourney: [
-        {
-          phase: 'Arrival',
-          description: 'The property felt like a safe haven in the bustling city. Perfect for a solo traveler.',
-          icon: Shield,
-          emotion: 'Safety & Comfort'
-        },
-        {
-          phase: 'Workation',
-          description: 'The library became my perfect workspace. Productivity with a view!',
-          icon: Zap,
-          emotion: 'Focus & Inspiration'
-        },
-        {
-          phase: 'Exploration',
-          description: 'The staff recommended amazing local spots. Felt like a local in no time.',
-          icon: MapPin,
-          emotion: 'Discovery & Connection'
-        },
-        {
-          phase: 'Culture',
-          description: 'Learned so much about Mumbai\'s colonial history through the property itself.',
-          icon: BookOpen,
-          emotion: 'Learning & Growth'
-        },
-        {
-          phase: 'Reflection',
-          description: 'This solo journey taught me the beauty of traveling alone in luxury.',
-          icon: Heart,
-          emotion: 'Self-Discovery & Gratitude'
-        }
+        { phase: 'Arrival', description: 'Peaceful check-in and orientation', icon: Calendar, emotion: 'calm' },
+        { phase: 'Settle In', description: 'Dedicated workspace setup', icon: Award, emotion: 'focused' },
+        { phase: 'Experience', description: 'Focus and productivity boost', icon: Zap, emotion: 'energized' },
+        { phase: 'Departure', description: 'Refreshed and accomplished', icon: CheckCircle, emotion: 'satisfied' }
       ],
-      experienceType: 'solo',
-      highlightMoment: 'Sitting in the garden reading a book from the library while sipping chai.',
-      emotionalImpact: 'This stay showed me that solo travel can be both luxurious and culturally enriching.',
-      recommendation: 'Perfect for solo travelers who want luxury, culture, and authentic local experiences.',
+      experienceType: 'business',
+      highlightMoment: 'Sunrise work session',
+      emotionalImpact: 'Found perfect work-life balance and increased productivity',
+      recommendation: 'Excellent for business travelers seeking tranquility',
       returnIntent: true,
       socialProof: {
         followers: 12340,
         verified: true,
-        previousStays: 12
+        previousStays: 2
       }
     }
   ];

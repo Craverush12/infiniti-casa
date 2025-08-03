@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Calendar, Clock, Star, MapPin, ArrowRight, Sparkles, Home, Users, MessageCircle, Shield, CheckCircle, Clock as ClockIcon } from 'lucide-react';
+import { getPropertyImageUrls } from '../utils/propertyAssets';
 
 interface LongTermBookingSectionProps {
   onContactClick?: () => void;
@@ -53,7 +54,7 @@ const LongTermBookingSection: React.FC<LongTermBookingSectionProps> = ({ onConta
     <section className="py-12 sm:py-16 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-10 left-10 w-32 h-32 bg-rust-500 rounded-full blur-3xl"></div>
+        <div className="absolute top-10 left-10 w-32 h-32 bg-primary-500 rounded-full blur-3xl"></div>
         <div className="absolute bottom-10 right-10 w-40 h-40 bg-purple-500 rounded-full blur-3xl"></div>
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-60 h-60 bg-blue-500 rounded-full blur-3xl"></div>
       </div>
@@ -63,7 +64,7 @@ const LongTermBookingSection: React.FC<LongTermBookingSectionProps> = ({ onConta
           {/* Content Section */}
           <div className="space-y-8">
             <div className="space-y-4">
-              <div className="flex items-center space-x-2 text-rust-500">
+              <div className="flex items-center space-x-2 text-primary-500">
                 <Sparkles className="w-4 h-4 sm:w-5 sm:h-5" />
                 <span className="text-xs sm:text-sm font-medium uppercase tracking-wide">Extended Stays</span>
               </div>
@@ -81,7 +82,7 @@ const LongTermBookingSection: React.FC<LongTermBookingSectionProps> = ({ onConta
               {benefits.map((benefit, index) => (
                 <div key={index} className="space-y-3">
                   <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white rounded-xl shadow-sm flex items-center justify-center">
-                    <benefit.icon className="w-5 h-5 sm:w-6 sm:h-6 text-rust-500" />
+                    <benefit.icon className="w-5 h-5 sm:w-6 sm:h-6 text-primary-500" />
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900 mb-1 text-sm sm:text-base">{benefit.title}</h3>
@@ -113,13 +114,13 @@ const LongTermBookingSection: React.FC<LongTermBookingSectionProps> = ({ onConta
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4">
               <button
                 onClick={onContactClick}
-                className="group flex items-center justify-center space-x-2 px-6 sm:px-8 py-3 sm:py-4 bg-rust-500 text-white rounded-xl hover:bg-rust-600 active:bg-rust-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 active:translate-y-0 text-sm sm:text-base"
+                className="group flex items-center justify-center space-x-2 px-6 sm:px-8 py-3 sm:py-4 bg-primary-500 text-white rounded-xl hover:bg-primary-600 active:bg-primary-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 active:translate-y-0 text-sm sm:text-base"
               >
                 <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5" />
                 <span className="font-medium">Contact for Extended Stay</span>
                 <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
               </button>
-              <button className="flex items-center justify-center space-x-2 px-6 sm:px-8 py-3 sm:py-4 border-2 border-gray-300 text-gray-700 rounded-xl hover:border-rust-500 hover:text-rust-500 active:bg-gray-50 transition-all duration-200 text-sm sm:text-base">
+              <button className="group flex items-center justify-center space-x-2 px-6 sm:px-8 py-3 sm:py-4 border-2 border-gray-300 text-gray-700 rounded-xl hover:border-primary-500 hover:text-primary-500 active:bg-gray-50 transition-all duration-200 text-sm sm:text-base">
                 <Calendar className="w-4 h-4 sm:w-5 sm:h-5" />
                 <span className="font-medium">View Availability</span>
               </button>
@@ -155,7 +156,7 @@ const LongTermBookingSection: React.FC<LongTermBookingSectionProps> = ({ onConta
               {/* Property Preview */}
               <div className="relative mb-4 sm:mb-6">
                 <img
-                  src="https://images.pexels.com/photos/2506923/pexels-photo-2506923.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop"
+                  src={getPropertyImageUrls("Heritage Garden Cottage")[0] || "https://images.pexels.com/photos/2506923/pexels-photo-2506923.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop"}
                   alt="Extended Stay Property"
                   className="w-full h-40 sm:h-48 object-cover rounded-xl"
                 />

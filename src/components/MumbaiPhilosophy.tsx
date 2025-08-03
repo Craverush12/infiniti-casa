@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { Quote, Users, Compass, Sparkles, ArrowRight } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Compass, Sparkles, Users, ArrowRight } from 'lucide-react';
+import { getPropertyImageUrls } from '../utils/propertyAssets';
 
 const MumbaiPhilosophy: React.FC = () => {
-  const [isVisible, setIsVisible] = useState(false);
   const [activePhilosophy, setActivePhilosophy] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
+  const containerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -12,11 +14,15 @@ const MumbaiPhilosophy: React.FC = () => {
           setIsVisible(true);
         }
       },
-      { threshold: 0.3 }
+      {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      }
     );
 
-    const section = document.getElementById('about');
-    if (section) observer.observe(section);
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
 
     return () => observer.disconnect();
   }, []);
@@ -26,21 +32,21 @@ const MumbaiPhilosophy: React.FC = () => {
       title: "Cultural Immersion",
       icon: Compass,
       description: "Every property connects you to Mumbai's authentic cultural heartbeat",
-      image: "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop",
+      image: getPropertyImageUrls("Art Loft Bandra")[0] || "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop",
       details: "From art galleries in Bandra to heritage walks in Colaba, experience Mumbai like a local."
     },
     {
       title: "Curated Experiences",
       icon: Sparkles,
       description: "Handpicked properties that tell Mumbai's diverse neighborhood stories",
-      image: "https://images.pexels.com/photos/2506923/pexels-photo-2506923.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop",
+      image: getPropertyImageUrls("Heritage Garden Cottage")[0] || "https://images.pexels.com/photos/2506923/pexels-photo-2506923.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop",
       details: "Each space is carefully selected for its unique character and connection to local culture."
     },
     {
       title: "Community Connection",
       icon: Users,
       description: "Building bridges between travelers and Mumbai's vibrant communities",
-      image: "https://images.pexels.com/photos/2581922/pexels-photo-2581922.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop",
+      image: getPropertyImageUrls("Zen Suite")[0] || "https://images.pexels.com/photos/2581922/pexels-photo-2581922.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop",
       details: "Meet local artists, taste authentic cuisine, and discover hidden neighborhood gems."
     }
   ];
@@ -123,38 +129,25 @@ const MumbaiPhilosophy: React.FC = () => {
           </div>
 
           {/* Philosophy Image */}
-          <div className={`relative transform transition-all duration-1000 delay-400 ${
+          <div className={`transform transition-all duration-1000 delay-400 ${
             isVisible ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'
           }`}>
-            <div className="relative h-[400px] sm:h-[500px] lg:h-[600px] rounded-3xl overflow-hidden backdrop-blur-sm bg-white/10 border border-white/20">
-              {philosophies.map((philosophy, index) => (
-                <div
-                  key={index}
-                  className={`absolute inset-0 transition-all duration-700 ${
-                    activePhilosophy === index
-                      ? 'opacity-100 scale-100'
-                      : 'opacity-0 scale-105'
-                  }`}
-                >
-                  <img
-                    src={philosophy.image}
-                    alt={philosophy.title}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-                </div>
-              ))}
+            <div className="relative h-80 sm:h-96 rounded-2xl overflow-hidden group">
+              <img
+                src={philosophies[activePhilosophy].image}
+                alt={philosophies[activePhilosophy].title}
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
               
-              {/* Glassmorphic Floating Quote */}
-              <div className="absolute bottom-6 left-6 right-6 backdrop-blur-xl bg-white/90 rounded-2xl p-4 sm:p-6 border border-white/50">
-                <Quote className="w-6 h-6 text-gold-500 mb-2" />
-                <p className="text-gray-800 font-light italic text-sm sm:text-base leading-relaxed">
-                  "Mumbai isn't just a destination—it's a feeling, a rhythm, a way of life. 
-                  We don't just offer places to stay; we offer keys to the city's soul."
-                </p>
-                <div className="mt-3 pt-3 border-t border-gray-200/50">
-                  <p className="text-gray-600 text-xs sm:text-sm font-medium">
-                    — Infiniti Casa Philosophy
+              {/* Image Overlay Content */}
+              <div className="absolute bottom-0 left-0 right-0 p-6">
+                <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4">
+                  <h4 className="text-lg font-medium text-gray-900 mb-2">
+                    {philosophies[activePhilosophy].title}
+                  </h4>
+                  <p className="text-gray-700 text-sm leading-relaxed">
+                    {philosophies[activePhilosophy].details}
                   </p>
                 </div>
               </div>
@@ -162,47 +155,38 @@ const MumbaiPhilosophy: React.FC = () => {
           </div>
         </div>
 
-        {/* Glassmorphic Values Section */}
-        <div className={`transform transition-all duration-1000 delay-600 ${
+        {/* Philosophy Stats */}
+        <div className={`grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 transform transition-all duration-1000 delay-600 ${
           isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
         }`}>
-          <div className="backdrop-blur-xl bg-white/30 rounded-3xl p-8 sm:p-12 border border-white/40">
-            <h3 className="text-2xl sm:text-3xl font-light text-gray-900 mb-8 text-center">
-              Our Core Values
-            </h3>
-            
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8">
-              {[
-                {
-                  title: "Authenticity",
-                  description: "Every property reflects genuine Mumbai character",
-                  gradient: "from-purple-500/20 to-pink-500/20"
-                },
-                {
-                  title: "Quality",
-                  description: "Luxury meets comfort in every detail",
-                  gradient: "from-blue-500/20 to-cyan-500/20"
-                },
-                {
-                  title: "Connection",
-                  description: "Building bridges between cultures and communities",
-                  gradient: "from-green-500/20 to-emerald-500/20"
-                }
-              ].map((value, index) => (
-                <div
-                  key={index}
-                  className="group text-center"
-                >
-                  <div className={`w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-r ${value.gradient} backdrop-blur-sm rounded-full mb-4 sm:mb-6 mx-auto group-hover:scale-110 transition-transform duration-300 border border-white/30`} />
-                  <h4 className="text-lg sm:text-xl font-medium text-gray-900 mb-2 sm:mb-3">
-                    {value.title}
-                  </h4>
-                  <p className="text-gray-600 font-light leading-relaxed text-sm sm:text-base">
-                    {value.description}
-                  </p>
-                </div>
-              ))}
+          <div className="text-center p-6 sm:p-8 bg-white/60 backdrop-blur-sm rounded-2xl border border-white/50">
+            <div className="w-16 h-16 bg-gold-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Compass className="w-8 h-8 text-gold-600" />
             </div>
+            <h3 className="text-xl font-medium text-gray-900 mb-2">Cultural Immersion</h3>
+            <p className="text-gray-600 text-sm leading-relaxed">
+              Every property connects you to Mumbai's authentic cultural heartbeat
+            </p>
+          </div>
+
+          <div className="text-center p-6 sm:p-8 bg-white/60 backdrop-blur-sm rounded-2xl border border-white/50">
+            <div className="w-16 h-16 bg-purple-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Sparkles className="w-8 h-8 text-purple-600" />
+            </div>
+            <h3 className="text-xl font-medium text-gray-900 mb-2">Curated Experiences</h3>
+            <p className="text-gray-600 text-sm leading-relaxed">
+              Handpicked properties that tell Mumbai's diverse neighborhood stories
+            </p>
+          </div>
+
+          <div className="text-center p-6 sm:p-8 bg-white/60 backdrop-blur-sm rounded-2xl border border-white/50">
+            <div className="w-16 h-16 bg-blue-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Users className="w-8 h-8 text-blue-600" />
+            </div>
+            <h3 className="text-xl font-medium text-gray-900 mb-2">Community Connection</h3>
+            <p className="text-gray-600 text-sm leading-relaxed">
+              Building bridges between travelers and Mumbai's vibrant communities
+            </p>
           </div>
         </div>
       </div>

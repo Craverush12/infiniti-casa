@@ -395,10 +395,10 @@ const BookingCalendar: React.FC<BookingCalendarProps> = ({ propertyId, price, us
               <div className="flex flex-col items-center">
                 <div className={`flex items-center justify-center w-10 h-10 rounded-full text-sm font-medium transition-all duration-300 ${
                   currentStep > index + 1 
-                    ? 'bg-green-500 text-white shadow-lg' 
+                    ? 'bg-primary-500 text-white shadow-lg' 
                     : currentStep === index + 1 
-                      ? 'bg-rust-500 text-white shadow-lg scale-110' 
-                      : 'bg-gray-100 text-gray-400 border-2 border-gray-200'
+                      ? 'bg-primary-500 text-white shadow-lg scale-110' 
+                      : 'bg-white text-gray-700 hover:bg-gray-50'
                 }`}>
                   {currentStep > index + 1 ? (
                     <CheckCircle className="w-5 h-5" />
@@ -414,7 +414,7 @@ const BookingCalendar: React.FC<BookingCalendarProps> = ({ propertyId, price, us
               </div>
               {index < stepTitles.length - 1 && (
                 <div className={`flex-1 h-0.5 mx-4 transition-all duration-300 ${
-                  currentStep > index + 1 ? 'bg-green-500' : 'bg-gray-200'
+                  currentStep > index + 1 ? 'bg-primary-500' : 'bg-gray-200'
                 }`} />
               )}
             </div>
@@ -441,7 +441,7 @@ const BookingCalendar: React.FC<BookingCalendarProps> = ({ propertyId, price, us
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
               <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center">
-                <Calendar className="w-4 h-4 mr-2 text-rust-600" />
+                <Calendar className="w-4 h-4 mr-2 text-primary-600" />
                 Check-in Date
               </label>
               <input
@@ -455,7 +455,7 @@ const BookingCalendar: React.FC<BookingCalendarProps> = ({ propertyId, price, us
             </div>
             <div className="space-y-2">
               <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center">
-                <Calendar className="w-4 h-4 mr-2 text-rust-600" />
+                <Calendar className="w-4 h-4 mr-2 text-primary-600" />
                 Check-out Date
               </label>
               <input
@@ -501,7 +501,7 @@ const BookingCalendar: React.FC<BookingCalendarProps> = ({ propertyId, price, us
           {/* Enhanced Guest Selection - Modern Pill Design */}
           <div className="space-y-3">
             <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center">
-              <Users className="w-4 h-4 mr-2 text-rust-600" />
+              <Users className="w-4 h-4 mr-2 text-primary-600" />
               Number of Guests
             </label>
             <div className="bg-gray-50 rounded-xl p-4">
@@ -509,7 +509,7 @@ const BookingCalendar: React.FC<BookingCalendarProps> = ({ propertyId, price, us
                 <div className="flex items-center space-x-3">
                   <button
                     onClick={() => setGuests(Math.max(1, guests - 1))}
-                    className="w-10 h-10 rounded-full bg-white border-2 border-gray-200 flex items-center justify-center hover:border-rust-500 hover:bg-rust-50 transition-all duration-200 text-gray-600 hover:text-rust-600 font-bold text-lg shadow-sm"
+                    className="w-10 h-10 rounded-full bg-white border-2 border-gray-200 flex items-center justify-center hover:border-primary-500 hover:bg-primary-50 transition-all duration-200 text-gray-600 hover:text-primary-600 font-bold text-lg shadow-sm"
                   >
                     -
                   </button>
@@ -519,7 +519,7 @@ const BookingCalendar: React.FC<BookingCalendarProps> = ({ propertyId, price, us
                   </div>
                   <button
                     onClick={() => setGuests(guests + 1)}
-                    className="w-10 h-10 rounded-full bg-white border-2 border-gray-200 flex items-center justify-center hover:border-rust-500 hover:bg-rust-50 transition-all duration-200 text-gray-600 hover:text-rust-600 font-bold text-lg shadow-sm"
+                    className="w-10 h-10 rounded-full bg-white border-2 border-gray-200 flex items-center justify-center hover:border-primary-500 hover:bg-primary-50 transition-all duration-200 text-gray-600 hover:text-primary-600 font-bold text-lg shadow-sm"
                   >
                     +
                   </button>
@@ -592,7 +592,7 @@ const BookingCalendar: React.FC<BookingCalendarProps> = ({ propertyId, price, us
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
               <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center">
-                <Users className="w-4 h-4 mr-2 text-rust-600" />
+                <Users className="w-4 h-4 mr-2 text-primary-600" />
                 Full Name *
               </label>
               <input
@@ -607,7 +607,7 @@ const BookingCalendar: React.FC<BookingCalendarProps> = ({ propertyId, price, us
 
             <div className="space-y-2">
               <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center">
-                <Mail className="w-4 h-4 mr-2 text-rust-600" />
+                <Mail className="w-4 h-4 mr-2 text-primary-600" />
                 Email Address *
               </label>
               <input
@@ -623,7 +623,7 @@ const BookingCalendar: React.FC<BookingCalendarProps> = ({ propertyId, price, us
 
           <div className="space-y-2">
             <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center">
-              <Phone className="w-4 h-4 mr-2 text-rust-600" />
+              <Phone className="w-4 h-4 mr-2 text-primary-600" />
               Phone Number *
             </label>
             <input
@@ -638,7 +638,7 @@ const BookingCalendar: React.FC<BookingCalendarProps> = ({ propertyId, price, us
 
           <div className="space-y-2">
             <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center">
-              <MapPin className="w-4 h-4 mr-2 text-rust-600" />
+              <MapPin className="w-4 h-4 mr-2 text-primary-600" />
               Purpose of Stay
             </label>
             <select
@@ -657,7 +657,7 @@ const BookingCalendar: React.FC<BookingCalendarProps> = ({ propertyId, price, us
 
           <div className="space-y-2">
             <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center">
-              <MessageCircle className="w-4 h-4 mr-2 text-rust-600" />
+              <MessageCircle className="w-4 h-4 mr-2 text-primary-600" />
               Special Requests
             </label>
             <textarea

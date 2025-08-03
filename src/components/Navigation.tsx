@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Calendar, Phone, MapPin, ArrowRight, User, LogOut, Search, Settings } from 'lucide-react';
+import { Menu, X, Calendar, Phone, MapPin, ArrowRight, User, LogOut, Search, Settings, Home, ChevronRight } from 'lucide-react';
 import type { Database } from '../lib/database.types';
 
 type UserProfile = Database['public']['Tables']['user_profiles']['Row'];
@@ -12,6 +12,9 @@ interface NavigationProps {
   onViewUserProfile?: () => void;
   onShowSearch?: () => void;
   onShowAdminDashboard?: () => void;
+  onShowProperties?: () => void;
+  currentView?: string;
+  breadcrumbs?: Array<{ label: string; href?: string; onClick?: () => void }>;
 }
 
 const Navigation: React.FC<NavigationProps> = ({
@@ -21,7 +24,10 @@ const Navigation: React.FC<NavigationProps> = ({
   isAuthenticated = false,
   onViewUserProfile,
   onShowSearch,
-  onShowAdminDashboard
+  onShowAdminDashboard,
+  onShowProperties,
+  currentView = 'home',
+  breadcrumbs = []
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -61,7 +67,7 @@ const Navigation: React.FC<NavigationProps> = ({
   }, [isMenuOpen]);
 
   const navItems = [
-    { name: 'Properties', href: '#properties', action: () => document.getElementById('properties')?.scrollIntoView({ behavior: 'smooth' }) },
+    { name: 'Properties', href: '#', action: () => onShowProperties?.() },
     { name: 'Stories', href: '#stories', action: () => document.getElementById('stories')?.scrollIntoView({ behavior: 'smooth' }) },
     { name: 'Features', href: '#features', action: () => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' }) },
     { name: 'Contact', href: '#contact', action: () => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }) }
@@ -114,12 +120,12 @@ const Navigation: React.FC<NavigationProps> = ({
                 <button
                   key={item.name}
                   onClick={() => handleNavClick(item.action)}
-                  className={`text-sm font-medium transition-colors duration-300 hover:text-rust-500 relative group ${
+                  className={`text-sm font-medium transition-colors duration-300 hover:text-primary-500 relative group ${
                     isScrolled ? 'text-gray-700' : 'text-white/90'
                   }`}
                 >
                   {item.name}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-rust-500 transition-all duration-300 group-hover:w-full"></span>
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-500 transition-all duration-300 group-hover:w-full"></span>
                 </button>
               ))}
               
@@ -173,7 +179,7 @@ const Navigation: React.FC<NavigationProps> = ({
                 {/* Primary CTA Button */}
                 <button
                   onClick={onSuggestionClick}
-                  className="bg-rust-500 hover:bg-rust-600 text-white px-4 py-2 rounded-full font-medium transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center gap-2"
+                  className="bg-primary-500 hover:bg-primary-600 text-white px-4 py-2 rounded-full font-medium transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center gap-2"
                 >
                   <Calendar className="w-4 h-4" />
                   Book Now
@@ -199,6 +205,50 @@ const Navigation: React.FC<NavigationProps> = ({
           </div>
         </div>
 
+        {/* Breadcrumbs */}
+        {breadcrumbs.length > 0 && (
+          <div className={`border-t transition-colors duration-300 ${
+            isScrolled ? 'border-gray-200 bg-white/95' : 'border-white/20 bg-white/10'
+          }`}>
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
+              <div className="flex items-center space-x-2 text-sm">
+                <button
+                  onClick={() => window.history.back()}
+                  className={`flex items-center space-x-1 transition-colors duration-300 ${
+                    isScrolled ? 'text-gray-600 hover:text-gray-900' : 'text-white/80 hover:text-white'
+                  }`}
+                >
+                  <Home className="w-4 h-4" />
+                  <span>Home</span>
+                </button>
+                {breadcrumbs.map((crumb, index) => (
+                  <React.Fragment key={index}>
+                    <ChevronRight className={`w-4 h-4 ${
+                      isScrolled ? 'text-gray-400' : 'text-white/60'
+                    }`} />
+                    {crumb.onClick ? (
+                      <button
+                        onClick={crumb.onClick}
+                        className={`transition-colors duration-300 ${
+                          isScrolled ? 'text-gray-600 hover:text-gray-900' : 'text-white/80 hover:text-white'
+                        }`}
+                      >
+                        {crumb.label}
+                      </button>
+                    ) : (
+                      <span className={`${
+                        isScrolled ? 'text-gray-900' : 'text-white'
+                      }`}>
+                        {crumb.label}
+                      </span>
+                    )}
+                  </React.Fragment>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Mobile Navigation Menu */}
         {isMenuOpen && (
           <div className="md:hidden mobile-menu">
@@ -209,7 +259,7 @@ const Navigation: React.FC<NavigationProps> = ({
                   setIsMenuOpen(false);
                   onSuggestionClick?.();
                 }}
-                className="w-full bg-rust-500 hover:bg-rust-600 text-white px-4 py-3 rounded-md font-medium transition-colors flex items-center justify-center space-x-2 mb-4"
+                className="w-full bg-primary-500 hover:bg-primary-600 text-white px-4 py-3 rounded-md font-medium transition-colors flex items-center justify-center space-x-2 mb-4"
               >
                 <Calendar className="w-4 h-4" />
                 <span>Book Now</span>
@@ -220,7 +270,7 @@ const Navigation: React.FC<NavigationProps> = ({
                 <button
                   key={item.name}
                   onClick={() => handleNavClick(item.action)}
-                  className="block w-full text-left px-3 py-2 text-base font-medium text-gray-700 hover:text-rust-500 hover:bg-gray-50 rounded-md transition-colors"
+                  className="block w-full text-left px-3 py-2 text-base font-medium text-gray-700 hover:text-primary-500 hover:bg-gray-50 rounded-md transition-colors"
                 >
                   {item.name}
                 </button>

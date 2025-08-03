@@ -4,6 +4,19 @@ export default {
   theme: {
     extend: {
       colors: {
+        // Primary color - your specified RGB(224, 122, 95)
+        'primary': {
+          50: '#fef7f0',
+          100: '#feede1',
+          200: '#fcd9c2',
+          300: '#f9c199',
+          400: '#f5a470',
+          500: '#e07a5f', // rgb(224, 122, 95) - your primary color
+          600: '#d16a4f',
+          700: '#b85a42',
+          800: '#9a4d37',
+          900: '#7f412f',
+        },
         // Neutral base colors
         'cream': {
           50: '#fefcf8',
@@ -42,17 +55,18 @@ export default {
           800: '#115e59',
           900: '#134e4a',
         },
+        // Warm accent colors that complement the primary
         'coral': {
           50: '#fef7f0',
           100: '#feede1',
           200: '#fcd9c2',
           300: '#f9c199',
           400: '#f5a470',
-          500: '#f18650',
-          600: '#e07a5f',
-          700: '#c86a4f',
-          800: '#a55a42',
-          900: '#874c37',
+          500: '#e07a5f', // Same as primary-500
+          600: '#d16a4f',
+          700: '#b85a42',
+          800: '#9a4d37',
+          900: '#7f412f',
         },
         // Rust-orange highlights for CTAs
         'rust': {
@@ -61,7 +75,7 @@ export default {
           200: '#fcd9c2',
           300: '#f9c199',
           400: '#f5a470',
-          500: '#e07a5f',
+          500: '#e07a5f', // Same as primary-500
           600: '#d16a4f',
           700: '#b85a42',
           800: '#9a4d37',
@@ -151,9 +165,10 @@ export default {
       },
       boxShadow: {
         'elegant': '0 20px 40px -12px rgba(0, 0, 0, 0.08), 0 8px 16px -8px rgba(0, 0, 0, 0.06)',
-        'rust': '0 20px 40px -12px rgba(224, 122, 95, 0.15), 0 8px 16px -8px rgba(224, 122, 95, 0.1)',
+        'primary': '0 20px 40px -12px rgba(224, 122, 95, 0.15), 0 8px 16px -8px rgba(224, 122, 95, 0.1)',
         'sage': '0 20px 40px -12px rgba(129, 178, 154, 0.15), 0 8px 16px -8px rgba(129, 178, 154, 0.1)',
         'boutique': '0 4px 6px -1px rgba(224, 122, 95, 0.1), 0 2px 4px -1px rgba(224, 122, 95, 0.06), 0 0 0 1px rgba(255, 255, 255, 0.05)',
+        '3xl': '0 35px 60px -12px rgba(0, 0, 0, 0.25), 0 14px 28px -8px rgba(0, 0, 0, 0.15)',
       },
       borderRadius: {
         '4xl': '2rem',
