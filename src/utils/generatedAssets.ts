@@ -132,6 +132,22 @@ export const PROPERTY_ASSETS = {
     ],
     "imageCount": 10
   },
+  "Photos Bandra Cottage": {
+    "assetFolder": "Photos Bandra Cottage",
+    "images": [
+      "/assets/Photos Bandra Cottage/IMG_7268.jpg",
+      "/assets/Photos Bandra Cottage/IMG_7273.jpg",
+      "/assets/Photos Bandra Cottage/IMG_7276.jpg",
+      "/assets/Photos Bandra Cottage/IMG_7278.jpg",
+      "/assets/Photos Bandra Cottage/IMG_7295.jpg",
+      "/assets/Photos Bandra Cottage/IMG_7296.jpg",
+      "/assets/Photos Bandra Cottage/IMG_7302.jpg",
+      "/assets/Photos Bandra Cottage/IMG_7307.jpg",
+      "/assets/Photos Bandra Cottage/IMG_7309.jpg",
+      "/assets/Photos Bandra Cottage/IMG_7322.jpg"
+    ],
+    "imageCount": 10
+  },
   "Penthouse Sky Lounge": {
     "assetFolder": "Sky Lounge",
     "images": [
@@ -157,6 +173,104 @@ export const PROPERTY_ASSETS = {
       "/assets/Sky Lounge/IMG_1487.jpg"
     ],
     "imageCount": 20
+  },
+  "skylounge": {
+    "assetFolder": "skylounge",
+    "images": [
+      "/newassets/skylounge/livingother.avif",
+      "/newassets/skylounge/living2.avif",
+      "/newassets/skylounge/bedroom3.avif",
+      "/newassets/skylounge/bedroom2.avif",
+      "/newassets/skylounge/livingroom.avif",
+      "/newassets/skylounge/bathroom.jpeg",
+      "/newassets/skylounge/bedroom.avif",
+      "/newassets/skylounge/outsidegirl.avif",
+      "/newassets/skylounge/outside.avif",
+      "/newassets/skylounge/mainroom.avif"
+    ],
+    "imageCount": 10
+  },
+  "cityzen": {
+    "assetFolder": "cityzen",
+    "images": [
+      "/newassets/cityzen/living.avif",
+      "/newassets/cityzen/fullbathroom.avif",
+      "/newassets/cityzen/3rdbedroom.avif",
+      "/newassets/cityzen/kithcen.avif",
+      "/newassets/cityzen/corridor.avif",
+      "/newassets/cityzen/2ndbedroom.avif",
+      "/newassets/cityzen/bedroom2.avif",
+      "/newassets/cityzen/bedroom.avif"
+    ],
+    "imageCount": 8
+  },
+  "bandraarthouse": {
+    "assetFolder": "bandraarthouse",
+    "images": [
+      "/newassets/bandraarthouse/livingroom2.avif",
+      "/newassets/bandraarthouse/livingroom.avif",
+      "/newassets/bandraarthouse/exterior.avif",
+      "/newassets/bandraarthouse/kitchen.avif",
+      "/newassets/bandraarthouse/bedroom2.avif",
+      "/newassets/bandraarthouse/bedroom.avif",
+      "/newassets/bandraarthouse/home.avif"
+    ],
+    "imageCount": 7
+  },
+  "littlewhitebandra": {
+    "assetFolder": "littlewhitebandra",
+    "images": [
+      "/newassets/littlewhitebandra/exterior.avif",
+      "/newassets/littlewhitebandra/bathroom.avif",
+      "/newassets/littlewhitebandra/kithcen.avif",
+      "/newassets/littlewhitebandra/door.avif",
+      "/newassets/littlewhitebandra/living3.avif",
+      "/newassets/littlewhitebandra/living2.avif",
+      "/newassets/littlewhitebandra/livingroom.avif"
+    ],
+    "imageCount": 7
+  },
+  "afrohemian": {
+    "assetFolder": "afrohemian",
+    "images": [
+      "/newassets/afrohemian/entry.avif",
+      "/newassets/afrohemian/basthroom.avif",
+      "/newassets/afrohemian/kitchen.avif",
+      "/newassets/afrohemian/living1.webp",
+      "/newassets/afrohemian/room3.avif",
+      "/newassets/afrohemian/bedroom hero.avif",
+      "/newassets/afrohemian/living.avif",
+      "/newassets/afrohemian/photo.avif",
+      "/newassets/afrohemian/bedroom.avif"
+    ],
+    "imageCount": 9
+  },
+  "indiahouse": {
+    "assetFolder": "indiahouse",
+    "images": [
+      "/newassets/indiahouse/exterior3.avif",
+      "/newassets/indiahouse/bedroom12.avif",
+      "/newassets/indiahouse/living.avif",
+      "/newassets/indiahouse/washroom1.jpeg",
+      "/newassets/indiahouse/bedroom1.avif",
+      "/newassets/indiahouse/exterior2.avif",
+      "/newassets/indiahouse/2ndbedroom.avif",
+      "/newassets/indiahouse/exterior.avif",
+      "/newassets/indiahouse/mainimage.avif"
+    ],
+    "imageCount": 9
+  },
+  "bandracottage": {
+    "assetFolder": "bandracottage",
+    "images": [
+      "/newassets/bandracottage/kitchen.avif",
+      "/newassets/bandracottage/entrance.avif",
+      "/newassets/bandracottage/yard.avif",
+      "/newassets/bandracottage/wash1.avif",
+      "/newassets/bandracottage/main2.avif",
+      "/newassets/bandracottage/main.avif"
+    ],
+    "imageCount": 6
   }
 } as const;
 

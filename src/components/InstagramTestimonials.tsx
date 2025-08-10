@@ -246,7 +246,7 @@ const InstagramTestimonials: React.FC<InstagramTestimonialsProps> = ({ propertyI
 
         {/* Tab Navigation */}
         <div className="flex justify-center mb-8">
-          <div className="bg-gray-50 rounded-xl p-1">
+          <div className="bg-white/40 backdrop-blur-sm rounded-xl p-1 border border-white/30">
             <div className="flex space-x-1">
               {[
                 { id: 'stories', label: 'Guest Stories', icon: Camera },
@@ -258,7 +258,7 @@ const InstagramTestimonials: React.FC<InstagramTestimonialsProps> = ({ propertyI
                   onClick={() => setActiveTab(tab.id as any)}
                   className={`flex items-center space-x-2 px-6 py-3 rounded-lg transition-all duration-200 ${
                     activeTab === tab.id
-                      ? 'bg-white text-rust-600 shadow-sm'
+                      ? 'bg-white/70 text-primary-700 shadow-sm'
                       : 'text-gray-600 hover:text-gray-900'
                   }`}
                 >
@@ -274,7 +274,7 @@ const InstagramTestimonials: React.FC<InstagramTestimonialsProps> = ({ propertyI
         {activeTab === 'stories' && (
           <div className="space-y-8">
             {/* Featured Story */}
-            <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
+            <div className="card-glass-medium rounded-2xl overflow-hidden shadow-elegant border border-white/40">
               <div className="relative h-80 md:h-96">
                 <img
                   src={displayStories[currentStoryIndex].photos[0].url}
@@ -330,7 +330,7 @@ const InstagramTestimonials: React.FC<InstagramTestimonialsProps> = ({ propertyI
               {displayStories.map((story, index) => (
                 <div
                   key={story.id}
-                  className="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-md transition-all duration-300"
+                  className="card-glass-light rounded-xl overflow-hidden hover:shadow-elegant transition-all duration-300 border border-white/30"
                 >
                   {/* Story Image */}
                   <div className="relative h-48 overflow-hidden">
@@ -351,7 +351,7 @@ const InstagramTestimonials: React.FC<InstagramTestimonialsProps> = ({ propertyI
                     </div>
 
                     {/* Rating */}
-                    <div className="absolute bottom-3 left-3 flex items-center space-x-1 bg-white/90 backdrop-blur-sm rounded-full px-2 py-1">
+                    <div className="absolute bottom-3 left-3 flex items-center space-x-1 bg-white/70 backdrop-blur-sm border border-white/30 rounded-full px-2 py-1">
                       <Star className="w-3 h-3 text-yellow-400 fill-current" />
                       <span className="text-xs font-semibold text-gray-900">{story.rating}</span>
                     </div>
@@ -412,10 +412,10 @@ const InstagramTestimonials: React.FC<InstagramTestimonialsProps> = ({ propertyI
         )}
 
         {activeTab === 'live' && (
-          <div className="bg-white border border-gray-200 rounded-2xl p-8">
+          <div className="card-glass-medium rounded-2xl p-8 border border-white/40">
             <div className="text-center mb-8">
               <div className="flex items-center justify-center space-x-3 mb-4">
-                <Instagram className="w-6 h-6 text-pink-500" />
+                <Instagram className="w-6 h-6 text-primary-500" />
                 <h3 className="text-xl font-semibold text-gray-900">Live Updates</h3>
               </div>
               <p className="text-gray-600">Real-time updates from guests currently staying at this property</p>
@@ -448,10 +448,10 @@ const InstagramTestimonials: React.FC<InstagramTestimonialsProps> = ({ propertyI
         )}
 
         {activeTab === 'highlights' && (
-          <div className="bg-white border border-gray-200 rounded-2xl p-8">
+          <div className="card-glass-medium rounded-2xl p-8 border border-white/40">
             <div className="text-center mb-8">
               <div className="flex items-center justify-center space-x-3 mb-4">
-                <Award className="w-6 h-6 text-rust-500" />
+                <Award className="w-6 h-6 text-primary-500" />
                 <h3 className="text-xl font-semibold text-gray-900">Property Highlights</h3>
               </div>
               <p className="text-gray-600">Most loved moments and experiences shared by our guests</p>
@@ -467,8 +467,8 @@ const InstagramTestimonials: React.FC<InstagramTestimonialsProps> = ({ propertyI
                 { title: 'Cleanliness', count: '96%', icon: Award },
                 { title: 'Value for Money', count: '91%', icon: Star }
               ].map((highlight, index) => (
-                <div key={index} className="bg-gradient-to-r from-rust-50 to-orange-50 rounded-xl p-6 border border-rust-100 text-center">
-                  <div className="w-12 h-12 bg-gradient-to-br from-rust-400 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                <div key={index} className="bg-gradient-to-r from-primary-50 to-cream-50 rounded-xl p-6 border border-primary-100 text-center">
+                  <div className="w-12 h-12 bg-gradient-to-br from-primary-400 to-primary-600 rounded-full flex items-center justify-center mx-auto mb-3">
                     <highlight.icon className="w-6 h-6 text-white" />
                   </div>
                   <h4 className="font-semibold text-gray-900 mb-2">{highlight.title}</h4>
@@ -481,8 +481,8 @@ const InstagramTestimonials: React.FC<InstagramTestimonialsProps> = ({ propertyI
         )}
 
         {/* Call to Action */}
-        <div className="text-center mt-12">
-          <div className="bg-gradient-to-r from-rust-50 to-orange-50 rounded-2xl p-8 border border-rust-100">
+          <div className="text-center mt-12">
+            <div className="bg-gradient-to-r from-primary-50 to-cream-50 rounded-2xl p-8 border border-primary-100">
             <h3 className="text-2xl font-semibold text-gray-900 mb-4">
               {propertyId ? 'Ready to Create Your Own Story?' : 'Inspired by These Experiences?'}
             </h3>
@@ -492,7 +492,7 @@ const InstagramTestimonials: React.FC<InstagramTestimonialsProps> = ({ propertyI
                 : 'Start your journey today and discover the luxury that awaits you'
               }
             </p>
-            <button className="inline-flex items-center space-x-2 px-6 py-3 bg-rust-500 hover:bg-rust-600 text-white rounded-lg font-medium transition-colors shadow-sm">
+            <button className="inline-flex items-center space-x-2 px-6 py-3 bg-primary-500 hover:bg-primary-600 text-white rounded-lg font-medium transition-colors shadow-sm">
               <Camera className="w-4 h-4" />
               <span>{propertyId ? 'Book This Property' : 'Explore Properties'}</span>
             </button>

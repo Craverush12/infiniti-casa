@@ -11,7 +11,14 @@ export const propertyAssetMapping: Record<string, string> = {
   'Heritage Villa in Colaba': 'India House',
   'Zen Retreat in South Mumbai': 'Zen Suite',
   'Charming Cottage in Bandra': 'Heritage Garden Cottage',
-  'Artistic Loft in Bandra': 'Art Loft Bandra'
+  'Artistic Loft in Bandra': 'Art Loft Bandra',
+  'Bandra Cottage with Yard': 'bandracottage',
+  'City Zen (Asian home Bandra)': 'cityzen',
+  'India House – (Full Bungalow with Private Terrace)': 'indiahouse',
+  'Sky Lounge (Penthouse + Terrace)': 'skylounge',
+  'The Bandra Art House (Dopamine Decor)': 'bandraarthouse',
+  'The Little White Bandra Studio': 'littlewhitebandra',
+  'The Quaint Afrohemian 1BHK (Bandra West)': 'afrohemian'
 };
 
 // Function to get property image URLs based on property name
@@ -598,4 +605,42 @@ export const getPropertyAssetInfo = (propertyName: string) => {
     placeholderImages: getPropertyImageUrls(propertyName),
     hasAssets: true
   };
+};
+
+// --- Vibrant image selection helpers ---
+
+/**
+ * Select the most "vibrant" looking image from a list by filename hints.
+ * We prioritize keywords that typically represent striking visuals.
+ */
+export const pickVibrantImage = (imageUrls: string[]): string => {
+  if (!Array.isArray(imageUrls) || imageUrls.length === 0) return '';
+  const priorityKeywords = [
+    'hero',
+    'main',
+    'living',
+    'exterior',
+    'outside',
+    'terrace',
+    'balcony',
+    'view',
+    'room',
+    'bedroom',
+    'kitchen'
+  ];
+
+  const lowercased = imageUrls.map((url) => ({ url, lower: url.toLowerCase() }));
+  for (const key of priorityKeywords) {
+    const found = lowercased.find((i) => i.lower.includes(key));
+    if (found) return found.url;
+  }
+  return imageUrls[0];
+};
+
+/**
+ * Get the best background image for a property page.
+ */
+export const getVibrantImageUrlForProperty = (propertyName: string): string => {
+  const images = getPropertyImageUrls(propertyName);
+  return pickVibrantImage(images);
 };

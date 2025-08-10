@@ -175,7 +175,7 @@ const PropertySearch: React.FC<PropertySearchProps> = ({
     <div className="w-full max-w-6xl mx-auto p-6">
       {/* Main Search Bar */}
       <div className="bg-white rounded-2xl shadow-lg p-6 mb-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4">
           {/* Location Search */}
           <div className="relative" ref={searchRef}>
             <div className="flex items-center bg-gray-50 rounded-xl p-3">
@@ -214,27 +214,7 @@ const PropertySearch: React.FC<PropertySearchProps> = ({
             )}
           </div>
 
-          {/* Check-in Date */}
-          <div className="flex items-center bg-gray-50 rounded-xl p-3">
-            <Calendar className="w-5 h-5 text-gray-400 mr-2" />
-            <input
-              type="date"
-              value={filters.checkIn}
-              onChange={(e) => handleFilterChange('checkIn', e.target.value)}
-              className="flex-1 bg-transparent outline-none text-gray-700"
-            />
-          </div>
-
-          {/* Check-out Date */}
-          <div className="flex items-center bg-gray-50 rounded-xl p-3">
-            <Calendar className="w-5 h-5 text-gray-400 mr-2" />
-            <input
-              type="date"
-              value={filters.checkOut}
-              onChange={(e) => handleFilterChange('checkOut', e.target.value)}
-              className="flex-1 bg-transparent outline-none text-gray-700"
-            />
-          </div>
+          {/* Dates removed per request; only Guests retained here */}
 
           {/* Guests */}
           <div className="flex items-center bg-gray-50 rounded-xl p-3">

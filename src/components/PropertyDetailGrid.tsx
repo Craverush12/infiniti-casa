@@ -136,7 +136,10 @@ const PropertyDetailGrid: React.FC<PropertyDetailGridProps> = ({
                 </div>
                 
                 {/* View Details Button */}
-                <button className="px-4 py-2 bg-primary-600 text-white text-sm rounded-lg hover:bg-primary-700 transition-colors">
+                <button
+                  onClick={() => onPropertyClick?.(property)}
+                  className="px-4 py-2 bg-primary-600 text-white text-sm rounded-lg hover:bg-primary-700 transition-colors"
+                >
                   View Details
                 </button>
               </div>

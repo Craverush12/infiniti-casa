@@ -274,7 +274,7 @@ const GuestStoriesSection: React.FC<GuestStoriesSectionProps> = ({
 
         {/* Tab Navigation */}
         <div className="flex justify-center mb-8">
-          <div className="flex space-x-1 bg-gray-100 rounded-2xl p-1">
+          <div className="flex space-x-1 bg-white/40 backdrop-blur-sm rounded-2xl p-1 border border-white/30">
             {[
               { id: 'featured', name: 'Featured Stories', icon: Award },
               { id: 'recent', name: 'Recent Experiences', icon: Clock },
@@ -287,7 +287,7 @@ const GuestStoriesSection: React.FC<GuestStoriesSectionProps> = ({
                   onClick={() => setActiveTab(tab.id as any)}
                   className={`flex items-center space-x-2 px-4 py-2 rounded-xl transition-all duration-300 ${
                     activeTab === tab.id
-                      ? 'bg-white text-rust-600 shadow-lg'
+                      ? 'bg-white/70 text-primary-700 shadow-lg'
                       : 'text-gray-600 hover:text-gray-900'
                   }`}
                 >
@@ -302,7 +302,7 @@ const GuestStoriesSection: React.FC<GuestStoriesSectionProps> = ({
         {/* Featured Story Display */}
         {activeTab !== 'categories' && (
           <div className="mb-12">
-            <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
+            <div className="card-glass-medium rounded-3xl shadow-elegant overflow-hidden border border-white/40">
               <div className="grid lg:grid-cols-2 gap-0">
                 {/* Story Images */}
                 <div className="relative h-96 lg:h-full">
@@ -382,13 +382,13 @@ const GuestStoriesSection: React.FC<GuestStoriesSectionProps> = ({
                         const Icon = journey.icon;
                         return (
                           <div key={index} className="flex items-start space-x-3">
-                            <div className="flex-shrink-0 w-8 h-8 bg-rust-100 rounded-full flex items-center justify-center">
-                              <Icon className="w-4 h-4 text-rust-600" />
+                            <div className="flex-shrink-0 w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center">
+                              <Icon className="w-4 h-4 text-primary-600" />
                             </div>
                             <div className="flex-1">
                               <h5 className="text-sm font-medium text-gray-900">{journey.phase}</h5>
                               <p className="text-sm text-gray-600">{journey.description}</p>
-                              <span className="text-xs text-rust-500 font-medium">{journey.emotion}</span>
+                              <span className="text-xs text-primary-600 font-medium">{journey.emotion}</span>
                             </div>
                           </div>
                         );
@@ -397,7 +397,7 @@ const GuestStoriesSection: React.FC<GuestStoriesSectionProps> = ({
                   </div>
 
                   {/* Highlight Moment */}
-                  <div className="bg-gradient-to-r from-rust-50 to-orange-50 rounded-xl p-4 mb-6">
+                  <div className="bg-gradient-to-r from-primary-50 to-cream-50 rounded-xl p-4 mb-6 border border-primary-100">
                     <h4 className="text-lg font-medium text-gray-900 mb-2">✨ Highlight Moment</h4>
                     <p className="text-gray-700 italic">"{currentStory.highlightMoment}"</p>
                   </div>
@@ -441,7 +441,7 @@ const GuestStoriesSection: React.FC<GuestStoriesSectionProps> = ({
               const featuredStory = categoryStories[0];
               
               return (
-                <div key={category.id} className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
+                <div key={category.id} className="card-glass-light rounded-2xl overflow-hidden hover:shadow-elegant transition-all duration-300 border border-white/30">
                   <div className="relative h-48">
                     <img
                       src={featuredStory?.photos[0].url || 'https://images.pexels.com/photos/2506923/pexels-photo-2506923.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop'}
@@ -464,7 +464,7 @@ const GuestStoriesSection: React.FC<GuestStoriesSectionProps> = ({
                     <p className="text-gray-600 text-sm mb-4">
                       Discover how guests experienced {propertyName} for {category.name.toLowerCase()}
                     </p>
-                    <button className="w-full bg-rust-500 text-white py-2 rounded-lg hover:bg-rust-600 transition-colors font-medium">
+                    <button className="w-full bg-primary-500 text-white py-2 rounded-lg hover:bg-primary-600 transition-colors font-medium">
                       View Stories
                     </button>
                   </div>
@@ -479,7 +479,7 @@ const GuestStoriesSection: React.FC<GuestStoriesSectionProps> = ({
           {filteredStories.map((story) => (
             <div
               key={story.id}
-              className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer"
+              className="card-glass-light rounded-2xl overflow-hidden hover:shadow-elegant transition-all duration-300 cursor-pointer border border-white/30"
               onClick={() => onStoryClick?.(story)}
             >
               <div className="relative h-48">
@@ -568,12 +568,12 @@ const GuestStoriesSection: React.FC<GuestStoriesSectionProps> = ({
 
         {/* Call to Action */}
         <div className="text-center mt-12">
-          <div className="bg-gradient-to-r from-rust-500 to-orange-500 rounded-2xl p-8 text-white">
+          <div className="bg-gradient-to-r from-primary-500 to-primary-600 rounded-2xl p-8 text-white">
             <h3 className="text-2xl font-medium mb-4">Share Your Story</h3>
             <p className="text-white/90 mb-6 max-w-2xl mx-auto">
               Have you experienced the magic of {propertyName}? Share your story and inspire others to create their own memories.
             </p>
-            <button className="bg-white text-rust-600 px-8 py-3 rounded-full font-medium hover:bg-gray-100 transition-colors">
+            <button className="bg-white text-primary-700 px-8 py-3 rounded-full font-medium hover:bg-gray-100 transition-colors">
               Share Your Experience
             </button>
           </div>

@@ -1,215 +1,194 @@
 import React, { useState } from 'react';
-import { Wifi, AirVent, Utensils, Car, Shield, Coffee, CheckCircle, Sparkles, Award, Heart, Users, Bed, Bath, Tv, Smartphone, Bus, MapPin, Clock, Star, BookOpen, ChevronDown, ChevronUp } from 'lucide-react';
+import { 
+  Wifi, 
+  Monitor, 
+  Bath, 
+  ChefHat, 
+  PawPrint, 
+  Sparkles,
+  Tv,
+  Coffee,
+  Car,
+  Umbrella,
+  Snowflake,
+  Flame,
+  Shield,
+  Lock,
+  Users,
+  Bed,
+  Sofa,
+  Table,
+  Lamp,
+  Fan,
+  Leaf,
+  Mountain,
+  Camera,
+  Music,
+  BookOpen,
+  Gamepad2,
+  Dumbbell,
+  TreePine,
+  Sun,
+  Moon,
+  Cloud,
+  Zap,
+  CheckCircle
+} from 'lucide-react';
 import type { PropertyDetailData } from '../../data/propertyDetails';
 
 interface PropertyAmenitiesProps {
   property: PropertyDetailData;
+  themeHex?: string;
 }
 
-const PropertyAmenities: React.FC<PropertyAmenitiesProps> = ({ property }) => {
-  const [showAllAmenities, setShowAllAmenities] = useState(false);
-  const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
+const PropertyAmenities: React.FC<PropertyAmenitiesProps> = ({ property, themeHex = '#0f766e' }) => {
+  const amenities = [
+    { icon: Wifi, label: 'High-Speed WiFi', category: 'Essential' },
+    { icon: Monitor, label: 'Dedicated Workspace', category: 'Work' },
+    { icon: Bath, label: 'Private Bathroom', category: 'Bathroom' },
+    { icon: ChefHat, label: 'Full Kitchen', category: 'Kitchen' },
+    { icon: PawPrint, label: 'Pet Friendly', category: 'Pets' },
+    { icon: Sparkles, label: 'Daily Cleaning', category: 'Service' },
+    { icon: Tv, label: 'Smart TV', category: 'Entertainment' },
+    { icon: Coffee, label: 'Coffee Maker', category: 'Kitchen' },
+    { icon: Car, label: 'Free Parking', category: 'Transport' },
+    { icon: Umbrella, label: 'Balcony/Terrace', category: 'Outdoor' },
+    { icon: Snowflake, label: 'Air Conditioning', category: 'Climate' },
+    { icon: Flame, label: 'Heating', category: 'Climate' },
+    { icon: Shield, label: 'Security System', category: 'Safety' },
+    { icon: Lock, label: 'Smart Lock', category: 'Safety' },
+    { icon: Users, label: 'Host Greeting', category: 'Service' },
+    { icon: Bed, label: 'Premium Bedding', category: 'Sleep' },
+    { icon: Sofa, label: 'Living Room', category: 'Living' },
+    { icon: Table, label: 'Dining Area', category: 'Dining' },
+    { icon: Table, label: 'Work Desk', category: 'Work' },
+    { icon: Lamp, label: 'Reading Lights', category: 'Lighting' },
+    { icon: Fan, label: 'Ceiling Fan', category: 'Climate' },
+    { icon: Leaf, label: 'Garden View', category: 'Outdoor' },
+    { icon: Mountain, label: 'Mountain View', category: 'Outdoor' },
+    { icon: Camera, label: 'Security Cameras', category: 'Safety' },
+    { icon: Music, label: 'Bluetooth Speaker', category: 'Entertainment' },
+    { icon: BookOpen, label: 'Library', category: 'Entertainment' },
+    { icon: Gamepad2, label: 'Board Games', category: 'Entertainment' },
+    { icon: Dumbbell, label: 'Fitness Equipment', category: 'Wellness' },
+    { icon: TreePine, label: 'Swimming Pool', category: 'Recreation' },
+    { icon: TreePine, label: 'Private Garden', category: 'Outdoor' },
+    { icon: Sun, label: 'Sun Deck', category: 'Outdoor' },
+    { icon: Moon, label: 'Stargazing Deck', category: 'Outdoor' },
+    { icon: Cloud, label: 'Climate Control', category: 'Climate' },
+    { icon: Zap, label: 'Fast Charging', category: 'Tech' }
+  ];
 
-  const getAmenityIcon = (amenity: string) => {
-    const iconMap: Record<string, React.ComponentType<any>> = {
-      'WiFi': Wifi,
-      'Air Conditioning': AirVent,
-      'Kitchen': Utensils,
-      'Parking': Car,
-      'Security': Shield,
-      'Coffee': Coffee,
-      'Essentials': Utensils,
-      'TV': Tv,
-      'Cable TV': Tv,
-      'Dedicated workspace': Smartphone,
-      'Free parking on premises': Car,
-      'Private entrance': Shield,
-      'Washing machine': Utensils,
-      'Dryer': Utensils,
-      'Hair dryer': Utensils,
-      'Iron': Utensils,
-      'Shampoo': Utensils,
-      'Hot water': Utensils,
-      'Bed linens': Bed,
-      'Extra pillows and blankets': Bed,
-      'Room-darkening shades': Bed,
-      'Hangers': Utensils,
-      'Fire extinguisher': Shield,
-      'Smoke alarm': Shield,
-      'Carbon monoxide alarm': Shield,
-      'First aid kit': Shield,
-      'Security cameras on property': Shield,
-      'Balcony': MapPin,
-      'Sea View': MapPin,
-      'Garden': MapPin,
-      'Private Terrace': MapPin,
-      'Butler Service': Users,
-      'Valet Parking': Car,
-      'Gym Access': Award,
-      'Concierge': Users,
-      'Library': BookOpen,
-      'Art Studio': Sparkles,
-      'Creative Space': Sparkles,
-      'Traditional Artwork': Sparkles,
-      'Cultural Experience': Heart,
-      'Heritage': Award,
-      'Vintage furnishings': Award,
-      'Colonial architecture': Award,
-      'Historical significance': Award,
-      'Century-old garden': MapPin,
-      'Private garden': MapPin,
-      'Zen atmosphere': Heart,
-      'Meditation space': Heart,
-      'Peaceful retreat': Heart,
-      'Urban sanctuary': Heart,
-      'Smart layout': Award,
-      'Prime location': MapPin,
-      'Modern design': Award,
-      'Bandra vibes': Heart,
-      'Contemporary design': Award,
-      'Floor-to-ceiling windows': Award,
-      'Private balcony': MapPin,
-      'Contemporary furnishings': Award,
-      'Panoramic city views': MapPin,
-      'Business center access': Award,
-      'Concierge service': Users,
-      'Gym facilities': Award,
-      '360-degree views': MapPin,
-      'Personalized service': Users,
-      'Luxury amenities': Award,
-      'Original artwork': Sparkles,
-      'Creative studio space': Sparkles,
-      'Cultural heritage': Heart,
-      'Artistic community': Heart,
-      'Traditional Indian design': Award,
-      'Authentic hospitality': Heart,
-      'Heritage elements': Award
-    };
+  const categories = ['Essential', 'Work', 'Bathroom', 'Kitchen', 'Pets', 'Service', 'Entertainment', 'Transport', 'Outdoor', 'Climate', 'Safety', 'Sleep', 'Living', 'Dining', 'Lighting', 'Wellness', 'Recreation', 'Tech'];
 
-    return iconMap[amenity] || CheckCircle;
-  };
+  const [showAll, setShowAll] = useState(false);
 
-  // Get essential amenities (first 3 from each category)
-  const getEssentialAmenities = () => {
-    return property.amenities.categories.map((category, index) => ({
-      category,
-      features: property.amenities.features
-        .filter((_, featureIndex) => featureIndex % 3 === index)
-        .slice(0, 3)
-    }));
-  };
-
-  // Get all amenities for expanded view
-  const getAllAmenities = () => {
-    return property.amenities.categories.map((category, index) => ({
-      category,
-      features: property.amenities.features
-        .filter((_, featureIndex) => featureIndex % 3 === index)
-    }));
-  };
-
-  const amenitiesToShow = showAllAmenities ? getAllAmenities() : getEssentialAmenities();
+  const specialFeatures = property.amenities.features || [];
+  const visibleSpecial = showAll ? specialFeatures : specialFeatures.slice(0, 6);
+  const totalCount = specialFeatures.length + amenities.length;
 
   return (
-    <section className="py-16 bg-gradient-to-br from-slate-50 to-orange-50">
+    <section className="py-16 bg-[#fefcf8]">
       <div className="max-w-6xl mx-auto px-6">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-slate-900 mb-4">
-            What this place offers
-          </h2>
-          <p className="text-lg text-slate-600">
-            Discover the unique amenities and features that make {property.name} special
-          </p>
-        </div>
+        <div className="space-y-8">
+          {/* Section Header */}
+          <div className="text-center space-y-4">
+            <div className="flex items-center justify-center space-x-2" style={{ color: themeHex }}>
+              <CheckCircle className="w-5 h-5" />
+              <span className="text-sm font-medium">Amenities</span>
+            </div>
+            <h2 className="text-3xl font-bold text-gray-900 text-editorial">Everything You Need</h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">From essential comforts to luxury touches, curated for your stay</p>
+          </div>
 
-        {/* Essential Amenities */}
-        <div className="grid md:grid-cols-3 gap-8 mb-8">
-          {amenitiesToShow.map((categoryData, index) => (
-            <div key={index} className="bg-white/80 backdrop-blur-sm rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-300 border border-slate-200/50">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-xl font-semibold text-slate-900">
-                  {categoryData.category}
-                </h3>
-                {showAllAmenities && categoryData.features.length > 3 && (
-                  <button
-                    onClick={() => setExpandedCategory(expandedCategory === categoryData.category ? null : categoryData.category)}
-                    className="text-orange-600 hover:text-orange-700 transition-colors"
+          {/* Compact highlight chips (collapsed) */}
+          {!showAll && (
+            <div className="flex flex-wrap justify-center gap-2">
+              {visibleSpecial.map((amenity, idx) => (
+                <span key={idx} className="px-3 py-1 rounded-full text-sm bg-white border border-sage-200 text-gray-700">
+                  {amenity}
+                </span>
+              ))}
+            </div>
+          )}
+
+          {/* Full amenities (expanded) */}
+          {showAll && (
+            <>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
+                {amenities.map((amenity, index) => (
+                  <div
+                    key={index}
+                    className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 hover:scale-105 group"
                   >
-                    {expandedCategory === categoryData.category ? (
-                      <ChevronUp className="w-5 h-5" />
-                    ) : (
-                      <ChevronDown className="w-5 h-5" />
-                    )}
-                  </button>
-                )}
-              </div>
-              <div className="space-y-3">
-                {categoryData.features
-                  .slice(0, showAllAmenities && expandedCategory === categoryData.category ? undefined : 6)
-                  .map((feature, featureIndex) => {
-                    const Icon = getAmenityIcon(feature);
-                    return (
-                      <div key={featureIndex} className="flex items-center space-x-3">
-                        <Icon className="w-5 h-5 text-orange-600" />
-                        <span className="text-slate-700">{feature}</span>
+                    <div className="flex flex-col items-center space-y-3 text-center">
+                      <div className="w-12 h-12 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300" style={{ backgroundColor: themeHex }}>
+                        <amenity.icon className="w-6 h-6 text-white" />
                       </div>
-                    );
-                  })}
+                      <div>
+                        <span className="text-sm font-medium text-gray-900 block">
+                          {amenity.label}
+                        </span>
+                        <span className="text-xs text-gray-500 block mt-1">
+                          {amenity.category}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
+
+          {/* Property-Specific Amenities */}
+          <div className="mt-8">
+            <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">Special Features</h3>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {visibleSpecial.map((amenity: string, index: number) => (
+                <div key={index} className="bg-white p-6 rounded-xl border border-sage-200 shadow-sm">
+                  <div className="flex items-center space-x-4">
+                    <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ backgroundColor: themeHex }}>
+                      <CheckCircle className="w-5 h-5 text-white" />
+                    </div>
+                    <span className="font-medium text-gray-900">{amenity}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+            {specialFeatures.length > 6 && (
+              <div className="text-center mt-8">
+                <button
+                  onClick={() => setShowAll(!showAll)}
+                  className="btn-secondary px-6 py-3 rounded-xl"
+                >
+                  {showAll ? 'Hide amenities' : `View all amenities (${totalCount})`}
+                </button>
+              </div>
+            )}
+          </div>
+
+          {/* Minimal stats (optional, toned-down) */}
+          {showAll && (
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-8 border-t border-gray-200">
+              <div className="text-center">
+                <div className="text-2xl font-bold text-gray-900">{amenities.length}</div>
+                <div className="text-sm text-gray-600">Total Amenities</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-gray-900">{categories.length}</div>
+                <div className="text-sm text-gray-600">Categories</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-gray-900">24/7</div>
+                <div className="text-sm text-gray-600">Support</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-gray-900">100%</div>
+                <div className="text-sm text-gray-600">Verified</div>
               </div>
             </div>
-          ))}
+          )}
         </div>
-
-        {/* Show More/Less Button */}
-        <div className="text-center mb-12">
-          <button
-            onClick={() => setShowAllAmenities(!showAllAmenities)}
-            className="inline-flex items-center space-x-2 bg-white/90 backdrop-blur-sm text-orange-600 px-6 py-3 rounded-lg font-semibold hover:bg-white transition-all duration-300 shadow-sm border border-orange-200/50"
-          >
-            {showAllAmenities ? (
-              <>
-                <span>Show Less</span>
-                <ChevronUp className="w-5 h-5" />
-              </>
-            ) : (
-              <>
-                <span>Show All Amenities</span>
-                <ChevronDown className="w-5 h-5" />
-              </>
-            )}
-          </button>
-        </div>
-
-        {/* Unique Features */}
-        <div className="bg-gradient-to-br from-orange-50 via-amber-50 to-orange-100 rounded-2xl p-8 shadow-lg">
-          <div className="text-center mb-8">
-            <h3 className="text-2xl font-bold text-slate-900 mb-2">
-              What makes this place special
-            </h3>
-            <p className="text-slate-600">
-              Unique features that set {property.name} apart
-            </p>
-          </div>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {property.amenities.uniqueFeatures.map((feature, index) => {
-              const Icon = getAmenityIcon(feature);
-              return (
-                <div key={index} className="bg-white/95 backdrop-blur-sm rounded-xl p-6 text-center shadow-sm hover:shadow-lg transition-all duration-300 border border-orange-200/50">
-                  <div className="w-12 h-12 bg-gradient-to-br from-orange-100 to-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Icon className="w-6 h-6 text-orange-700" />
-                  </div>
-                  <h4 className="font-semibold text-slate-900 mb-2">{feature}</h4>
-                  <p className="text-sm text-slate-600">
-                    Exclusive to this property
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-
       </div>
     </section>
   );

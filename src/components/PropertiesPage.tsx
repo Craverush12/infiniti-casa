@@ -1,16 +1,21 @@
 import React, { useState } from 'react';
-import { Search, Filter, MapPin, Star, Heart, Share2, Grid, List } from 'lucide-react';
+import { Search, Grid, List, Sparkles, Star, MapPin } from 'lucide-react';
 import PropertyGrid from './PropertyGrid';
 import PropertyFilters from './PropertyFilters';
+import PropertiesImmersive from './PropertiesImmersive';
 import type { PropertyDetailData } from '../data/propertyDetails';
+import Footer from './Footer';
+import MosaicPropertyGrid from './MosaicPropertyGrid';
 
 interface PropertiesPageProps {
   properties: PropertyDetailData[];
+  onPropertyClick?: (property: PropertyDetailData) => void;
 }
 
-const PropertiesPage: React.FC<PropertiesPageProps> = ({ properties }) => {
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+const PropertiesPage: React.FC<PropertiesPageProps> = ({ properties, onPropertyClick }) => {
+  const [viewMode, setViewMode] = useState<'immersive' | 'grid' | 'list'>('immersive');
   const [searchQuery, setSearchQuery] = useState('');
+  const [isFiltersOpen, setIsFiltersOpen] = useState(false);
   const [filters, setFilters] = useState({
     priceRange: [0, 50000],
     location: '',
@@ -29,88 +34,187 @@ const PropertiesPage: React.FC<PropertiesPageProps> = ({ properties }) => {
     const matchesLocation = !filters.location || 
                            property.hero.location.toLowerCase().includes(filters.location.toLowerCase());
     
-    const matchesGuests = property.amenities.guests >= filters.guests;
-    
-    return matchesSearch && matchesPrice && matchesLocation && matchesGuests;
+    // PropertyDetailData has no guests field; skip guests filter
+    return matchesSearch && matchesPrice && matchesLocation;
   });
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-warm-beige-50 via-sage-50 to-cream-50">
-      {/* Header */}
-      <div className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">Our Properties</h1>
-              <p className="text-gray-600 mt-1">Discover our curated collection of exceptional stays</p>
-            </div>
-            
-            {/* View Mode Toggle */}
-            <div className="flex items-center space-x-2">
-              <button
-                onClick={() => setViewMode('grid')}
-                className={`p-2 rounded-lg transition-colors ${
-                  viewMode === 'grid' 
-                    ? 'bg-rust-100 text-rust-600' 
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                }`}
-              >
-                <Grid className="w-5 h-5" />
-              </button>
-              <button
-                onClick={() => setViewMode('list')}
-                className={`p-2 rounded-lg transition-colors ${
-                  viewMode === 'list' 
-                    ? 'bg-rust-100 text-rust-600' 
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                }`}
-              >
-                <List className="w-5 h-5" />
-              </button>
-            </div>
+  if (viewMode === 'immersive') {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-cream-50 via-white to-sage-50">
+        {/* Top sticky title and toggle */}
+        <div className="fixed top-4 left-1/2 -translate-x-1/2 z-40 text-center px-4">
+          <h1 className="text-gray-900 font-editorial text-2xl sm:text-4xl">Our Properties</h1>
+          <p className="mt-1 text-gray-600 text-sm sm:text-base">A curated, immersive tour. Toggle to grid for quick scan.</p>
+        </div>
+        {/* Smooth, deterministic animations are controlled inside PropertiesImmersive; no additional effects here */}
+        <PropertiesImmersive properties={filteredProperties as any} onPropertyClick={onPropertyClick as any} />
+        {/* Floating global view toggle (always accessible) */}
+        <div className="fixed bottom-6 right-4 z-50">
+          <div className="backdrop-blur-md bg-white/90 border border-gray-200 rounded-full p-1 flex items-center gap-1 shadow-lg" role="group" aria-label="Change properties view">
+            <button
+              onClick={() => setViewMode('immersive')}
+              className={`px-3 py-1.5 rounded-full text-sm ${viewMode === 'immersive' ? 'bg-primary-100 text-primary-700' : 'text-gray-700 hover:bg-gray-100'}`}
+              aria-label="Immersive view"
+            >
+              Immersive
+            </button>
+            <button
+              onClick={() => setViewMode('grid')}
+              className={`px-3 py-1.5 rounded-full text-sm ${viewMode === 'grid' ? 'bg-primary-100 text-primary-700' : 'text-gray-700 hover:bg-gray-100'}`}
+              aria-label="Grid view"
+            >
+              Grid
+            </button>
+            <button
+              onClick={() => setViewMode('list')}
+              className={`px-3 py-1.5 rounded-full text-sm ${viewMode === 'list' ? 'bg-primary-100 text-primary-700' : 'text-gray-700 hover:bg-gray-100'}`}
+              aria-label="List view"
+            >
+              List
+            </button>
           </div>
         </div>
+        {/* Page Footer */}
+        <Footer />
       </div>
+    );
+  }
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid lg:grid-cols-4 gap-8">
-          {/* Filters Sidebar */}
-          <div className="lg:col-span-1">
-            <PropertyFilters filters={filters} onFiltersChange={setFilters} />
-          </div>
-
-          {/* Properties Grid */}
-          <div className="lg:col-span-3">
-            {/* Search Bar */}
-            <div className="mb-6">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                <input
-                  type="text"
-                  placeholder="Search properties by name or location..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rust-500 focus:border-rust-500"
-                />
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-cream-50 via-white to-sage-50">
+      {/* Narrative Hero */}
+      <section className="relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="glass-orb glass-orb-1" />
+          <div className="glass-orb glass-orb-2" />
+          <div className="glass-orb glass-orb-3" />
+        </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-10 sm:pt-20 sm:pb-16">
+          <div className="grid lg:grid-cols-3 gap-8 items-end">
+            <div className="lg:col-span-2">
+              <h1 className="text-4xl md:text-5xl font-editorial text-gray-900 leading-tight">
+                Stays that feel like art, curated for the way you travel
+              </h1>
+              <p className="mt-4 text-lg text-gray-600 max-w-2xl">
+                A collection of intimate homes across Mumbai—crafted with soul, design-first, and hospitality that lingers.
+              </p>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <span className="inline-flex items-center space-x-2 bg-white/70 backdrop-blur-sm border border-white/40 px-3 py-1.5 rounded-full text-sm text-gray-800">
+                  <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                  <span>Avg. 4.9 rating</span>
+                </span>
+                <span className="inline-flex items-center space-x-2 bg-primary-500/90 text-white px-3 py-1.5 rounded-full text-sm">
+                  <Sparkles className="w-4 h-4" />
+                  <span>Guest Favorite Hosts</span>
+                </span>
+                <span className="inline-flex items-center space-x-2 bg-white/70 backdrop-blur-sm border border-white/40 px-3 py-1.5 rounded-full text-sm text-gray-800">
+                  <MapPin className="w-4 h-4" />
+                  <span>Mumbai • Bandra • Colaba • Juhu</span>
+                </span>
               </div>
             </div>
-
-            {/* Results Count */}
-            <div className="mb-6">
-              <p className="text-gray-600">
-                {filteredProperties.length} of {properties.length} properties
-              </p>
+            {/* View Toggle + Search */}
+            <div className="lg:justify-self-end w-full lg:w-auto">
+              <div className="glass-card rounded-2xl p-4 flex items-center gap-2 w-full md:w-80">
+                <Search className="w-5 h-5 text-gray-500" />
+                <input
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search by name or neighborhood"
+                  className="flex-1 bg-transparent outline-none placeholder:text-gray-500"
+                />
+                {/* View toggle moved to persistent floating control */}
+              </div>
             </div>
-
-            {/* Properties Grid/List */}
-            <PropertyGrid 
-              properties={filteredProperties} 
-              viewMode={viewMode}
-              className=""
-            />
           </div>
         </div>
+      </section>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+         {/* Magazine-style mosaic grid for 7 properties */}
+         <div className="mb-10">
+           <MosaicPropertyGrid
+             properties={filteredProperties as any}
+             onPropertyClick={onPropertyClick as any}
+           />
+         </div>
+        <div className="grid lg:grid-cols-4 gap-8">
+          {/* Filters Sidebar */}
+          <aside className="lg:col-span-1 space-y-4">
+            <button onClick={() => setIsFiltersOpen(true)} className="w-full btn-glass-primary py-3 rounded-xl">
+              Refine Filters
+            </button>
+            <div className="hidden lg:block card-glass-light p-4 border border-white/30">
+              <p className="text-sm text-gray-700">Handpicked homes with thoughtful design and service-first hosting. Expect character, comfort, and creative energy.</p>
+            </div>
+          </aside>
+
+          {/* Properties Grid */}
+          <main className="lg:col-span-3">
+             {/* Results Count */}
+             <div className="mb-6 flex items-center justify-between">
+               <p className="text-gray-600">
+                 {filteredProperties.length} of {properties.length} properties
+               </p>
+             </div>
+
+             {/* Uniform grid fallback below mosaic (for more than 7 or after filters) */}
+             <PropertyGrid 
+               properties={filteredProperties as any}
+               className=""
+               onPropertyClick={onPropertyClick as any}
+             />
+          </main>
+        </div>
       </div>
+
+      {/* Mobile Sticky Refine */}
+      <div className="lg:hidden fixed bottom-4 left-0 right-0 flex justify-center pointer-events-none">
+        <button
+          onClick={() => setIsFiltersOpen(true)}
+          className="pointer-events-auto btn-glass-primary px-6 py-3 rounded-full shadow-elegant"
+        >
+          Refine
+        </button>
+      </div>
+
+      {/* Filters Modal Sheet */}
+      {isFiltersOpen && (
+        <PropertyFilters
+          onFiltersChange={(f: any) => setFilters((prev) => ({ ...prev, ...f }))}
+          onClose={() => setIsFiltersOpen(false)}
+        />
+      )}
+
+      {/* Floating global view toggle (always accessible) */}
+      <div className="fixed bottom-6 right-4 z-50">
+        <div className="backdrop-blur-md bg-white/90 border border-gray-200 rounded-full p-1 flex items-center gap-1 shadow-lg" role="group" aria-label="Change properties view">
+          <button
+            onClick={() => setViewMode('immersive')}
+            className={`px-3 py-1.5 rounded-full text-sm ${viewMode === 'immersive' ? 'bg-primary-100 text-primary-700' : 'text-gray-700 hover:bg-gray-100'}`}
+            aria-label="Immersive view"
+          >
+            Immersive
+          </button>
+          <button
+            onClick={() => setViewMode('grid')}
+            className={`px-3 py-1.5 rounded-full text-sm ${viewMode === 'grid' ? 'bg-primary-100 text-primary-700' : 'text-gray-700 hover:bg-gray-100'}`}
+            aria-label="Grid view"
+          >
+            Grid
+          </button>
+          <button
+            onClick={() => setViewMode('list')}
+            className={`px-3 py-1.5 rounded-full text-sm ${viewMode === 'list' ? 'bg-primary-100 text-primary-700' : 'text-gray-700 hover:bg-gray-100'}`}
+            aria-label="List view"
+          >
+            List
+          </button>
+        </div>
+      </div>
+
+      {/* Page Footer */}
+      <Footer />
     </div>
   );
 };

@@ -1,43 +1,84 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ArrowRight, Quote } from 'lucide-react';
 import { getPropertyImageUrls } from '../utils/propertyAssets';
 
 interface PropertyStorySectionProps {
   onPropertySelect?: (propertyId: number) => void;
 }
 
-const stories = [
+const allStories = [
   {
     id: 1,
-    title: "Art Meets Soul",
-    subtitle: "Where contemporary design meets Mumbai's cultural heart",
-    description: "Step into spaces where every corner tells a story of artistic expression and cultural richness.",
-    image: getPropertyImageUrls("Art Loft Bandra")[0] || "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
-    backgroundImage: getPropertyImageUrls("Art Loft Bandra")[0] || "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop",
-    quote: "Every piece of art in our spaces has been carefully chosen to reflect Mumbai's vibrant creative spirit."
+    title: 'Skyline Dreams',
+    subtitle: 'Penthouse above the city',
+    description: '',
+    image: getPropertyImageUrls('Sky Lounge (Penthouse + Terrace)')[0],
+    hoverImage: getPropertyImageUrls('Sky Lounge (Penthouse + Terrace)')[1] || getPropertyImageUrls('Sky Lounge (Penthouse + Terrace)')[0],
+    quote: 'Where sunsets meet the sea and skyline.',
+    propertyName: 'Sky Lounge (Penthouse + Terrace)'
   },
   {
     id: 2,
-    title: "Heritage Reimagined",
-    subtitle: "Colonial charm with modern luxury",
-    description: "Experience the perfect blend of Mumbai's rich history and contemporary comfort in thoughtfully restored spaces.",
-    image: getPropertyImageUrls("Heritage Garden Cottage")[0] || "https://images.pexels.com/photos/2506923/pexels-photo-2506923.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
-    backgroundImage: getPropertyImageUrls("Heritage Garden Cottage")[0] || "https://images.pexels.com/photos/2506923/pexels-photo-2506923.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop",
-    quote: "We preserve the architectural heritage while creating modern sanctuaries for today's travelers."
+    title: 'Minimal & Central',
+    subtitle: 'Cozy studio near the ocean',
+    description: '',
+    image: getPropertyImageUrls('The Little White Bandra Studio')[0],
+    hoverImage: getPropertyImageUrls('The Little White Bandra Studio')[1] || getPropertyImageUrls('The Little White Bandra Studio')[0],
+    quote: 'Peaceful, compact, and complete.',
+    propertyName: 'The Little White Bandra Studio'
   },
   {
     id: 3,
-    title: "Urban Sanctuary",
-    subtitle: "Zen in the heart of the city",
-    description: "Find peace and tranquility in thoughtfully designed urban retreats that offer respite from city life.",
-    image: getPropertyImageUrls("Zen Suite")[0] || "https://images.pexels.com/photos/2581922/pexels-photo-2581922.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
-    backgroundImage: getPropertyImageUrls("Zen Suite")[0] || "https://images.pexels.com/photos/2581922/pexels-photo-2581922.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop",
-    quote: "Our spaces are designed to be havens of calm in the bustling energy of Mumbai."
+    title: 'Terrace Living',
+    subtitle: 'Bungalow with private terrace',
+    description: '',
+    image: getPropertyImageUrls('India House – (Full Bungalow with Private Terrace)')[0],
+    hoverImage: getPropertyImageUrls('India House – (Full Bungalow with Private Terrace)')[1] || getPropertyImageUrls('India House – (Full Bungalow with Private Terrace)')[0],
+    quote: 'Ocean breeze and open skies.',
+    propertyName: 'India House – (Full Bungalow with Private Terrace)'
+  },
+  {
+    id: 4,
+    title: 'Asian Calm',
+    subtitle: 'Spacious zen-inspired home',
+    description: '',
+    image: getPropertyImageUrls('City Zen (Asian home Bandra)')[0],
+    hoverImage: getPropertyImageUrls('City Zen (Asian home Bandra)')[1] || getPropertyImageUrls('City Zen (Asian home Bandra)')[0],
+    quote: 'Tranquility in the heart of Bandra.',
+    propertyName: 'City Zen (Asian home Bandra)'
+  },
+  {
+    id: 5,
+    title: 'Garden Comfort',
+    subtitle: 'Warm cottage with a yard',
+    description: '',
+    image: getPropertyImageUrls('Bandra Cottage with Yard')[0],
+    hoverImage: getPropertyImageUrls('Bandra Cottage with Yard')[1] || getPropertyImageUrls('Bandra Cottage with Yard')[0],
+    quote: 'A gentle pause in Bandra.',
+    propertyName: 'Bandra Cottage with Yard'
+  },
+  {
+    id: 6,
+    title: 'Afro-Boho Story',
+    subtitle: 'Designed by Nicole Padival',
+    description: '',
+    image: getPropertyImageUrls('The Quaint Afrohemian 1BHK (Bandra West)')[0],
+    hoverImage: getPropertyImageUrls('The Quaint Afrohemian 1BHK (Bandra West)')[1] || getPropertyImageUrls('The Quaint Afrohemian 1BHK (Bandra West)')[0],
+    quote: 'Rich colors, textures, and calm.',
+    propertyName: 'The Quaint Afrohemian 1BHK (Bandra West)'
+  },
+  {
+    id: 7,
+    title: 'Dopamine Decor',
+    subtitle: 'Artist-designed home',
+    description: '',
+    image: getPropertyImageUrls('The Bandra Art House (Dopamine Decor)')[0],
+    hoverImage: getPropertyImageUrls('The Bandra Art House (Dopamine Decor)')[1] || getPropertyImageUrls('The Bandra Art House (Dopamine Decor)')[0],
+    quote: 'Creative energy and sunlight.',
+    propertyName: 'The Bandra Art House (Dopamine Decor)'
   }
 ];
 
 const PropertyStorySection: React.FC<PropertyStorySectionProps> = ({ onPropertySelect }) => {
-  const [currentStory, setCurrentStory] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -58,45 +99,30 @@ const PropertyStorySection: React.FC<PropertyStorySectionProps> = ({ onPropertyS
     return () => observer.disconnect();
   }, []);
 
-  // Auto-rotate stories
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentStory((prev) => (prev + 1) % stories.length);
-    }, 8000);
-    return () => clearInterval(interval);
-  }, []);
+  // Auto-rotate removed for clarity; focus on hover interactions only
 
   return (
     <section 
       ref={containerRef}
-      className="relative py-24 overflow-hidden"
+      className="relative py-16 md:py-24 overflow-hidden"
     >
-      {/* Background Images */}
+      {/* Background image */}
       <div className="absolute inset-0">
-        {stories.map((story, index) => (
-          <div
-            key={story.id}
-            className={`absolute inset-0 transition-all duration-1000 ${
-              index === currentStory ? 'opacity-100' : 'opacity-0'
-            }`}
-          >
-            <img
-              src={story.backgroundImage}
-              alt={story.title}
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-white/85 backdrop-blur-sm"></div>
-          </div>
-        ))}
+        <img 
+          src="/assets/afrohemia.png" 
+          alt="Afrohemian background" 
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 "></div>
       </div>
 
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className={`text-center mb-20 transform transition-all duration-1000 ${
+        <div className={`text-center mb-24 transform transition-all duration-1000 ${
           isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
         }`}>
-          <h2 className="text-5xl md:text-6xl font-light text-gray-900 mb-6 leading-tight">
+          <h2 className="text-5xl md:text-6xl font-light text-gray-900 mb-8 leading-tight">
             <span className="block text-gray-800">Every stay</span>
             <span className="block text-gray-600 font-normal italic">tells a story</span>
           </h2>
@@ -105,72 +131,43 @@ const PropertyStorySection: React.FC<PropertyStorySectionProps> = ({ onPropertyS
           </p>
         </div>
 
-        {/* Story Cards */}
-        <div className="grid lg:grid-cols-3 gap-8">
-          {stories.map((story, index) => (
-            <div
-              key={story.id}
-              className={`group cursor-pointer transform transition-all duration-1000 ${
-                isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-              }`}
-              style={{ transitionDelay: `${index * 200}ms` }}
-              onClick={() => onPropertySelect?.(story.id)}
-            >
-              <div className="relative h-80 rounded-2xl overflow-hidden mb-6 group-hover:shadow-2xl transition-all duration-500">
-                <img
-                  src={story.image}
-                  alt={story.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                
-                {/* Quote Overlay */}
-                <div className="absolute bottom-0 left-0 right-0 p-6">
-                  <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4">
-                    <Quote className="w-5 h-5 text-gray-600 mb-2" />
-                    <p className="text-gray-800 text-sm font-light italic leading-relaxed">
-                      {story.quote}
-                    </p>
+        {/* Vertical, reel-like portrait cards in a horizontal scroll (all breakpoints) */}
+        <div className="-mx-4 px-4 overflow-x-auto scrollbar-hide snap-x snap-mandatory">
+          <div className="flex gap-4 md:gap-6">
+            {allStories.map((story, index) => (
+              <div
+                key={story.id}
+                className={`snap-start group cursor-pointer transition-all duration-700 ${
+                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+                }`}
+                style={{ transitionDelay: `${index * 120}ms` }}
+                onClick={() => onPropertySelect?.(story.id)}
+              >
+                <div
+                  className="relative rounded-2xl overflow-hidden boutique-shadow"
+                  style={{ height: '78vh', width: 'clamp(320px, 85vw, 480px)', aspectRatio: '9 / 16' }}
+                >
+                  {/* Base image */}
+                  <img src={story.image} alt={story.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02]" />
+                  {/* Dim overlay on hover */}
+                  <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/40" />
+                  {/* Optional hover image crossfade */}
+                  {Boolean((story as any).hoverImage) && (
+                    <img src={(story as any).hoverImage} alt={story.title} className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-80" />
+                  )}
+                  {/* Centered property name with brand font, hidden until hover */}
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 bg-black/45 backdrop-blur-sm text-white rounded-xl px-5 py-2.5 shadow-lg ring-1 ring-white/20">
+                      <span className="text-lg md:text-2xl font-editorial tracking-wide drop-shadow-sm text-center">{story.propertyName}</span>
+                    </div>
                   </div>
                 </div>
               </div>
-
-              <div className="space-y-4">
-                <div>
-                  <h3 className="text-2xl font-light text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
-                    {story.title}
-                  </h3>
-                  <p className="text-lg text-gray-600 font-medium mb-3">
-                    {story.subtitle}
-                  </p>
-                  <p className="text-gray-600 leading-relaxed">
-                    {story.description}
-                  </p>
-                </div>
-
-                <button className="inline-flex items-center gap-2 text-gray-900 font-medium hover:gap-3 transition-all duration-300 group-hover:text-blue-600">
-                  <span>Read the story</span>
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
-        {/* Story Navigation */}
-        <div className="flex justify-center mt-12 space-x-3">
-          {stories.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentStory(index)}
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                index === currentStory 
-                  ? 'bg-blue-600 scale-125' 
-                  : 'bg-gray-300 hover:bg-gray-400'
-              }`}
-            />
-          ))}
-        </div>
+        {/* No progress indicators/dots for mobile aesthetics */}
       </div>
     </section>
   );

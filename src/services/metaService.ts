@@ -93,11 +93,21 @@ class MetaService {
   }
 
   updatePropertyMetaTags(property: any): void {
+    // Defensive defaults to avoid runtime errors
+    const name = property?.name || 'Property';
+    const location = property?.location || 'Mumbai';
+    const description = property?.description || this.defaultMeta.description;
+    const category = (property?.category && typeof property.category === 'string')
+      ? property.category
+      : 'Luxury';
+    const image = property?.images?.[0] || this.defaultMeta.image;
+    const id = property?.id ?? '';
+
     const propertyMeta: MetaData = {
-      title: `${property.name} - Luxury Boutique Rental in ${property.location} | Infiniti Casa`,
-      description: `${property.description} Experience luxury and comfort in this ${property.category.toLowerCase()} property in ${property.location}. Book your stay with Infiniti Casa.`,
-      image: property.images?.[0] || this.defaultMeta.image,
-      url: `${this.defaultMeta.url}/property/${property.id}`,
+      title: `${name} - Luxury Boutique Rental in ${location} | Infiniti Casa`,
+      description: `${description} Experience luxury and comfort in this ${category.toLowerCase()} property in ${location}. Book your stay with Infiniti Casa.`,
+      image,
+      url: `${this.defaultMeta.url}/property/${id}`,
       type: 'article',
       siteName: this.defaultMeta.siteName,
       twitterCard: 'summary_large_image'

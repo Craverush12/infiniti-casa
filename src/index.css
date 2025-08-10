@@ -27,7 +27,8 @@
 @layer components {
   /* Primary Button Styles */
   .btn-primary {
-    @apply inline-flex items-center px-8 py-3 bg-primary-500 hover:bg-primary-600 text-white font-medium tracking-wide transition-all duration-300 transform hover:scale-105 rounded-lg shadow-lg;
+    @apply inline-flex items-center px-8 py-3 text-white font-medium tracking-wide transition-all duration-300 transform hover:scale-105 rounded-lg shadow-lg;
+    background-color: #D16A4F;
   }
 
   /* Secondary Button Styles */
@@ -336,8 +337,9 @@
 
   .text-shadow-glow {
     text-shadow: 
-      0 0 20px rgba(147, 51, 234, 0.5),
-      0 0 40px rgba(147, 51, 234, 0.3);
+      0 0 20px rgba(255, 255, 255, 0.6),
+      0 0 40px rgba(255, 255, 255, 0.3),
+      0 0 60px rgba(255, 255, 255, 0.2);
   }
 
   /* Performance Optimizations for Glassmorphic Effects */
@@ -383,16 +385,16 @@
   /* Glassmorphic Button System */
   .btn-glass-primary {
     backdrop-filter: blur(20px);
-    background: linear-gradient(135deg, rgba(245, 158, 11, 0.8), rgba(251, 146, 60, 0.8));
-    border: 1px solid rgba(245, 158, 11, 0.3);
+    background: linear-gradient(135deg, rgba(209, 106, 79, 0.9), rgba(209, 106, 79, 0.8));
+    border: 1px solid rgba(209, 106, 79, 0.35);
     color: white;
     transition: all 0.3s ease;
   }
 
   .btn-glass-primary:hover {
-    background: linear-gradient(135deg, rgba(245, 158, 11, 0.9), rgba(251, 146, 60, 0.9));
+    background: linear-gradient(135deg, rgba(209, 106, 79, 1), rgba(209, 106, 79, 0.95));
     transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(245, 158, 11, 0.3);
+    box-shadow: 0 10px 25px rgba(209, 106, 79, 0.35);
   }
 
   .btn-glass-secondary {

@@ -146,20 +146,7 @@
     }
     </script>
     
-    <!-- Service Worker Registration -->
-    <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function() {
-          navigator.serviceWorker.register('/sw.js')
-            .then(function(registration) {
-              console.log('ServiceWorker registration successful with scope: ', registration.scope);
-            })
-            .catch(function(error) {
-              console.log('ServiceWorker registration failed: ', error);
-            });
-        });
-      }
-    </script>
+    <!-- Service Worker registration handled by PWAService -->
     
     <!-- Performance Monitoring -->
     <script>
@@ -200,6 +187,7 @@
     </script>
   </head>
   <body>
+    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:bg-white focus:text-black focus:px-4 focus:py-2 focus:rounded">Skip to content</a>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
     

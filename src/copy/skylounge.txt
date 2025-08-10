@@ -1,0 +1,347 @@
+Here is an exhaustive, structured data summary capturing every detail from your currently viewed Airbnb property page (Sky Lounge, Penthouse + Terrace in Mumbai):
+
+Basic Property Identity
+Property Name: Sky Lounge (Penthouse + Terrace)
+
+
+Type: Entire rental unit (Penthouse + Terrace)
+
+
+Location: Bandra West, Mumbai, Maharashtra, India
+
+
+Map Coordinates (from Google link): Latitude 19.051, Longitude 72.8275
+
+
+Maximum Guests: 3
+
+
+Bedrooms: 1
+
+
+Beds: 1 (queen)
+
+
+Bathrooms: 1
+
+
+Check-in: After 2:00 pm
+
+
+Checkout: Before 10:00 am
+
+
+No outside visitors allowed
+
+
+Property URL: Provided in your current tab
+
+
+
+Visuals
+Photos: 5 property images (with "Show all photos" option visible)
+
+
+
+Ratings & Reviews
+Superhost / Guest Favourite: Yes
+
+
+Overall Rating: 4.93 / 5 (from 27 reviews)
+
+
+5 stars: 93%
+
+
+4 stars: 7%
+
+
+3/2/1 stars: 0%
+
+
+Category Ratings:
+
+
+Cleanliness: 4.8
+
+
+Accuracy: 4.8
+
+
+Check-in: 4.9
+
+
+Communication: 4.9
+
+
+Location: 4.9
+
+
+Value: 4.9
+
+
+Sample Review Highlights:
+
+
+“Super clean, maid came every morning, balcony view next level, hosts responsive.” (Sushen)
+
+
+“Sea view from 13th floor was insane, perfect for get-together.” (Nachiket)
+
+
+“Terrace is the best part, unobstructed city and sea views, host very proactive.” (Clint)
+
+
+“Iconic, the photos don’t do justice, hosts prompt.” (Rushabh)
+
+
+“Best place in Mumbai for a stay, amazing aura, hosts always check in.” (Junaid)
+
+
+“Clean, cozy, exactly as described, easy check-in, friendly host.” (Bhawar)
+
+
+Recency: Reviews from 6 days ago, 2 weeks ago, and up to April/June/July 2025
+
+
+
+Short Property Description
+Unique one-bedroom hall penthouse in Bandra West, panoramic Mumbai skyline & ocean view, private terrace for sunset lounging.
+
+
+Designed for dreamers, creators, introspection and imagination.
+
+
+Centrally amidst many cafes and restaurants.
+
+
+Note: No outside visitors allowed.
+
+
+
+Listing Highlights
+Great check-in experience: Recent guests highlight a smooth start
+
+
+Vibrant neighbourhood: Walkable, especially for dining out
+
+
+At-home coffee: Pour-over coffee maker
+
+
+
+Amenities
+Available:
+
+
+Wifi
+
+
+HDTV
+
+
+Lift
+
+
+Free washer – in-unit
+
+
+Air conditioning
+
+
+Unavailable:
+
+
+Carbon monoxide alarm
+
+
+Smoke alarm
+
+
+Additional amenities (41 in total, only a subset shown in snippet)
+
+
+
+Sleeping Arrangement
+Bedroom: 1 Bedroom with queen bed
+
+
+
+Booking UI Features
+Shows availability calendar (August 2025 with visual calendar widget)
+
+
+Add dates for pricing, clear-dates, check-in/out UI
+
+
+Guest count UI (1 guest, adjustable)
+
+
+
+Map & Location Section
+Display: Centered on Mumbai, Maharashtra, India
+
+
+Google Map Embedded: Google Maps Link
+
+
+Map zoom/controls included
+
+
+
+Host Details
+Host Name: Varun Patel (identity verified)
+
+
+Profile: [Host full profile link provided]
+
+
+Experience: 2 years hosting
+
+
+Reviews: 73 (avg. 4.89/5)
+
+
+Fun Fact: Cycled 600 km from Mumbai to Goa
+
+
+Bio: Bandra-born Mumbaikar, Airbnb entrepreneur and actor. Hosts 6 Mumbai properties, 3 in Alibag.
+
+
+Other Activities: Seen on screen, billboards, Prithvi Theatre; passionate about travel, adventure, connections
+
+
+Response Rate: 100%
+
+
+Typical Response Time: within an hour
+
+
+Co-hosts:
+
+
+Vraj ([profile link])
+
+
+Nitiksha ([profile link])
+
+
+Ajay ([profile link])
+
+
+Contact: Airbnb’s “Message Host” feature available
+
+
+
+Property Rules
+Check-in after: 2:00 pm
+
+
+Checkout before: 10:00 am
+
+
+Maximum Occupancy: 3 guests
+
+
+
+Safety & Property Features
+Alarms: Carbon monoxide and smoke alarms not reported
+
+
+
+Cancellation Policy
+Details provided upon selection of trip dates
+
+
+
+Navigation & Nearby Options (Listings Discovery/Explore Panel)
+Proximity options: North Goa, South Goa, Pune City, Lonavala, Ahmedabad, Raigad (district), Mumbai (suburban), Calangute, Candolim
+
+
+Other property types in Mumbai area:
+
+
+Monthly stays
+
+
+Rentals with outdoor seating (Mumbai, Maharashtra, India)
+
+
+Apartments in Maharashtra
+
+
+Footer/Navigation:
+
+
+Help Centre, AirCover, Disability support, Anti-discrimination
+
+
+Hosting links (listed above)
+
+
+Corporate (Investors, Newsroom, Careers, etc.)
+
+
+
+Social & Legal
+Footer: Facebook, Twitter, Instagram
+
+
+Legal: Privacy, Terms, Sitemap, Company details
+
+
+Language/Currency: English (IN), INR
+
+
+
+Summary Table
+Section
+Data/Detail
+Name
+Sky Lounge (Penthouse + Terrace)
+Type
+Entire rental unit (Penthouse + Terrace)
+Location
+Bandra West, Mumbai, Maharashtra, India
+Max Guests
+3
+Bedrooms
+1
+Beds
+1 Queen
+Bathrooms
+1
+Host
+Varun Patel (Actor, Entrepreneur) 2 yrs hosting; 73 reviews
+Co-hosts
+Vraj, Nitiksha, Ajay
+Overall Rating
+4.93/5 (27 reviews)
+Category Ratings
+Cleanliness 4.8, Accuracy 4.8, Check-in 4.9, Comm. 4.9, ...
+Amenities
+Wifi, HDTV, Lift, Free washer, AC, (41 total)
+View
+Mumbai skyline, sea, sunset, private terrace
+Vibe
+Peaceful, creative, chill, walkable/cafe-rich neighbourhood
+Unique Selling Points
+Panoramic views, exceptional host, terrace dining, central
+Restrictions
+No outside visitors
+House Rules
+Check-in after 2pm, Checkout before 10am, Max 3 guests
+Security
+Alarms not reported
+Booking UI
+Cal view, date/guest selector
+Map
+Mumbai center, Google Map embedded
+Extra Links/Explore
+Multiple area property links
+Airbnb Platform
+Support, Hosting, Legal, Social
+
+
+https://www.airbnb.co.in/rooms/1267387929757627071?source_impression_id=p3_1754164999_P3cC8S7R6NpEzCDR
+

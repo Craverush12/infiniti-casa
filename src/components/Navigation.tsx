@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Calendar, Phone, MapPin, ArrowRight, User, LogOut, Search, Settings, Home, ChevronRight } from 'lucide-react';
+import { Menu, X, Calendar, User, LogOut, Search, Home, ChevronRight } from 'lucide-react';
 import type { Database } from '../lib/database.types';
 
 type UserProfile = Database['public']['Tables']['user_profiles']['Row'];
@@ -24,7 +24,7 @@ const Navigation: React.FC<NavigationProps> = ({
   isAuthenticated = false,
   onViewUserProfile,
   onShowSearch,
-  onShowAdminDashboard,
+  onShowAdminDashboard: _onShowAdminDashboard,
   onShowProperties,
   currentView = 'home',
   breadcrumbs = []
@@ -69,8 +69,7 @@ const Navigation: React.FC<NavigationProps> = ({
   const navItems = [
     { name: 'Properties', href: '#', action: () => onShowProperties?.() },
     { name: 'Stories', href: '#stories', action: () => document.getElementById('stories')?.scrollIntoView({ behavior: 'smooth' }) },
-    { name: 'Features', href: '#features', action: () => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' }) },
-    { name: 'Contact', href: '#contact', action: () => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }) }
+    { name: 'Features', href: '#features', action: () => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' }) }
   ];
 
   const handleNavClick = (action: () => void) => {
@@ -85,14 +84,6 @@ const Navigation: React.FC<NavigationProps> = ({
     } else {
       onShowAuth?.();
     }
-  };
-
-  const formatPhoneNumber = (phone: string) => {
-    // Format phone number for display
-    if (phone.startsWith('+91')) {
-      return `+91 ${phone.slice(3, 8)} ${phone.slice(8)}`;
-    }
-    return phone;
   };
 
   return (
@@ -123,6 +114,7 @@ const Navigation: React.FC<NavigationProps> = ({
                   className={`text-sm font-medium transition-colors duration-300 hover:text-primary-500 relative group ${
                     isScrolled ? 'text-gray-700' : 'text-white/90'
                   }`}
+                  aria-label={item.name}
                 >
                   {item.name}
                   <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-500 transition-all duration-300 group-hover:w-full"></span>

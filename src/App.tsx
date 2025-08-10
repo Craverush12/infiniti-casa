@@ -1,41 +1,53 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
-import PropertyGrid from './components/PropertyGrid';
+// import PropertyGrid from './components/PropertyGrid';
 import PropertyDetail from './components/PropertyDetail';
-import PropertySuggestion from './components/PropertySuggestion';
-import VisualStoriesSection from './components/VisualStoriesSection';
+// import BandraCottageDetail from './components/BandraCottageDetail';
+// import CityZenDetail from './components/CityZenDetail';
+// import IndiaHouseDetail from './components/IndiaHouseDetail';
+// import SkyLoungeDetail from './components/SkyLoungeDetail';
+// import BandraArtHouseDetail from './components/BandraArtHouseDetail';
+// import LittleWhiteBandraStudioDetail from './components/LittleWhiteBandraStudioDetail';
+// import AfrohemianDetail from './components/AfrohemianDetail';
 import PropertyStorySection from './components/PropertyStorySection';
-import MumbaiGuidePreview from './components/MumbaiGuidePreview';
-import ContactSection from './components/ContactSection';
-import LoadingScreen from './components/LoadingScreen';
-import ScrollToTop from './components/ScrollToTop';
-import QuickActions from './components/QuickActions';
-import NewsletterSignup from './components/NewsletterSignup';
-import UserGuidanceSection from './components/UserGuidanceSection';
-import TestimonialsSection from './components/TestimonialsSection';
-import InstagramTestimonials from './components/InstagramTestimonials';
-import LongTermBookingSection from './components/LongTermBookingSection';
-import FeaturesShowcase from './components/FeaturesShowcase';
-import PhoneAuth from './components/PhoneAuth';
-import BookingConfirmation from './components/BookingConfirmation';
-import UserBookings from './components/UserBookings';
-import UserProfileComponent from './components/UserProfile';
-import PropertySearch from './components/PropertySearch';
-import PropertyComparison from './components/PropertyComparison';
-import SocialSharing from './components/SocialSharing';
-import AdminDashboard from './components/AdminDashboard';
+// import FeaturesShowcase from './components/FeaturesShowcase';
+import MapOverview from './components/MapOverview';
+import Footer from './components/Footer';
+import ErrorBoundary from './components/ErrorBoundary';
+
+import { Suspense, lazy } from 'react';
+const PropertySuggestion = lazy(() => import('./components/PropertySuggestion'));
+const VisualStoriesSection = lazy(() => import('./components/VisualStoriesSection'));
+const MumbaiGuidePreview = lazy(() => import('./components/MumbaiGuidePreview'));
+// const ContactSection = lazy(() => import('./components/ContactSection'));
+const LoadingScreen = lazy(() => import('./components/LoadingScreen'));
+const ScrollToTop = lazy(() => import('./components/ScrollToTop'));
+const QuickActions = lazy(() => import('./components/QuickActions'));
+const NewsletterSignup = lazy(() => import('./components/NewsletterSignup'));
+// const UserGuidanceSection = lazy(() => import('./components/UserGuidanceSection'));
+const TestimonialsSection = lazy(() => import('./components/TestimonialsSection'));
+// const InstagramTestimonials = lazy(() => import('./components/InstagramTestimonials'));
+const LongTermBookingSection = lazy(() => import('./components/LongTermBookingSection'));
+const PhoneAuth = lazy(() => import('./components/PhoneAuth'));
+const BookingConfirmation = lazy(() => import('./components/BookingConfirmation'));
+const UserBookings = lazy(() => import('./components/UserBookings'));
+const UserProfileComponent = lazy(() => import('./components/UserProfile'));
+const PropertySearch = lazy(() => import('./components/PropertySearch'));
+const PropertyComparison = lazy(() => import('./components/PropertyComparison'));
+const SocialSharing = lazy(() => import('./components/SocialSharing'));
+const AdminDashboard = lazy(() => import('./components/AdminDashboard'));
 import AssetTestPage from './components/AssetTestPage';
 import AllPropertiesView from './components/AllPropertiesView';
 import PropertiesPage from './components/PropertiesPage';
 import DedicatedPropertiesPage from './components/DedicatedPropertiesPage';
-import Footer from './components/Footer';
-import ErrorBoundary from './components/ErrorBoundary';
+ 
 
 import { mockUseAuth as useAuth } from './hooks/mockUseAuth';
 import { getAllPropertyDetails } from './data/propertyDetails';
 import type { Database } from './lib/database.types';
 import PWAService from './services/pwaService';
+import { BookingService } from './services/bookingService';
 
 type UserProfile = Database['public']['Tables']['user_profiles']['Row'];
 type Property = Database['public']['Tables']['properties']['Row'];
@@ -94,11 +106,11 @@ function App() {
   const [showAuth, setShowAuth] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const [showComparison, setShowComparison] = useState(false);
-  const [comparisonProperties, setComparisonProperties] = useState<number[]>([]);
+  const [comparisonProperties] = useState<number[]>([]);
   const [showSocialSharing, setShowSocialSharing] = useState(false);
   const [socialSharingData, setSocialSharingData] = useState<any>(null);
   const [showAdminDashboard, setShowAdminDashboard] = useState(false);
-  const [showDatabaseTest, setShowDatabaseTest] = useState(false); // Database test completed
+  // const [showDatabaseTest, setShowDatabaseTest] = useState(false); // Database test completed
 
   // Search state
   const [searchResults, setSearchResults] = useState<Property[]>([]);
@@ -188,9 +200,9 @@ function App() {
     setCurrentView('booking-confirmation');
   };
 
-  const handleViewUserBookings = () => {
-    setCurrentView('user-bookings');
-  };
+  // const handleViewUserBookings = () => {
+  //   setCurrentView('user-bookings');
+  // };
 
   const handleViewUserProfile = () => {
     setCurrentView('user-profile');
@@ -213,12 +225,12 @@ function App() {
     setShowSearch(true);
   };
 
-  const handleShowComparison = (propertyIds?: number[]) => {
-    if (propertyIds) {
-      setComparisonProperties(propertyIds);
-    }
-    setShowComparison(true);
-  };
+  // const handleShowComparison = (propertyIds?: number[]) => {
+  //   if (propertyIds) {
+  //     setComparisonProperties(propertyIds);
+  //   }
+  //   setShowComparison(true);
+  // };
 
   const handleShowSocialSharing = (data?: any) => {
     if (data) {
@@ -232,7 +244,7 @@ function App() {
   };
 
   const handleShowProperties = () => {
-    setCurrentView('dedicated-properties');
+    setCurrentView('properties');
   };
 
   // Enhanced search functionality
@@ -277,6 +289,22 @@ function App() {
         filteredProperties = filteredProperties.filter(property => {
           return property.hero.rating >= filters.rating;
         });
+      }
+
+      // If date range provided, filter by availability
+      if (filters.checkIn && filters.checkOut) {
+        const availabilityResults = await Promise.all(
+          filteredProperties.map(async (p) => {
+            try {
+              const res = await BookingService.checkAvailability(p.id, filters.checkIn, filters.checkOut);
+              return { id: p.id, available: res.available };
+            } catch {
+              return { id: p.id, available: true };
+            }
+          })
+        );
+        const availableIds = new Set(availabilityResults.filter(r => r.available).map(r => r.id));
+        filteredProperties = filteredProperties.filter(p => availableIds.has(p.id));
       }
 
       // Sort results
@@ -337,6 +365,23 @@ function App() {
     }
   };
 
+  // Hero: search -> date modal -> availability filter
+  const handleHeroSearchWithDates = async (query: string, checkIn: string, checkOut: string) => {
+    const baseFilters: SearchFilters = {
+      location: query,
+      checkIn,
+      checkOut,
+      guests: 1,
+      priceRange: [0, 50000],
+      amenities: [],
+      propertyType: [],
+      rating: 0,
+      sortBy: 'popularity',
+      sortOrder: 'desc'
+    };
+    await handleSearch(baseFilters);
+  };
+
   const handleClearSearch = () => {
     setSearchResults([]);
     setSearchFilters({
@@ -363,85 +408,88 @@ function App() {
 
   // Show loading screen while auth is initializing
   if (authLoading || isLoading) {
-    return <LoadingScreen onComplete={handleLoadingComplete} />;
+    return (
+      <Suspense fallback={null}>
+        <LoadingScreen onComplete={handleLoadingComplete} />
+      </Suspense>
+    );
   }
 
   return (
     <ErrorBoundary>
       <div className="bg-dynamic-gradient">
-        {/* Hide Navigation when viewing property detail to avoid duplicate navbars */}
-        {currentView !== 'property' && (
-          <Navigation
-            onSuggestionClick={handleSuggestionClick}
-            user={user}
-            onShowAuth={handleShowAuth}
-            isAuthenticated={isAuthenticated}
-            onViewUserProfile={handleViewUserProfile}
-            onShowSearch={handleShowSearch}
-            onShowAdminDashboard={handleShowAdminDashboard}
-            onShowProperties={handleShowProperties}
-            currentView={currentView}
-            breadcrumbs={
-              currentView === 'search-results' 
-                ? [
-                    { label: 'Search Results', onClick: () => setCurrentView('home') }
-                  ]
-                : currentView === 'all-properties'
-                ? [
-                    { label: 'All Properties', onClick: () => setCurrentView('home') }
-                  ]
-                : currentView === 'dedicated-properties'
-                ? [
-                    { label: 'Properties', onClick: () => setCurrentView('home') }
-                  ]
-                : currentView === 'user-bookings'
-                ? [
-                    { label: 'My Bookings', onClick: () => setCurrentView('home') }
-                  ]
-                : currentView === 'user-profile'
-                ? [
-                    { label: 'My Profile', onClick: () => setCurrentView('home') }
-                  ]
-                : currentView === 'booking-confirmation'
-                ? [
-                    { label: 'Booking Confirmation', onClick: () => setCurrentView('home') }
-                  ]
-                : []
-            }
-          />
-        )}
+        <Navigation
+          onSuggestionClick={handleSuggestionClick}
+          user={user}
+          onShowAuth={handleShowAuth}
+          isAuthenticated={isAuthenticated}
+          onViewUserProfile={handleViewUserProfile}
+          onShowSearch={handleShowSearch}
+          onShowAdminDashboard={handleShowAdminDashboard}
+          onShowProperties={handleShowProperties}
+          currentView={currentView}
+          breadcrumbs={
+            currentView === 'search-results' 
+              ? [
+                  { label: 'Search Results', onClick: () => setCurrentView('home') }
+                ]
+              : currentView === 'all-properties'
+              ? [
+                  { label: 'All Properties', onClick: () => setCurrentView('home') }
+                ]
+              : currentView === 'dedicated-properties'
+              ? [
+                  { label: 'Properties', onClick: () => setCurrentView('home') }
+                ]
+              : currentView === 'properties'
+              ? [
+                  { label: 'Properties', onClick: () => setCurrentView('home') }
+                ]
+              : currentView === 'user-bookings'
+              ? [
+                  { label: 'My Bookings', onClick: () => setCurrentView('home') }
+                ]
+              : currentView === 'user-profile'
+              ? [
+                  { label: 'My Profile', onClick: () => setCurrentView('home') }
+                ]
+              : currentView === 'booking-confirmation'
+              ? [
+                  { label: 'Booking Confirmation', onClick: () => setCurrentView('home') }
+                ]
+              : []
+          }
+        />
         
         {currentView === 'home' && (
-          <>
-            <Hero onSuggestionClick={handleSuggestionClick} />
-            <LongTermBookingSection onContactClick={handleContactClick} />
+          <main id="main" role="main">
+            <Hero onSuggestionClick={handleSuggestionClick} onPropertySelect={handlePropertySelect} onSearchWithDates={handleHeroSearchWithDates} />
+            <Suspense fallback={null}>
+              <LongTermBookingSection onContactClick={handleContactClick} />
+            </Suspense>
             <div id="stories">
               <PropertyStorySection onPropertySelect={handlePropertySelect} />
             </div>
 
-            {/* <VisualStoriesSection onPropertySelect={handlePropertySelect} /> */}
-            <div id="features">
-              <FeaturesShowcase />
-            </div>
-            {/* <PropertyStorySection onPropertySelect={handlePropertySelect} /> */}
-
-            {/* <UserGuidanceSection /> */}
-
-            {/* Properties section removed - now opens as separate page */}
-            
-
-            {/* <TestimonialsSection /> */}
-            {/* <MumbaiGuidePreview /> */}
-            <div id="contact">
-              <ContactSection />
-            </div>
+            <Suspense fallback={null}>
+              <TestimonialsSection />
+            </Suspense>
+            <Suspense fallback={null}>
+              <VisualStoriesSection onPropertySelect={handlePropertySelect} />
+            </Suspense>
+            <div id="features">{/* features temporarily hidden */}</div>
+            <MapOverview />
+            {/* <Suspense fallback={null}>
+              <MumbaiGuidePreview />
+            </Suspense> */}
+            {/** Contact section removed per request */}
             <Footer />
-          </>
+          </main>
         )}
 
-        {currentView === 'property' && (
+        {currentView === 'property' && selectedProperty && (
           <PropertyDetail
-            propertyId={selectedProperty!}
+            propertyId={selectedProperty}
             onBackToHome={handleBackToHome}
             onPropertySelect={handlePropertySelect}
             user={user}
@@ -492,7 +540,10 @@ function App() {
         )}
 
         {currentView === 'properties' && (
-          <PropertiesPage properties={getAllPropertyDetails()} />
+          <PropertiesPage 
+            properties={getAllPropertyDetails()} 
+            onPropertyClick={(property) => handlePropertySelect(property.id)}
+          />
         )}
 
         {currentView === 'dedicated-properties' && (
@@ -617,64 +668,82 @@ function App() {
         )}
 
         {/* Enhanced UI Components */}
-        <ScrollToTop />
-        <QuickActions 
-          onContactClick={handleContactClick}
-        />
+        <Suspense fallback={null}>
+          <ScrollToTop />
+        </Suspense>
+        <Suspense fallback={null}>
+          <QuickActions 
+            onContactClick={handleContactClick}
+          />
+        </Suspense>
 
         {/* Modals */}
         {showSuggestion && (
-          <PropertySuggestion 
-            onPropertySelect={handlePropertySelect}
-            onClose={handleCloseSuggestion}
-            user={user}
-          />
+          <Suspense fallback={null}>
+            <PropertySuggestion 
+              onPropertySelect={handlePropertySelect}
+              onClose={handleCloseSuggestion}
+              user={user}
+            />
+          </Suspense>
         )}
 
         {showNewsletter && (
-          <NewsletterSignup 
-            onClose={() => setShowNewsletter(false)}
-            user={user}
-          />
+          <Suspense fallback={null}>
+            <NewsletterSignup 
+              onClose={() => setShowNewsletter(false)}
+              user={user}
+            />
+          </Suspense>
         )}
 
         {/* Authentication Modal */}
-        <PhoneAuth
-          isOpen={showAuth}
-          onSuccess={handleAuthSuccess}
-          onClose={handleAuthClose}
-        />
+        <Suspense fallback={null}>
+          <PhoneAuth
+            isOpen={showAuth}
+            onSuccess={handleAuthSuccess}
+            onClose={handleAuthClose}
+          />
+        </Suspense>
 
         {/* Property Search Modal */}
         {showSearch && (
-          <PropertySearch
-            onSearch={handleSearch}
-            onClear={handleClearSearch}
-            properties={searchResults}
-            isLoading={isSearching}
-          />
+          <Suspense fallback={null}>
+            <PropertySearch
+              onSearch={handleSearch}
+              onClear={handleClearSearch}
+              properties={searchResults}
+              isLoading={isSearching}
+            />
+          </Suspense>
         )}
 
         {/* Property Comparison Modal */}
-        <PropertyComparison
-          isOpen={showComparison}
-          initialProperties={comparisonProperties}
-          onPropertySelect={handlePropertySelect}
-          onClose={() => setShowComparison(false)}
-        />
+        <Suspense fallback={null}>
+          <PropertyComparison
+            isOpen={showComparison}
+            initialProperties={comparisonProperties}
+            onPropertySelect={handlePropertySelect}
+            onClose={() => setShowComparison(false)}
+          />
+        </Suspense>
 
         {/* Social Sharing Modal */}
-        <SocialSharing
-          isOpen={showSocialSharing}
-          shareData={socialSharingData}
-          onClose={() => setShowSocialSharing(false)}
-        />
+        <Suspense fallback={null}>
+          <SocialSharing
+            isOpen={showSocialSharing}
+            shareData={socialSharingData}
+            onClose={() => setShowSocialSharing(false)}
+          />
+        </Suspense>
 
         {/* Admin Dashboard Modal */}
-        <AdminDashboard
-          isOpen={showAdminDashboard}
-          onClose={() => setShowAdminDashboard(false)}
-        />
+        <Suspense fallback={null}>
+          <AdminDashboard
+            isOpen={showAdminDashboard}
+            onClose={() => setShowAdminDashboard(false)}
+          />
+        </Suspense>
       </div>
     </ErrorBoundary>
   );

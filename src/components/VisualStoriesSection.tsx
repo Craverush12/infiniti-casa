@@ -20,68 +20,94 @@ interface Property {
 const properties: Property[] = [
   {
     id: 1,
-    name: "Art Loft Bandra",
+    name: "Sky Lounge (Penthouse + Terrace)",
     location: "Bandra West, Mumbai",
-    description: "A contemporary art gallery meets luxury accommodation. Every corner tells a story of Mumbai's vibrant art scene, with rotating exhibitions and artist studio access.",
-    price: 12000,
-    guests: 4,
-    bedrooms: 2,
-    image: getPropertyImageUrls("Art Loft Bandra")[0] || "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop",
-    highlights: ["Private Art Studio", "Rotating Exhibitions", "Artist Meetups", "Gallery Lighting"],
-    category: "Art & Culture",
-    rating: 4.9
+    description: "Unique one-bedroom hall penthouse with panoramic sea and skyline views, private terrace for sunset lounging.",
+    price: 22000,
+    guests: 2,
+    bedrooms: 1,
+    image: getPropertyImageUrls("Sky Lounge (Penthouse + Terrace)")[0] || "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop",
+    highlights: ["Private Terrace", "Sea & Skyline Views", "Guest Favorite", "Premium Amenities"],
+    category: "Penthouse",
+    rating: 4.93
   },
   {
     id: 2,
-    name: "Heritage Garden Cottage",
+    name: "The Little White Bandra Studio",
     location: "Bandra West, Mumbai",
-    description: "Step into Mumbai's colonial past with this beautifully restored heritage property. Vintage charm meets modern luxury in a private garden setting.",
-    price: 15000,
-    guests: 6,
-    bedrooms: 3,
-    image: getPropertyImageUrls("Heritage Garden Cottage")[0] || "https://images.pexels.com/photos/2506923/pexels-photo-2506923.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop",
-    highlights: ["Private Garden", "Vintage Library", "Colonial Architecture", "Heritage Tours"],
-    category: "Heritage",
-    rating: 4.8
+    description: "Cozy, peaceful, and centrally located 150 sq ft studio near Pali Hill and Carter Road.",
+    price: 6500,
+    guests: 2,
+    bedrooms: 1,
+    image: getPropertyImageUrls("The Little White Bandra Studio")[0] || "https://images.pexels.com/photos/2506923/pexels-photo-2506923.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop",
+    highlights: ["Smartlock Self Check-in", "Prime Location", "Daily Cleaning", "1-min to Ocean"],
+    category: "Cozy Studio",
+    rating: 4.63
   },
   {
     id: 3,
-    name: "Zen Suite",
-    location: "Lower Parel, Mumbai",
-    description: "Urban zen sanctuary in the heart of Mumbai's business district. Find peace and tranquility with panoramic city views and minimalist design.",
+    name: "India House – (Full Bungalow with Private Terrace)",
+    location: "Bandra West, Mumbai",
+    description: "1050 sq ft apartment + 1050 sq ft private terrace, 30 seconds from Ocean.",
     price: 18000,
-    guests: 2,
-    bedrooms: 1,
-    image: getPropertyImageUrls("Zen Suite")[0] || "https://images.pexels.com/photos/2581922/pexels-photo-2581922.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop",
-    highlights: ["Meditation Pavilion", "Zen Garden", "Rooftop Yoga", "City Views"],
-    category: "Urban Zen",
-    rating: 4.7
+    guests: 6,
+    bedrooms: 2,
+    image: getPropertyImageUrls("India House – (Full Bungalow with Private Terrace)")[0] || "https://images.pexels.com/photos/2581922/pexels-photo-2581922.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop",
+    highlights: ["Private Terrace", "Ocean Breeze", "Prime Location", "Smartlock"],
+    category: "Bungalow",
+    rating: 5.0
   },
   {
     id: 4,
-    name: "Studio Bandra",
-    location: "Worli, Mumbai",
-    description: "A creative haven for artists and designers. High ceilings, natural light, and inspiring views make this the perfect space for creative work and relaxation.",
-    price: 14000,
-    guests: 3,
-    bedrooms: 1,
-    image: getPropertyImageUrls("Studio Bandra")[0] || "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop",
-    highlights: ["Creative Studio", "Natural Light", "Art Supplies", "Inspiring Views"],
-    category: "Studio",
-    rating: 4.6
+    name: "City Zen (Asian home Bandra)",
+    location: "Bandra, Mumbai",
+    description: "Brand new luxurious 3-bedroom apartment with Asian/Far East inspired furnishings.",
+    price: 15000,
+    guests: 10,
+    bedrooms: 3,
+    image: getPropertyImageUrls("City Zen (Asian home Bandra)")[0] || "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop",
+    highlights: ["Valley View", "Daily Cleaning", "Smartlock", "Spacious"],
+    category: "Urban Zen",
+    rating: 4.74
   },
   {
     id: 5,
-    name: "Penthouse Sky Lounge",
-    location: "Worli Sea Face, Mumbai",
-    description: "The epitome of luxury living with breathtaking sea views. Premium amenities, private terrace, and exclusive access to Mumbai's finest experiences.",
-    price: 25000,
-    guests: 8,
-    bedrooms: 4,
-    image: getPropertyImageUrls("Penthouse Sky Lounge")[0] || "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop",
-    highlights: ["Private Terrace", "Sea Views", "Concierge Service", "Premium Amenities"],
-    category: "Penthouse",
-    rating: 5.0
+    name: "Bandra Cottage with Yard",
+    location: "Bandra, Mumbai",
+    description: "Cozy cottage with warm interiors and a small private attached garden.",
+    price: 8500,
+    guests: 4,
+    bedrooms: 1,
+    image: getPropertyImageUrls("Bandra Cottage with Yard")[0] || "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop",
+    highlights: ["Private Garden", "Retro Kitchen", "Daily Cleaning", "Pet-friendly"],
+    category: "Cottage",
+    rating: 4.86
+  },
+  {
+    id: 6,
+    name: "The Quaint Afrohemian 1BHK (Bandra West)",
+    location: "Bandra West, Mumbai",
+    description: "Afro-Bohemian themed home designed by Nicole Padival.",
+    price: 9500,
+    guests: 2,
+    bedrooms: 1,
+    image: getPropertyImageUrls("The Quaint Afrohemian 1BHK (Bandra West)")[0] || "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop",
+    highlights: ["Pour-over Coffee", "Daily Cleaning", "Lockbox", "Quiet"],
+    category: "Afro-Boho",
+    rating: 4.85
+  },
+  {
+    id: 7,
+    name: "The Bandra Art House (Dopamine Decor)",
+    location: "Chimbai, Bandra West",
+    description: "Artist-designed dopamine decor with city skyline & bay views.",
+    price: 12000,
+    guests: 5,
+    bedrooms: 2,
+    image: getPropertyImageUrls("The Bandra Art House (Dopamine Decor)")[0] || "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop",
+    highlights: ["Artist-designed", "Daily Cleaning", "Smartlock", "Views"],
+    category: "Art House",
+    rating: 4.81
   }
 ];
 
@@ -154,7 +180,7 @@ const VisualStoriesSection: React.FC<VisualStoriesSectionProps> = ({ onPropertyS
 
         {/* Interactive Property Showcase */}
         <div 
-          className="relative h-96 md:h-[500px] rounded-3xl overflow-hidden group"
+          className="relative h-[460px] md:h-[560px] rounded-3xl overflow-hidden group"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
@@ -168,28 +194,28 @@ const VisualStoriesSection: React.FC<VisualStoriesSectionProps> = ({ onPropertyS
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-black/40"></div>
           </div>
 
-          {/* Content Overlay */}
+          {/* Content Overlay (mobile simplified) */}
           <div className="absolute inset-0 flex items-end">
-            <div className="w-full p-8 md:p-12">
+            <div className="w-full p-4 md:p-12">
               <div className="max-w-2xl">
                 {/* Category Badge */}
-                <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm text-white text-sm font-medium mb-4">
+                <div className="inline-flex items-center px-3 py-1.5 rounded-full bg-white/20 backdrop-blur-sm text-white text-xs md:text-sm font-medium mb-2 md:mb-4">
                   <span className={`w-2 h-2 rounded-full bg-gradient-to-r ${getCategoryColor(property.category)} mr-2`}></span>
                   {property.category}
                 </div>
 
                 {/* Property Title */}
-                <h3 className="text-3xl md:text-4xl font-light text-white mb-4">
+                <h3 className="text-2xl md:text-4xl font-light text-white mb-2 md:mb-4">
                   {property.name}
                 </h3>
 
-                {/* Property Description */}
-                <p className="text-white/90 text-lg mb-6 line-clamp-2">
+                {/* Property Description (hide on mobile) */}
+                <p className="hidden md:block text-white/90 text-lg mb-6 line-clamp-2">
                   {property.description}
                 </p>
 
-                {/* Property Stats */}
-                <div className="flex items-center space-x-6 text-white/90 mb-6">
+                {/* Property Stats (compact on mobile) */}
+                <div className="hidden md:flex items-center space-x-6 text-white/90 mb-6">
                   <div className="flex items-center">
                     <MapPin className="w-4 h-4 mr-2" />
                     <span>{property.location}</span>
@@ -208,8 +234,8 @@ const VisualStoriesSection: React.FC<VisualStoriesSectionProps> = ({ onPropertyS
                   </div>
                 </div>
 
-                {/* Highlights */}
-                <div className="flex flex-wrap gap-2 mb-6">
+                {/* Highlights (hide on mobile) */}
+                <div className="hidden md:flex flex-wrap gap-2 mb-6">
                   {property.highlights.slice(0, 3).map((highlight, index) => (
                     <span
                       key={index}
@@ -220,16 +246,11 @@ const VisualStoriesSection: React.FC<VisualStoriesSectionProps> = ({ onPropertyS
                   ))}
                 </div>
 
-                {/* Price and CTA */}
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-white/80 text-sm">Starting from</p>
-                    <p className="text-2xl font-bold text-white">{formatPrice(property.price)}</p>
-                    <p className="text-white/80 text-sm">per night</p>
-                  </div>
+                {/* CTA only */}
+                <div className="flex items-center justify-start">
                   <button
                     onClick={() => onPropertySelect?.(property.id)}
-                    className="flex items-center space-x-2 bg-white text-gray-900 px-6 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors"
+                    className="inline-flex items-center space-x-2 bg-white/90 md:bg-white text-gray-900 px-4 md:px-6 py-2.5 md:py-3 rounded-lg font-medium hover:bg-white transition-colors"
                   >
                     <span>Explore Property</span>
                     <ArrowRight className="w-4 h-4" />
@@ -254,15 +275,7 @@ const VisualStoriesSection: React.FC<VisualStoriesSectionProps> = ({ onPropertyS
             <ChevronRight className="w-6 h-6 text-white" />
           </button>
 
-          {/* Property Counter */}
-          <div className="absolute top-4 left-4 px-4 py-2 rounded-full bg-black/40 backdrop-blur-sm text-white text-sm">
-            {currentProperty + 1} / {properties.length}
-          </div>
-
-          {/* Auto-play Indicator */}
-          <div className="absolute top-4 right-4 px-4 py-2 rounded-full bg-black/40 backdrop-blur-sm text-white text-sm">
-            {isHovered ? 'Paused' : 'Auto-play'}
-          </div>
+          {/* Removed extra counters/indicators for a cleaner look */}
         </div>
 
         {/* Property Thumbnails */}
