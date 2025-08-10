@@ -9,6 +9,7 @@ export class BookingService {
   // Create a new booking
   static async createBooking(bookingData: Omit<BookingInsert, 'id' | 'created_at' | 'updated_at'>): Promise<Booking> {
     try {
+      if (!supabase) throw new Error('Supabase is not configured');
       const { data, error } = await supabase
         .from('bookings')
         .insert(bookingData)
@@ -30,6 +31,7 @@ export class BookingService {
   // Get booking by ID
   static async getBookingById(bookingId: string): Promise<Booking | null> {
     try {
+      if (!supabase) return null;
       const { data, error } = await supabase
         .from('bookings')
         .select(`
@@ -66,6 +68,7 @@ export class BookingService {
   // Get all bookings for a user
   static async getUserBookings(userId: string): Promise<Booking[]> {
     try {
+      if (!supabase) return [];
       const { data, error } = await supabase
         .from('bookings')
         .select(`
@@ -96,6 +99,7 @@ export class BookingService {
   // Get all bookings for a property
   static async getPropertyBookings(propertyId: number): Promise<Booking[]> {
     try {
+      if (!supabase) return [];
       const { data, error } = await supabase
         .from('bookings')
         .select(`
@@ -125,6 +129,7 @@ export class BookingService {
   // Update booking status
   static async updateBookingStatus(bookingId: string, status: 'pending' | 'confirmed' | 'cancelled'): Promise<Booking> {
     try {
+      if (!supabase) throw new Error('Supabase is not configured');
       const { data, error } = await supabase
         .from('bookings')
         .update({ 
@@ -150,6 +155,7 @@ export class BookingService {
   // Cancel booking
   static async cancelBooking(bookingId: string, cancellationReason?: string): Promise<Booking> {
     try {
+      if (!supabase) throw new Error('Supabase is not configured');
       const { data, error } = await supabase
         .from('bookings')
         .update({ 
@@ -181,6 +187,7 @@ export class BookingService {
     excludeBookingId?: string
   ): Promise<{ available: boolean; conflictingBookings?: Booking[] }> {
     try {
+      if (!supabase) return { available: true };
       let query = supabase
         .from('bookings')
         .select('*')
@@ -221,6 +228,9 @@ export class BookingService {
     revenue: number;
   }> {
     try {
+      if (!supabase) {
+        return { total: 0, confirmed: 0, pending: 0, cancelled: 0, revenue: 0 };
+      }
       let query = supabase
         .from('bookings')
         .select('status, total_amount');
@@ -265,6 +275,7 @@ export class BookingService {
     offset?: number;
   }): Promise<{ bookings: Booking[]; total: number }> {
     try {
+      if (!supabase) return { bookings: [], total: 0 };
       let query = supabase
         .from('bookings')
         .select(`
@@ -338,6 +349,7 @@ export class BookingService {
     total: number;
   }> {
     try {
+      if (!supabase) throw new Error('Supabase is not configured');
       // Get property price
       const { data: property, error } = await supabase
         .from('properties')
@@ -375,6 +387,7 @@ export class BookingService {
   // Get upcoming bookings
   static async getUpcomingBookings(userId: string, limit: number = 5): Promise<Booking[]> {
     try {
+      if (!supabase) return [];
       const { data, error } = await supabase
         .from('bookings')
         .select(`
@@ -407,6 +420,7 @@ export class BookingService {
   // Get past bookings
   static async getPastBookings(userId: string, limit: number = 10): Promise<Booking[]> {
     try {
+      if (!supabase) return [];
       const { data, error } = await supabase
         .from('bookings')
         .select(`

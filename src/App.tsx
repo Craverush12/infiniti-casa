@@ -47,7 +47,7 @@ import { mockUseAuth as useAuth } from './hooks/mockUseAuth';
 import { getAllPropertyDetails } from './data/propertyDetails';
 import type { Database } from './lib/database.types';
 import PWAService from './services/pwaService';
-import { BookingService } from './services/bookingService';
+// BookingService disabled by default to avoid Supabase initialization on every page
 
 type UserProfile = Database['public']['Tables']['user_profiles']['Row'];
 type Property = Database['public']['Tables']['properties']['Row'];
@@ -292,20 +292,23 @@ function App() {
       }
 
       // If date range provided, filter by availability
-      if (filters.checkIn && filters.checkOut) {
-        const availabilityResults = await Promise.all(
-          filteredProperties.map(async (p) => {
-            try {
-              const res = await BookingService.checkAvailability(p.id, filters.checkIn, filters.checkOut);
-              return { id: p.id, available: res.available };
-            } catch {
-              return { id: p.id, available: true };
-            }
-          })
-        );
-        const availableIds = new Set(availabilityResults.filter(r => r.available).map(r => r.id));
-        filteredProperties = filteredProperties.filter(p => availableIds.has(p.id));
-      }
+      // Availability check skipped (Supabase disabled by default)
+      // If needed later, lazily import the service:
+      // if (filters.checkIn && filters.checkOut) {
+      //   const { BookingService } = await import('./services/bookingService');
+      //   const availabilityResults = await Promise.all(
+      //     filteredProperties.map(async (p) => {
+      //       try {
+      //         const res = await BookingService.checkAvailability(p.id, filters.checkIn, filters.checkOut);
+      //         return { id: p.id, available: res.available };
+      //       } catch {
+      //         return { id: p.id, available: true };
+      //       }
+      //     })
+      //   );
+      //   const availableIds = new Set(availabilityResults.filter(r => r.available).map(r => r.id));
+      //   filteredProperties = filteredProperties.filter(p => availableIds.has(p.id));
+      // }
 
       // Sort results
       filteredProperties.sort((a, b) => {

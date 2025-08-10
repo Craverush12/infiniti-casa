@@ -8,6 +8,7 @@ type PropertyUpdate = Database['public']['Tables']['properties']['Update'];
 export class PropertyService {
   static async getAllProperties(): Promise<Property[]> {
     try {
+      if (!supabase) return [];
       const { data, error } = await supabase
         .from('properties')
         .select('*')
@@ -27,6 +28,7 @@ export class PropertyService {
 
   static async getPropertyById(id: number): Promise<Property | null> {
     try {
+      if (!supabase) return null;
       const { data, error } = await supabase
         .from('properties')
         .select('*')
@@ -47,6 +49,7 @@ export class PropertyService {
 
   static async getPropertiesByCategory(category: string): Promise<Property[]> {
     try {
+      if (!supabase) return [];
       const { data, error } = await supabase
         .from('properties')
         .select('*')
@@ -67,6 +70,7 @@ export class PropertyService {
 
   static async getPropertiesByAesthetic(aesthetic: string): Promise<Property[]> {
     try {
+      if (!supabase) return [];
       const { data, error } = await supabase
         .from('properties')
         .select('*')
@@ -87,6 +91,7 @@ export class PropertyService {
 
   static async searchProperties(query: string): Promise<Property[]> {
     try {
+      if (!supabase) return [];
       const { data, error } = await supabase
         .from('properties')
         .select('*')
@@ -115,6 +120,7 @@ export class PropertyService {
     location?: string;
   }): Promise<Property[]> {
     try {
+      if (!supabase) return [];
       let query = supabase
         .from('properties')
         .select('*')
@@ -164,6 +170,7 @@ export class PropertyService {
 
   static async createProperty(property: PropertyInsert): Promise<Property> {
     try {
+      if (!supabase) throw new Error('Supabase is not configured');
       const { data, error } = await supabase
         .from('properties')
         .insert(property)
@@ -184,6 +191,7 @@ export class PropertyService {
 
   static async updateProperty(id: number, updates: PropertyUpdate): Promise<Property> {
     try {
+      if (!supabase) throw new Error('Supabase is not configured');
       const { data, error } = await supabase
         .from('properties')
         .update(updates)
@@ -205,6 +213,7 @@ export class PropertyService {
 
   static async deleteProperty(id: number): Promise<void> {
     try {
+      if (!supabase) throw new Error('Supabase is not configured');
       const { error } = await supabase
         .from('properties')
         .update({ is_active: false })
@@ -222,6 +231,7 @@ export class PropertyService {
 
   static async getPropertyCategories(): Promise<string[]> {
     try {
+      if (!supabase) return [];
       const { data, error } = await supabase
         .from('properties')
         .select('category')
@@ -242,6 +252,7 @@ export class PropertyService {
 
   static async getPropertyAesthetics(): Promise<string[]> {
     try {
+      if (!supabase) return [];
       const { data, error } = await supabase
         .from('properties')
         .select('aesthetic')
@@ -262,6 +273,7 @@ export class PropertyService {
 
   static async getPropertyLocations(): Promise<string[]> {
     try {
+      if (!supabase) return [];
       const { data, error } = await supabase
         .from('properties')
         .select('location')
