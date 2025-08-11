@@ -104,14 +104,21 @@ const Section: React.FC<{
 const IntroSection: React.FC = () => {
   return (
     <section className="relative h-screen w-full snap-start overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-cream-50 via-white to-sage-50" />
+      {/* Background image */}
+      <img
+        src="/site/assets/afrohemia.png"
+        alt="Properties background"
+        className="absolute inset-0 w-full h-full object-cover"
+      />
+      {/* Overlay for readability */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/10" />
       <div className="relative z-10 h-full flex items-center justify-center text-center px-6">
         <div>
           <motion.h1
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ type: 'spring', stiffness: 100, damping: 18 }}
-            className="text-gray-900 font-editorial text-4xl sm:text-6xl md:text-7xl"
+            className="text-white font-editorial text-4xl sm:text-6xl md:text-7xl"
           >
             Our Properties
           </motion.h1>
@@ -119,7 +126,7 @@ const IntroSection: React.FC = () => {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, type: 'spring', stiffness: 100, damping: 20 }}
-            className="mt-4 text-gray-600 text-base sm:text-lg max-w-2xl mx-auto"
+            className="mt-4 text-white/90 text-base sm:text-lg max-w-2xl mx-auto"
           >
             A curated collection of homes—scroll to enter each space.
           </motion.p>

@@ -14,6 +14,7 @@ const DEFAULT_LABELS = ['Bedroom', 'Bathroom', 'Living', 'Kitchen', 'Neighborhoo
 
 const MaterialSwatches: React.FC<MaterialSwatchesProps> = ({ labels = DEFAULT_LABELS, images = [], transparent = false, className = '', variant = 'light', backgroundColor }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const scrollerRef = useRef<HTMLDivElement | null>(null);
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ['start center', 'end center'] });
   const overlayOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0, 0.6, 0]);
   const useCustomBg = !!backgroundColor && !transparent;
@@ -64,34 +65,44 @@ const MaterialSwatches: React.FC<MaterialSwatchesProps> = ({ labels = DEFAULT_LA
           </p>
         </div>
         <div className="flex-1 flex items-center">
-          {/* Horizontal scroll of 5 swatches */}
-          <div className="h-[70vh] md:h-[75vh] -mx-6 md:-mx-10 px-6 md:px-10 overflow-x-auto overflow-y-hidden scrollbar-hide snap-x snap-mandatory">
-            <div className="h-full flex gap-4 md:gap-6 w-max">
-              {labels.slice(0, 5).map((label, idx) => (
-                <motion.div
-                  key={idx}
-                  initial={false}
-                  animate={false}
-                  className={`snap-start group relative rounded-2xl overflow-hidden border ${
-                    variant === 'light' ? 'border-gray-200 bg-white' : 'border-white/10 bg-neutral-900/60 backdrop-blur-sm'
-                  } shadow-elegant flex-shrink-0 w-[88%] sm:w-[60%] md:w-[42%] lg:w-[32%] xl:w-[28%] 2xl:w-[26%]`}
-                >
-                  <img
-                    src={images[idx] || images[0] || 'https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?auto=compress&cs=tinysrgb&w=640&h=480&fit=crop'}
-                    alt={label}
-                    className="absolute inset-0 w-full h-full object-cover"
-                    loading="lazy"
-                  />
-                  <div className={`absolute inset-0 ${variant === 'light' ? 'bg-gradient-to-t from-black/20 via-black/5 to-transparent' : 'bg-gradient-to-t from-black/50 via-black/10 to-transparent'}`} />
-                  <div className="relative h-full p-3 flex items-end">
-                    <span className={`inline-flex items-center px-2.5 py-1.5 rounded-full ${
-                      variant === 'light' ? 'bg-black/60 text-white' : 'bg-black/60 text-white'
-                    } text-xs font-medium drop-shadow` }>
-                      {label}
-                    </span>
-                  </div>
-                </motion.div>
-              ))}
+          {/* Horizontal scroll of swatches */}
+          <div
+            ref={scrollerRef}
+            className="h-[70vh] md:h-[75vh] -mx-6 md:-mx-10 px-6 md:px-10 overflow-x-auto overflow-y-hidden scrollbar-hide snap-x snap-mandatory w-full"
+            style={{ scrollSnapType: 'x mandatory', WebkitOverflowScrolling: 'touch', overscrollBehaviorX: 'contain' }}
+          >
+            <div
+              className="h-full grid grid-flow-col auto-cols-[clamp(240px,28vw,420px)] gap-4 md:gap-6 w-max"
+            >
+              {[...Array(3)].flatMap(() => labels.slice(0, 5)).map((label, i) => {
+                const count = labels.slice(0, 5).length;
+                const idx = i % count;
+                return (
+                  <motion.div
+                    key={i}
+                    initial={false}
+                    animate={false}
+                    className={`snap-start group relative rounded-2xl overflow-hidden border ${
+                      variant === 'light' ? 'border-gray-200 bg-white' : 'border-white/10 bg-neutral-900/60 backdrop-blur-sm'
+                    } shadow-elegant flex-shrink-0`}
+                  >
+                    <img
+                      src={images[idx] || images[0] || 'https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?auto=compress&cs=tinysrgb&w=640&h=480&fit=crop'}
+                      alt={label}
+                      className="absolute inset-0 w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                    <div className={`absolute inset-0 ${variant === 'light' ? 'bg-gradient-to-t from-black/20 via-black/5 to-transparent' : 'bg-gradient-to-t from-black/50 via-black/10 to-transparent'}`} />
+                    <div className="relative h-full p-3 flex items-end">
+                      <span className={`inline-flex items-center px-2.5 py-1.5 rounded-full ${
+                        variant === 'light' ? 'bg-black/60 text-white' : 'bg-black/60 text-white'
+                      } text-xs font-medium drop-shadow` }>
+                        {label}
+                      </span>
+                    </div>
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
         </div>

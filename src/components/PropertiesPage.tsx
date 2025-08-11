@@ -42,10 +42,7 @@ const PropertiesPage: React.FC<PropertiesPageProps> = ({ properties, onPropertyC
     return (
       <div className="min-h-screen bg-gradient-to-br from-cream-50 via-white to-sage-50">
         {/* Top sticky title and toggle */}
-        <div className="fixed top-4 left-1/2 -translate-x-1/2 z-40 text-center px-4">
-          <h1 className="text-gray-900 font-editorial text-2xl sm:text-4xl">Our Properties</h1>
-          <p className="mt-1 text-gray-600 text-sm sm:text-base">A curated, immersive tour. Toggle to grid for quick scan.</p>
-        </div>
+       
         {/* Smooth, deterministic animations are controlled inside PropertiesImmersive; no additional effects here */}
         <PropertiesImmersive properties={filteredProperties as any} onPropertyClick={onPropertyClick as any} />
         {/* Floating global view toggle (always accessible) */}
@@ -77,16 +74,16 @@ const PropertiesPage: React.FC<PropertiesPageProps> = ({ properties, onPropertyC
   return (
     <div className="min-h-screen bg-gradient-to-br from-cream-50 via-white to-sage-50">
       {/* Narrative Hero */}
-      <section className="relative overflow-hidden">
+      <section className="relative overflow-hidden min-h-screen sm:min-h-0">
         <div className="absolute inset-0 pointer-events-none">
           <div className="glass-orb glass-orb-1" />
           <div className="glass-orb glass-orb-2" />
           <div className="glass-orb glass-orb-3" />
         </div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-[max(env(safe-area-inset-top),6rem)] pb-10 sm:pt-32 sm:pb-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-[calc(7rem+env(safe-area-inset-top))] pb-10 sm:pt-32 sm:pb-16">
           <div className="grid lg:grid-cols-3 gap-8 items-end">
             <div className="lg:col-span-2">
-              <h1 className="text-4xl md:text-5xl font-editorial text-gray-900 leading-tight">
+              <h1 className="text-4xl md:text-5xl font-editorial text-gray-900 leading-tight pt-2 sm:pt-0">
                 Stays that feel like art, curated for the way you travel
               </h1>
               <p className="mt-4 text-lg text-gray-600 max-w-2xl">

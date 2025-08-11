@@ -446,9 +446,7 @@ function App() {
                   { label: 'Properties', onClick: () => setCurrentView('home') }
                 ]
               : currentView === 'properties'
-              ? [
-                  { label: 'Properties', onClick: () => setCurrentView('home') }
-                ]
+              ? []
               : currentView === 'user-bookings'
               ? [
                   { label: 'My Bookings', onClick: () => setCurrentView('home') }
