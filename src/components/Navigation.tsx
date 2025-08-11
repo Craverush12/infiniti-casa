@@ -15,6 +15,7 @@ interface NavigationProps {
   onShowProperties?: () => void;
   currentView?: string;
   breadcrumbs?: Array<{ label: string; href?: string; onClick?: () => void }>;
+  onGoHome?: () => void;
 }
 
 const Navigation: React.FC<NavigationProps> = ({
@@ -27,10 +28,12 @@ const Navigation: React.FC<NavigationProps> = ({
   onShowAdminDashboard: _onShowAdminDashboard,
   onShowProperties,
   currentView = 'home',
-  breadcrumbs = []
+  breadcrumbs = [],
+  onGoHome
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const useSolidNav = isScrolled || currentView !== 'home';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -89,20 +92,30 @@ const Navigation: React.FC<NavigationProps> = ({
   return (
     <>
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled 
-          ? 'bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-100' 
+        useSolidNav
+          ? 'bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-100'
           : 'bg-white/10 backdrop-blur-md'
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
-            <div className="flex-shrink-0">
-              <h1 className={`text-2xl font-light transition-colors duration-300 ${
-                isScrolled ? 'text-gray-900' : 'text-white'
-              }`}>
+            <button
+              type="button"
+              onClick={() => {
+                onGoHome?.();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              className="flex-shrink-0 focus:outline-none"
+              aria-label="Go to home"
+            >
+              <h1
+                className={`text-2xl font-light transition-colors duration-300 ${
+                  useSolidNav ? 'text-gray-900' : 'text-white'
+                }`}
+              >
                 Infiniti Casa
               </h1>
-            </div>
+            </button>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-6">
@@ -112,7 +125,7 @@ const Navigation: React.FC<NavigationProps> = ({
                   key={item.name}
                   onClick={() => handleNavClick(item.action)}
                   className={`text-sm font-medium transition-colors duration-300 hover:text-primary-500 relative group ${
-                    isScrolled ? 'text-gray-700' : 'text-white/90'
+                    useSolidNav ? 'text-gray-700' : 'text-white/90'
                   }`}
                   aria-label={item.name}
                 >
@@ -127,7 +140,7 @@ const Navigation: React.FC<NavigationProps> = ({
                 <button
                   onClick={onShowSearch}
                   className={`p-2 rounded-full transition-colors duration-300 ${
-                    isScrolled ? 'text-gray-700 hover:bg-gray-100' : 'text-white/90 hover:bg-white/10'
+                    useSolidNav ? 'text-gray-700 hover:bg-gray-100' : 'text-white/90 hover:bg-white/10'
                   }`}
                   title="Search Properties"
                 >
@@ -139,18 +152,18 @@ const Navigation: React.FC<NavigationProps> = ({
                   <div className="flex items-center space-x-2">
                     <button
                       onClick={onViewUserProfile}
-                      className={`p-2 rounded-full transition-colors duration-300 ${
-                        isScrolled ? 'text-gray-700 hover:bg-gray-100' : 'text-white/90 hover:bg-white/10'
-                      }`}
+                       className={`p-2 rounded-full transition-colors duration-300 ${
+                         useSolidNav ? 'text-gray-700 hover:bg-gray-100' : 'text-white/90 hover:bg-white/10'
+                       }`}
                       title="View Profile"
                     >
                       <User className="w-4 h-4" />
                     </button>
                     <button
                       onClick={handleAuthClick}
-                      className={`p-2 rounded-full transition-colors duration-300 ${
-                        isScrolled ? 'text-gray-700 hover:bg-gray-100' : 'text-white/90 hover:bg-white/10'
-                      }`}
+                       className={`p-2 rounded-full transition-colors duration-300 ${
+                         useSolidNav ? 'text-gray-700 hover:bg-gray-100' : 'text-white/90 hover:bg-white/10'
+                       }`}
                       title="Logout"
                     >
                       <LogOut className="w-4 h-4" />
@@ -159,9 +172,9 @@ const Navigation: React.FC<NavigationProps> = ({
                 ) : (
                   <button
                     onClick={handleAuthClick}
-                    className={`p-2 rounded-full transition-colors duration-300 ${
-                      isScrolled ? 'text-gray-700 hover:bg-gray-100' : 'text-white/90 hover:bg-white/10'
-                    }`}
+                     className={`p-2 rounded-full transition-colors duration-300 ${
+                       useSolidNav ? 'text-gray-700 hover:bg-gray-100' : 'text-white/90 hover:bg-white/10'
+                     }`}
                     title="Sign In"
                   >
                     <User className="w-4 h-4" />
@@ -184,7 +197,7 @@ const Navigation: React.FC<NavigationProps> = ({
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 className={`p-2 rounded-md transition-colors ${
-                  isScrolled ? 'text-gray-700' : 'text-white'
+                  useSolidNav ? 'text-gray-700' : 'text-white'
                 }`}
               >
                 {isMenuOpen ? (
@@ -200,14 +213,14 @@ const Navigation: React.FC<NavigationProps> = ({
         {/* Breadcrumbs */}
         {breadcrumbs.length > 0 && (
           <div className={`border-t transition-colors duration-300 ${
-            isScrolled ? 'border-gray-200 bg-white/95' : 'border-white/20 bg-white/10'
+            useSolidNav ? 'border-gray-200 bg-white/95' : 'border-white/20 bg-white/10'
           }`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
               <div className="flex items-center space-x-2 text-sm">
                 <button
                   onClick={() => window.history.back()}
                   className={`flex items-center space-x-1 transition-colors duration-300 ${
-                    isScrolled ? 'text-gray-600 hover:text-gray-900' : 'text-white/80 hover:text-white'
+                    useSolidNav ? 'text-gray-600 hover:text-gray-900' : 'text-white/80 hover:text-white'
                   }`}
                 >
                   <Home className="w-4 h-4" />
@@ -216,20 +229,20 @@ const Navigation: React.FC<NavigationProps> = ({
                 {breadcrumbs.map((crumb, index) => (
                   <React.Fragment key={index}>
                     <ChevronRight className={`w-4 h-4 ${
-                      isScrolled ? 'text-gray-400' : 'text-white/60'
+                      useSolidNav ? 'text-gray-400' : 'text-white/60'
                     }`} />
                     {crumb.onClick ? (
                       <button
                         onClick={crumb.onClick}
                         className={`transition-colors duration-300 ${
-                          isScrolled ? 'text-gray-600 hover:text-gray-900' : 'text-white/80 hover:text-white'
+                          useSolidNav ? 'text-gray-600 hover:text-gray-900' : 'text-white/80 hover:text-white'
                         }`}
                       >
                         {crumb.label}
                       </button>
                     ) : (
                       <span className={`${
-                        isScrolled ? 'text-gray-900' : 'text-white'
+                        useSolidNav ? 'text-gray-900' : 'text-white'
                       }`}>
                         {crumb.label}
                       </span>

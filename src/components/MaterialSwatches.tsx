@@ -50,7 +50,7 @@ const MaterialSwatches: React.FC<MaterialSwatchesProps> = ({ labels = DEFAULT_LA
           style={{
             opacity: overlayOpacity,
             background:
-              variant === 'light'
+              variant === 'dark'
                 ? 'linear-gradient(180deg, rgba(248,243,231,0.7), rgba(248,243,231,0.0))'
                 : 'linear-gradient(180deg, rgba(248,243,231,0.12), rgba(248,243,231,0.0))',
           }}
@@ -58,8 +58,8 @@ const MaterialSwatches: React.FC<MaterialSwatchesProps> = ({ labels = DEFAULT_LA
       </div>
       <div className="relative h-full max-w-7xl mx-auto px-6 md:px-10 flex flex-col">
         <div className="pt-10 pb-6">
-          <h3 className={`text-xl md:text-2xl font-editorial tracking-wide ${variant === 'light' ? 'text-gray-900' : 'text-white'}`}>Spaces</h3>
-          <p className={`${variant === 'light' ? 'text-gray-600' : 'text-white/70'} text-sm md:text-base mt-1`}>
+          <h3 className="text-2xl md:text-3xl font-editorial tracking-wide text-white">Spaces</h3>
+          <p className={`${variant === 'light' ? 'text-white' : 'text-white/70'} text-sm md:text-base mt-1`}>
             Peek into key corners of the home.
           </p>
         </div>

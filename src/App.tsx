@@ -431,6 +431,7 @@ function App() {
           onShowAdminDashboard={handleShowAdminDashboard}
           onShowProperties={handleShowProperties}
           currentView={currentView}
+          onGoHome={handleBackToHome}
           breadcrumbs={
             currentView === 'search-results' 
               ? [

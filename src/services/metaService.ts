@@ -15,7 +15,7 @@ class MetaService {
   private defaultMeta: MetaData = {
     title: 'Infiniti Casa - Luxury Boutique Rentals in Mumbai',
     description: 'Discover Mumbai\'s most exclusive boutique stays. Experience luxury, comfort, and authentic local experiences in carefully curated properties.',
-    image: '/logocasa.png',
+    image: '/site/logocasa.png',
     url: typeof window !== 'undefined' ? window.location.origin : '',
     type: 'website',
     siteName: 'Infiniti Casa',
@@ -155,7 +155,7 @@ class MetaService {
         "name": "Infiniti Casa",
         "description": "Luxury boutique rentals in Mumbai",
         "url": this.defaultMeta.url,
-        "logo": `${this.defaultMeta.url}/logocasa.png`,
+        "logo": `${this.defaultMeta.url}/site/logocasa.png`,
         "sameAs": [
           "https://facebook.com/infiniticasa",
           "https://twitter.com/infiniticasa",

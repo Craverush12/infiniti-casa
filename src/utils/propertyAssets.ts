@@ -27,7 +27,12 @@ export const getPropertyImageUrls = (propertyName: string): string[] => {
   const generatedAssets = getGeneratedAssets(propertyName);
   
   if (generatedAssets && generatedAssets.images.length > 0) {
-    return generatedAssets.images.map((u) => encodeURI(u));
+    return generatedAssets.images.map((u) => {
+      let url = u as string;
+      if (url.startsWith('/assets/')) url = `/site${url}`;
+      if (url.startsWith('/newassets/')) url = `/site${url}`;
+      return encodeURI(url);
+    });
   }
 
   // Fallback to mapped folder if no generated assets found
@@ -47,7 +52,12 @@ export const getPropertyImageUrls = (propertyName: string): string[] => {
   const mappedAssets = getGeneratedAssets(mappedFolder);
   
   if (mappedAssets && mappedAssets.images.length > 0) {
-    return mappedAssets.images.map((u) => encodeURI(u));
+    return mappedAssets.images.map((u) => {
+      let url = u as string;
+      if (url.startsWith('/assets/')) url = `/site${url}`;
+      if (url.startsWith('/newassets/')) url = `/site${url}`;
+      return encodeURI(url);
+    });
   }
 
   console.warn(`No assets found for property: ${propertyName} or mapped folder: ${mappedFolder}`);
@@ -564,11 +574,11 @@ export const getHeicFilePaths = (propertyName: string): string[] => {
   // Return paths to HEIC files in the assets folder
   return [
     // Note: HEIC not served to browsers; kept only for tooling references
-    `/assets/${assetFolder}/IMG_1407.heic`,
-    `/assets/${assetFolder}/IMG_1427.heic`,
-    `/assets/${assetFolder}/IMG_1481.HEIC`,
-    `/assets/${assetFolder}/IMG_1451.HEIC`,
-    `/assets/${assetFolder}/IMG_1429.heic`
+    `/site/assets/${assetFolder}/IMG_1407.heic`,
+    `/site/assets/${assetFolder}/IMG_1427.heic`,
+    `/site/assets/${assetFolder}/IMG_1481.HEIC`,
+    `/site/assets/${assetFolder}/IMG_1451.HEIC`,
+    `/site/assets/${assetFolder}/IMG_1429.heic`
   ];
 };
 

@@ -221,7 +221,7 @@ const TestimonialsSection: React.FC = () => {
 
   return (
     <section ref={containerRef} className="py-16 sm:py-24 relative overflow-hidden">
-      <div className="absolute inset-0"><img src="/assets/bluecosoms.jpeg" alt="Blue cosmos background" className="w-full h-full object-cover" /><div className="absolute inset-0 bg-white/90"></div></div>
+      <div className="absolute inset-0"><img src="/site/assets/bluecosoms.jpeg" alt="Blue cosmos background" className="w-full h-full object-cover" /><div className="absolute inset-0 bg-white/90"></div></div>
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className={`text-center mb-12 sm:mb-16 transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
           <h2 className="text-4xl sm:text-5xl font-light text-gray-900 mb-6 leading-tight"><span className="block text-gray-800">What our guests</span><span className="block text-gray-600 font-normal italic">are saying</span></h2>

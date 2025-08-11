@@ -40,69 +40,12 @@ const PropertyMoments: React.FC<PropertyMomentsProps> = ({ property, themeHex = 
   const [selectedMoment, setSelectedMoment] = useState<MomentCard | null>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
 
-  // Sample moments data - in real app, this would come from API
+  // Placeholder-only moments to avoid missing assets
+  const placeholder = 'https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop';
   const moments: MomentCard[] = [
-    {
-      id: 1,
-      image: '/images/moments/family-brunch.jpg',
-      alt: 'Family enjoying Sunday brunch in the garden at Bandra Cottage',
-      name: 'The Sharma Family',
-      badge: 'Family Stay',
-      description: 'Mother\'s Day brunch with a garden view',
-      quote: 'The yard was perfect for our morning yoga ritual!',
-      quoteAuthor: '@sharma.family',
-      type: 'family',
-      photos: ['/images/moments/family-1.jpg', '/images/moments/family-2.jpg', '/images/moments/family-3.jpg']
-    },
-    {
-      id: 2,
-      image: '/images/moments/brand-shoot.jpg',
-      alt: 'Fashion magazine photoshoot at Bandra Cottage',
-      name: 'Fashion Weekly',
-      badge: 'Brand Shoot',
-      description: 'Magazine shoot for @fashionweekly',
-      quote: 'The natural light in this space is absolutely perfect for editorial work.',
-      quoteAuthor: '@fashionweekly',
-      type: 'brand',
-      photos: ['/images/moments/brand-1.jpg', '/images/moments/brand-2.jpg', '/images/moments/brand-3.jpg']
-    },
-    {
-      id: 3,
-      image: '/images/moments/solo-retreat.jpg',
-      alt: 'Solo traveler working remotely from the cottage balcony',
-      name: 'Sarah Chen',
-      badge: 'Remote Work',
-      description: 'Solo remote work retreat',
-      quote: 'Found my perfect work-life balance here. The WiFi is amazing!',
-      quoteAuthor: '@sarah.chen',
-      type: 'solo',
-      photos: ['/images/moments/solo-1.jpg', '/images/moments/solo-2.jpg']
-    },
-    {
-      id: 4,
-      image: '/images/moments/couple-anniversary.jpg',
-      alt: 'Couple celebrating anniversary with romantic dinner setup',
-      name: 'Amit & Priya',
-      badge: 'Anniversary',
-      description: 'Romantic anniversary celebration',
-      quote: 'The intimate setting made our special day even more magical.',
-      quoteAuthor: '@amit.priya',
-      type: 'couple',
-      photos: ['/images/moments/couple-1.jpg', '/images/moments/couple-2.jpg']
-    },
-    {
-      id: 5,
-      image: '/images/moments/creator-content.jpg',
-      alt: 'Travel creator filming content in the cottage living room',
-      name: 'Travel with Tina',
-      badge: 'Content Creator',
-      description: 'Travel vlog and lifestyle content',
-      quote: 'This place has the most Instagram-worthy corners!',
-      quoteAuthor: '@travelwithtina',
-      type: 'creator',
-      video: '/videos/tina-vlog.mp4',
-      photos: ['/images/moments/creator-1.jpg', '/images/moments/creator-2.jpg']
-    }
+    { id: 1, image: placeholder, alt: 'Guest moment placeholder', name: 'Guest Story', badge: 'Stay', description: 'A cozy memory from a recent stay.', quote: 'Felt like home, but better.', quoteAuthor: '@guest', type: 'family' },
+    { id: 2, image: placeholder, alt: 'Guest moment placeholder', name: 'Creative Session', badge: 'Creator', description: 'Captured some beautiful frames.', quote: 'Every corner is photogenic.', quoteAuthor: '@creator', type: 'creator' },
+    { id: 3, image: placeholder, alt: 'Guest moment placeholder', name: 'Remote Work', badge: 'Workation', description: 'A productive and peaceful retreat.', quote: 'Best spot to focus.', quoteAuthor: '@remote', type: 'solo' }
   ];
 
   const getBadgeColor = (type: string) => {

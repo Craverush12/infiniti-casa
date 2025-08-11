@@ -14,7 +14,7 @@ interface PropertyHeroProps {
 }
 
 const PropertyHero: React.FC<PropertyHeroProps> = ({ property }) => {
-  const bgImage = getVibrantImageUrlForProperty(property.name) || '/assets/afrohemia.png';
+  const bgImage = getVibrantImageUrlForProperty(property.name) || '/site/assets/afrohemia.png';
 
   return (
     <section className="relative h-screen overflow-hidden pt-16">

@@ -84,7 +84,7 @@ const SocialSharing: React.FC<SocialSharingProps> = ({
     return {
       title: 'Infiniti Casa - Luxury Boutique Rentals',
       description: 'Discover Mumbai\'s most exclusive boutique stays',
-      image: '/logocasa.png',
+      image: '/site/logocasa.png',
       url: window.location.origin
     };
   };
@@ -266,7 +266,7 @@ const SocialSharing: React.FC<SocialSharingProps> = ({
                 <div className="bg-gray-50 rounded-lg p-4 mb-4">
                   <div className="flex items-start space-x-4">
                     <img
-                      src={data.image || '/logocasa.png'}
+                      src={data.image || '/site/logocasa.png'}
                       alt={data.title}
                       className="w-20 h-20 object-cover rounded-lg"
                     />

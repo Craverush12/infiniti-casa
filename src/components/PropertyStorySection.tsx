@@ -109,7 +109,7 @@ const PropertyStorySection: React.FC<PropertyStorySectionProps> = ({ onPropertyS
       {/* Background image */}
       <div className="absolute inset-0">
         <img 
-          src="/assets/afrohemia.png" 
+          src="/site/assets/afrohemia.png" 
           alt="Afrohemian background" 
           className="w-full h-full object-cover"
         />
