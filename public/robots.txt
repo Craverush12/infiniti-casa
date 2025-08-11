@@ -1,0 +1,23 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://infiniticasa.com/sitemap.xml
+
+# Disallow admin and private areas
+Disallow: /admin/
+Disallow: /api/
+Disallow: /private/
+Disallow: /_next/
+Disallow: /static/
+
+# Allow important pages
+Allow: /properties/
+Allow: /property/
+Allow: /about/
+Allow: /contact/
+Allow: /bookings/
+Allow: /search/
+
+# Crawl delay (optional)
+Crawl-delay: 1 
