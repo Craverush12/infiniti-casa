@@ -54,9 +54,12 @@
     }
   ],
   "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
+    { "source": "/sw.js", "destination": "/sw.js" },
+    { "source": "/manifest.json", "destination": "/manifest.json" },
+    { "source": "/icons/:path*", "destination": "/icons/:path*" },
+    { "source": "/site/:path*", "destination": "/site/:path*" },
+    { "source": "/assets/:path*", "destination": "/assets/:path*" },
+    { "source": "/newassets/:path*", "destination": "/newassets/:path*" },
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 } 
