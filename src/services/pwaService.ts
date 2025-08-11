@@ -119,7 +119,8 @@ class PWAService {
   private async registerServiceWorker(): Promise<void> {
     if ('serviceWorker' in navigator) {
       try {
-        const registration = await navigator.serviceWorker.register('/sw.js', {
+        // Use a namespaced path that bypasses any legacy rewrite issues
+        const registration = await navigator.serviceWorker.register('/site/sw-v2.js', {
           scope: '/'
         });
 
