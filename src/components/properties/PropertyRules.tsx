@@ -201,7 +201,7 @@ const PropertyRules: React.FC<PropertyRulesProps> = ({ property, themeHex = '#0f
           </div>
 
           {/* Additional Information */}
-          <div className="rounded-2xl p-8 border border-white/10 bg-white/5 backdrop-blur">
+          {/* <div className="rounded-2xl p-8 border border-white/10 bg-white/5 backdrop-blur">
             <div className="grid md:grid-cols-2 gap-8">
               <div>
                 <h3 className="text-xl font-editorial font-light mb-4 text-white">
@@ -246,7 +246,7 @@ const PropertyRules: React.FC<PropertyRulesProps> = ({ property, themeHex = '#0f
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
           {/* Trust Badges */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">

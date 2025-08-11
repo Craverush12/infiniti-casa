@@ -37,10 +37,10 @@ const PropertyHero: React.FC<PropertyHeroProps> = ({ property }) => {
         
         {/* Quality Badge - shifted down to avoid nav overlap */}
         <div className="absolute top-24 left-8">
-          <div className="bg-white/95 backdrop-blur-sm text-gray-800 px-4 py-2 rounded-full shadow-xl flex items-center space-x-2">
+          {/* <div className="bg-white/95 backdrop-blur-sm text-gray-800 px-4 py-2 rounded-full shadow-xl flex items-center space-x-2">
             <Award className="w-4 h-4 text-primary-500" />
             <span className="text-sm font-medium">Afrohemian Design</span>
-          </div>
+          </div> */}
         </div>
 
         {/* Hero Content Overlay */}
