@@ -27,7 +27,7 @@ export const getPropertyImageUrls = (propertyName: string): string[] => {
   const generatedAssets = getGeneratedAssets(propertyName);
   
   if (generatedAssets && generatedAssets.images.length > 0) {
-    return [...generatedAssets.images];
+    return generatedAssets.images.map((u) => encodeURI(u));
   }
 
   // Fallback to mapped folder if no generated assets found
@@ -35,18 +35,26 @@ export const getPropertyImageUrls = (propertyName: string): string[] => {
   
   if (!mappedFolder) {
     console.warn(`No asset mapping found for property: ${propertyName}`);
-    return [];
+    // Graceful placeholder fallback so UI never breaks in prod
+    return [
+      'https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=1600&h=1066&fit=crop',
+      'https://images.pexels.com/photos/2581922/pexels-photo-2581922.jpeg?auto=compress&cs=tinysrgb&w=1600&h=1066&fit=crop',
+      'https://images.pexels.com/photos/2506923/pexels-photo-2506923.jpeg?auto=compress&cs=tinysrgb&w=1600&h=1066&fit=crop'
+    ];
   }
 
   // Try to get assets using the mapped folder name
   const mappedAssets = getGeneratedAssets(mappedFolder);
   
   if (mappedAssets && mappedAssets.images.length > 0) {
-    return [...mappedAssets.images];
+    return mappedAssets.images.map((u) => encodeURI(u));
   }
 
   console.warn(`No assets found for property: ${propertyName} or mapped folder: ${mappedFolder}`);
-  return [];
+  // Final fallback placeholders
+  return [
+    'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=1600&h=1066&fit=crop'
+  ];
 };
 
 // Function to generate property-specific story images for PropertyStoryGallery
@@ -555,11 +563,12 @@ export const getHeicFilePaths = (propertyName: string): string[] => {
 
   // Return paths to HEIC files in the assets folder
   return [
-    `/src/asssets/${assetFolder}/IMG_1407.heic`,
-    `/src/asssets/${assetFolder}/IMG_1427.heic`,
-    `/src/asssets/${assetFolder}/IMG_1481.HEIC`,
-    `/src/asssets/${assetFolder}/IMG_1451.HEIC`,
-    `/src/asssets/${assetFolder}/IMG_1429.heic`
+    // Note: HEIC not served to browsers; kept only for tooling references
+    `/assets/${assetFolder}/IMG_1407.heic`,
+    `/assets/${assetFolder}/IMG_1427.heic`,
+    `/assets/${assetFolder}/IMG_1481.HEIC`,
+    `/assets/${assetFolder}/IMG_1451.HEIC`,
+    `/assets/${assetFolder}/IMG_1429.heic`
   ];
 };
 
