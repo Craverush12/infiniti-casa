@@ -182,7 +182,7 @@ const TestimonialsSection: React.FC = () => {
               <span className="font-semibold text-gray-700">{t.rating}</span>
             </div>
             <div className="absolute bottom-4 left-4 text-white">
-              <h4 className="font-semibold text-lg">{t.propertyName}</h4>
+              <h4 className="font-semibold text-lg text-white drop-shadow-md">{t.propertyName}</h4>
               <div className="flex items-center gap-2 text-sm opacity-90"><MapPin className="w-4 h-4" /><span>Mumbai</span></div>
             </div>
           </div>

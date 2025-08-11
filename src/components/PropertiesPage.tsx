@@ -83,7 +83,7 @@ const PropertiesPage: React.FC<PropertiesPageProps> = ({ properties, onPropertyC
           <div className="glass-orb glass-orb-2" />
           <div className="glass-orb glass-orb-3" />
         </div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-10 sm:pt-32 sm:pb-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-[max(env(safe-area-inset-top),6rem)] pb-10 sm:pt-32 sm:pb-16">
           <div className="grid lg:grid-cols-3 gap-8 items-end">
             <div className="lg:col-span-2">
               <h1 className="text-4xl md:text-5xl font-editorial text-gray-900 leading-tight">

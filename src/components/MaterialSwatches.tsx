@@ -56,7 +56,7 @@ const MaterialSwatches: React.FC<MaterialSwatchesProps> = ({ labels = DEFAULT_LA
           }}
         />
       </div>
-      <div className="relative h-full max-w-7xl mx-auto px-6 md:px-10 flex flex-col">
+      <div className="relative h-full w-full px-6 md:px-10 flex flex-col">
         <div className="pt-10 pb-6">
           <h3 className="text-2xl md:text-3xl font-editorial tracking-wide text-white">Spaces</h3>
           <p className={`${variant === 'light' ? 'text-white' : 'text-white/70'} text-sm md:text-base mt-1`}>
@@ -66,7 +66,7 @@ const MaterialSwatches: React.FC<MaterialSwatchesProps> = ({ labels = DEFAULT_LA
         <div className="flex-1 flex items-center">
           {/* Horizontal scroll of 5 swatches */}
           <div className="h-[70vh] md:h-[75vh] -mx-6 md:-mx-10 px-6 md:px-10 overflow-x-auto overflow-y-hidden scrollbar-hide snap-x snap-mandatory">
-            <div className="h-full flex gap-4 md:gap-6">
+            <div className="h-full flex gap-4 md:gap-6 w-max">
               {labels.slice(0, 5).map((label, idx) => (
                 <motion.div
                   key={idx}
@@ -74,7 +74,7 @@ const MaterialSwatches: React.FC<MaterialSwatchesProps> = ({ labels = DEFAULT_LA
                   animate={false}
                   className={`snap-start group relative rounded-2xl overflow-hidden border ${
                     variant === 'light' ? 'border-gray-200 bg-white' : 'border-white/10 bg-neutral-900/60 backdrop-blur-sm'
-                  } shadow-elegant flex-shrink-0 w-[88%] sm:w-[62%] md:w-[48%] lg:w-[38%] xl:w-[34%]`}
+                  } shadow-elegant flex-shrink-0 w-[88%] sm:w-[60%] md:w-[42%] lg:w-[32%] xl:w-[28%] 2xl:w-[26%]`}
                 >
                   <img
                     src={images[idx] || images[0] || 'https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?auto=compress&cs=tinysrgb&w=640&h=480&fit=crop'}
@@ -85,8 +85,8 @@ const MaterialSwatches: React.FC<MaterialSwatchesProps> = ({ labels = DEFAULT_LA
                   <div className={`absolute inset-0 ${variant === 'light' ? 'bg-gradient-to-t from-black/20 via-black/5 to-transparent' : 'bg-gradient-to-t from-black/50 via-black/10 to-transparent'}`} />
                   <div className="relative h-full p-3 flex items-end">
                     <span className={`inline-flex items-center px-2.5 py-1.5 rounded-full ${
-                      variant === 'light' ? 'bg-white/90 text-gray-900' : 'bg-white/90 text-gray-900'
-                    } text-xs font-medium`}>
+                      variant === 'light' ? 'bg-black/60 text-white' : 'bg-black/60 text-white'
+                    } text-xs font-medium drop-shadow` }>
                       {label}
                     </span>
                   </div>
