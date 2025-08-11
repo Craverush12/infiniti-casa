@@ -156,9 +156,9 @@ const PropertyStorySection: React.FC<PropertyStorySectionProps> = ({ onPropertyS
                     <img src={(story as any).hoverImage} alt={story.title} className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-80" />
                   )}
                   {/* Centered property name with brand font, hidden until hover */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 bg-black/45 backdrop-blur-sm text-white rounded-xl px-5 py-2.5 shadow-lg ring-1 ring-white/20">
-                      <span className="text-lg md:text-2xl font-editorial tracking-wide drop-shadow-sm text-center">{story.propertyName}</span>
+                  <div className="absolute inset-0 flex items-center justify-center px-3 sm:px-4">
+                    <div className="opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 bg-black/45 backdrop-blur-sm text-white rounded-xl px-4 sm:px-5 py-2 shadow-lg ring-1 ring-white/20 max-w-[85%]">
+                      <span className="text-base sm:text-lg md:text-xl font-editorial tracking-wide drop-shadow-sm text-center break-words">{story.propertyName}</span>
                     </div>
                   </div>
                 </div>

@@ -675,11 +675,13 @@ function App() {
         <Suspense fallback={null}>
           <ScrollToTop />
         </Suspense>
-        <Suspense fallback={null}>
-          <QuickActions 
-            onContactClick={handleContactClick}
-          />
-        </Suspense>
+        {currentView === 'home' && (
+          <Suspense fallback={null}>
+            <QuickActions 
+              onContactClick={handleContactClick}
+            />
+          </Suspense>
+        )}
 
         {/* Modals */}
         {showSuggestion && (

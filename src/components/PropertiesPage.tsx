@@ -65,13 +65,7 @@ const PropertiesPage: React.FC<PropertiesPageProps> = ({ properties, onPropertyC
             >
               Grid
             </button>
-            <button
-              onClick={() => setViewMode('list')}
-              className={`px-3 py-1.5 rounded-full text-sm ${viewMode === 'list' ? 'bg-primary-100 text-primary-700' : 'text-gray-700 hover:bg-gray-100'}`}
-              aria-label="List view"
-            >
-              List
-            </button>
+            {/* List view removed per request */}
           </div>
         </div>
         {/* Page Footer */}
@@ -89,7 +83,7 @@ const PropertiesPage: React.FC<PropertiesPageProps> = ({ properties, onPropertyC
           <div className="glass-orb glass-orb-2" />
           <div className="glass-orb glass-orb-3" />
         </div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-10 sm:pt-20 sm:pb-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-10 sm:pt-32 sm:pb-16">
           <div className="grid lg:grid-cols-3 gap-8 items-end">
             <div className="lg:col-span-2">
               <h1 className="text-4xl md:text-5xl font-editorial text-gray-900 leading-tight">
@@ -98,16 +92,16 @@ const PropertiesPage: React.FC<PropertiesPageProps> = ({ properties, onPropertyC
               <p className="mt-4 text-lg text-gray-600 max-w-2xl">
                 A collection of intimate homes across Mumbai—crafted with soul, design-first, and hospitality that lingers.
               </p>
-              <div className="mt-6 flex flex-wrap gap-3">
-                <span className="inline-flex items-center space-x-2 bg-white/70 backdrop-blur-sm border border-white/40 px-3 py-1.5 rounded-full text-sm text-gray-800">
+              <div className="mt-6 flex flex-wrap gap-2 sm:gap-3">
+                <span className="inline-flex items-center space-x-2 bg-white/70 backdrop-blur-sm border border-white/40 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full text-xs sm:text-sm text-gray-800">
                   <Star className="w-4 h-4 text-yellow-400 fill-current" />
                   <span>Avg. 4.9 rating</span>
                 </span>
-                <span className="inline-flex items-center space-x-2 bg-primary-500/90 text-white px-3 py-1.5 rounded-full text-sm">
+                <span className="inline-flex items-center space-x-2 bg-primary-500/90 text-white px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full text-xs sm:text-sm">
                   <Sparkles className="w-4 h-4" />
                   <span>Guest Favorite Hosts</span>
                 </span>
-                <span className="inline-flex items-center space-x-2 bg-white/70 backdrop-blur-sm border border-white/40 px-3 py-1.5 rounded-full text-sm text-gray-800">
+                <span className="inline-flex items-center space-x-2 bg-white/70 backdrop-blur-sm border border-white/40 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full text-xs sm:text-sm text-gray-800">
                   <MapPin className="w-4 h-4" />
                   <span>Mumbai • Bandra • Colaba • Juhu</span>
                 </span>
@@ -203,13 +197,7 @@ const PropertiesPage: React.FC<PropertiesPageProps> = ({ properties, onPropertyC
           >
             Grid
           </button>
-          <button
-            onClick={() => setViewMode('list')}
-            className={`px-3 py-1.5 rounded-full text-sm ${viewMode === 'list' ? 'bg-primary-100 text-primary-700' : 'text-gray-700 hover:bg-gray-100'}`}
-            aria-label="List view"
-          >
-            List
-          </button>
+            {/* List view removed per request */}
         </div>
       </div>
 

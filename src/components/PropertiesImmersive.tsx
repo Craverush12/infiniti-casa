@@ -123,16 +123,7 @@ const IntroSection: React.FC = () => {
           >
             A curated collection of homes—scroll to enter each space.
           </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
-            className="mt-10 inline-flex items-center gap-2 text-gray-800 bg-white/90 border border-gray-200 rounded-full px-4 py-2 shadow-sm"
-          >
-            <ArrowUp className="w-4 h-4" />
-            <span className="text-sm">Scroll to explore</span>
-            <ArrowDown className="w-4 h-4" />
-          </motion.div>
+          {/* Scroll nudge removed per request */}
         </div>
       </div>
     </section>
@@ -301,14 +292,7 @@ const PropertiesImmersive: React.FC<PropertiesImmersiveProps> = ({ properties, o
         ))}
       </div>
 
-      {/* Scroll cue */}
-      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40">
-        <div className="flex items-center gap-2 text-gray-800 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-lg border border-gray-200">
-          <ArrowUp className="w-4 h-4" />
-          <span className="text-sm">Use arrows or scroll</span>
-          <ArrowDown className="w-4 h-4" />
-        </div>
-      </div>
+      {/* Scroll cue removed per request */}
     </div>
   );
 };

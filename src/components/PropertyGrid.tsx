@@ -154,33 +154,33 @@ const PropertyGrid: React.FC<PropertyGridProps> = ({
                 <h3 className="font-semibold text-gray-900 text-base sm:text-lg mb-1 line-clamp-2">
                   {(property as any).name}
                 </h3>
-                <div className="flex items-center space-x-2 text-gray-200 text-xs sm:text-sm">
+                <div className="flex items-center space-x-2 text-gray-700 text-xs sm:text-sm">
                   <MapPin className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
                   <span className="line-clamp-1">{getLocationString(property)}</span>
                 </div>
               </div>
 
               {/* Rating & Reviews */}
-              <div className="flex items-center justify-between mb-2 sm:mb-3">
+                <div className="flex items-center justify-between mb-2 sm:mb-3">
                 <div className="flex items-center space-x-1 sm:space-x-2">
                   <div className="flex items-center space-x-1">
                     <Star className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-400 fill-current" />
-                    <span className="text-xs sm:text-sm font-medium text-gray-100">
+                      <span className="text-xs sm:text-sm font-medium text-gray-800">
                       {features.rating}
                     </span>
                   </div>
-                  <span className="text-gray-300 text-xs sm:text-sm">
+                    <span className="text-gray-600 text-xs sm:text-sm">
                     ({features.reviews_count} reviews)
                   </span>
                 </div>
-                <div className="flex items-center space-x-1 text-gray-600">
+                  <div className="flex items-center space-x-1 text-gray-700">
                   <Shield className="w-3 h-3 sm:w-4 sm:h-4 text-green-500" />
                   <span className="text-xs">Verified</span>
                 </div>
               </div>
 
               {/* Property Details */}
-              <div className="flex items-center justify-between text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4">
+              <div className="flex items-center justify-between text-xs sm:text-sm text-gray-700 mb-3 sm:mb-4">
                 <div className="flex items-center space-x-2 sm:space-x-4">
                   {/* Suppress DB-specific counts when using detail data */}
                   {(property as any).guests != null && (
@@ -209,7 +209,7 @@ const PropertyGrid: React.FC<PropertyGridProps> = ({
 
               {/* Amenities (limit to 2 for consistent height) */}
               {features.amenities && features.amenities.length > 0 && (
-                <div className="flex items-center space-x-2 sm:space-x-3 text-xs text-gray-500 mb-3 sm:mb-4">
+                <div className="flex items-center space-x-2 sm:space-x-3 text-xs text-gray-600 mb-3 sm:mb-4">
                   {features.amenities.slice(0, 2).map((amenity: string, index: number) => (
                     <div key={index} className="flex items-center space-x-1">
                       {amenity.toLowerCase().includes('wifi') && <Wifi className="w-2 h-2 sm:w-3 sm:h-3" />}

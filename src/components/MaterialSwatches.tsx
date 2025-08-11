@@ -44,7 +44,7 @@ const MaterialSwatches: React.FC<MaterialSwatchesProps> = ({ labels = DEFAULT_LA
         </div>
       )}
       {/* Center-triggered transition overlay (beige/white gradient) */}
-      <div className="absolute inset-0 pointer-events-none">
+      <div className="absolute inset-0 pointer-events-none flex items-center justify-center md:block">
         <motion.div
           className="absolute inset-0"
           style={{
@@ -63,9 +63,9 @@ const MaterialSwatches: React.FC<MaterialSwatchesProps> = ({ labels = DEFAULT_LA
             Peek into key corners of the home.
           </p>
         </div>
-        <div className="flex-1">
+        <div className="flex-1 flex items-center">
           {/* Horizontal scroll of 5 swatches */}
-          <div className="h-[60vh] md:h-[65vh] -mx-6 md:-mx-10 px-6 md:px-10 overflow-x-auto overflow-y-hidden scrollbar-hide snap-x snap-mandatory">
+          <div className="h-[70vh] md:h-[75vh] -mx-6 md:-mx-10 px-6 md:px-10 overflow-x-auto overflow-y-hidden scrollbar-hide snap-x snap-mandatory">
             <div className="h-full flex gap-4 md:gap-6">
               {labels.slice(0, 5).map((label, idx) => (
                 <motion.div
@@ -74,7 +74,7 @@ const MaterialSwatches: React.FC<MaterialSwatchesProps> = ({ labels = DEFAULT_LA
                   animate={false}
                   className={`snap-start group relative rounded-2xl overflow-hidden border ${
                     variant === 'light' ? 'border-gray-200 bg-white' : 'border-white/10 bg-neutral-900/60 backdrop-blur-sm'
-                  } shadow-elegant flex-shrink-0 w-[70%] sm:w-[45%] md:w-[32%] lg:w-[22%]`}
+                  } shadow-elegant flex-shrink-0 w-[88%] sm:w-[62%] md:w-[48%] lg:w-[38%] xl:w-[34%]`}
                 >
                   <img
                     src={images[idx] || images[0] || 'https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?auto=compress&cs=tinysrgb&w=640&h=480&fit=crop'}

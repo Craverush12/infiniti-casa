@@ -60,24 +60,27 @@ const Hero: React.FC<HeroProps> = ({ onSuggestionClick, onSearchWithDates }) => 
             >
               <div className="bg-white/95 backdrop-blur-md rounded-2xl p-4 sm:p-6 max-w-2xl mx-auto shadow-2xl">
                 {/* Row 1: destination + search */}
-                <div className="flex items-center gap-3 text-gray-700 w-full">
-                  <Search className="w-5 h-5 text-gray-400 flex-shrink-0" />
-                  <input
-                    type="text"
-                    placeholder="Where would you like to stay?"
-                    className="w-full bg-transparent border-none outline-none text-gray-700 placeholder-gray-400 text-base sm:text-lg focus:placeholder-gray-300"
-                    aria-label="Search destination"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter') {
-                        setIsDateOpen(true);
-                      }
-                    }}
-                  />
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 text-gray-700 w-full">
+                  {/* Icon + input on the same row for all breakpoints */}
+                  <div className="flex items-center gap-2 bg-white rounded-xl px-3 py-3 flex-1">
+                    <Search className="w-5 h-5 text-gray-400 flex-shrink-0" />
+                    <input
+                      type="text"
+                      placeholder="Where would you like to stay?"
+                      className="w-full bg-transparent border-none outline-none text-gray-700 placeholder-gray-400 text-base sm:text-lg focus:placeholder-gray-300"
+                      aria-label="Search destination"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          setIsDateOpen(true);
+                        }
+                      }}
+                    />
+                  </div>
                   <button
                     onClick={() => setIsDateOpen(true)}
-                    className="bg-amber-600 hover:bg-amber-700 text-white px-5 py-3 rounded-xl font-medium shadow-lg whitespace-nowrap"
+                    className="bg-amber-600 hover:bg-amber-700 text-white px-5 py-3 rounded-xl font-medium shadow-lg whitespace-nowrap w-full sm:w-auto"
                   >
                     Search
                   </button>
